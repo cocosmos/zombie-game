@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { gameEngine } from "./Class/GameEngine";
+import DomGameObject from "./components/DomGameObject";
+import "./css/App.css";
 
 interface bulletType {
   x: number;
@@ -10,52 +11,78 @@ interface bulletType {
 }
 
 function App() {
+  const appDom = useRef(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [clicked, setClicked] = useState(0);
-
-  const [bullets, setBullets] = useState<bulletType[]>([]);
-
   const w = window.innerWidth / 2;
   const h = window.innerHeight / 2;
-
+  // const [bullets, setBullets] = useState<bulletType[]>([]);
+  const [bullet, setBullet] = useState({
+    x: w,
+    y: h,
+    trajectory: { x: 0, y: 469 },
+    speed: 100,
+  });
+  /**
+   * Player
+   */
   const deltaX = w - x;
   const deltaY = h - y;
 
   const radians = Math.atan2(deltaY, deltaX);
 
-  console.log(w, h);
-
   let angle = Math.round(radians * (180 / Math.PI));
   if (angle < 0) {
     angle = (angle + 360) % 360;
   }
-  /*   const shoot = () => {
-    for (let i = bullet.x; i > bullet.trajectory.x; i--) {
-      setBulletTrajectory(i);
-      console.log(i);
-    }
-  }; */
+  const mouseHandler = (event: any) => {
+    event.preventDefault();
 
-  console.log(bullets);
+    setX(event.clientX);
+    setY(event.clientY);
+  };
 
+  /* 
   const clickHandler = () => {
     setClicked(clicked + 1);
 
     setBullets([
       ...bullets,
       {
-        x: h,
-        y: w,
+        x: w,
+        y: h,
         trajectory: { x: 0, y: 469 },
         speed: 100,
       },
     ]);
 
-    /*  shoot(); */
+    shoot();
+  }; */
+
+  /**
+   * Bullet
+   */
+  const clickHandler = () => {
+    setClicked(clicked + 1);
+
+    setBullet({
+      x: w,
+      y: h,
+      trajectory: { x: 0, y: 469 },
+      speed: 100,
+    });
+
+    shoot();
+  };
+  const shoot = () => {
+    for (let i = bullet.x; i > bullet.trajectory.x; i--) {
+      setBulletTrajectory(i);
+      console.log(i);
+    }
   };
 
-  /*   const setBulletTrajectory = (i: number) => {
+  const setBulletTrajectory = (i: number) => {
     setTimeout(function () {
       setBullet({
         x: i,
@@ -64,14 +91,27 @@ function App() {
         speed: bullet.speed,
       });
     }, bullet.speed);
-  }; */
-
-  const mouseHandler = (event: any) => {
-    event.preventDefault();
-
-    setX(event.clientX);
-    setY(event.clientY);
   };
+
+  const [frame, setframe] = useState(0);
+
+  const unUpdate = useCallback(() => {
+    setframe((frame) => frame + 1);
+    console.log("hdh");
+  }, [setframe]);
+
+  useEffect(() => {
+    if (appDom.current) {
+      gameEngine.init(unUpdate, appDom.current);
+      console.log("test");
+    }
+  }, [appDom]);
+
+  useEffect(() => {
+    return () => {
+      gameEngine.destroy();
+    };
+  }, []);
 
   return (
     <>
@@ -85,9 +125,9 @@ function App() {
         <span>
           w: {w} h: {h}
         </span>
-        <span>y:{y}</span>
-        <span>x:{x}</span>
-        <span>angle: {angle}</span>
+        <span>y:{gameEngine.domEvent.cursor.y}</span>
+        <span>x:{gameEngine.domEvent.cursor.x}</span>
+        <span>angle: {gameEngine.domEvent.angle}</span>
         <span>clicked: {clicked}</span>
         <button
           type="reset"
@@ -105,9 +145,11 @@ function App() {
       </div>
       <div
         className="App"
-        onMouseMove={(event) => mouseHandler(event)}
+        onMouseMove={(event) => gameEngine.domEvent.mouseMove(event)}
         onClick={() => clickHandler()}
+        ref={appDom}
       >
+        {frame}
         <div
           className="player"
           style={{
@@ -121,7 +163,7 @@ function App() {
             height: "50px",
             backgroundColor: "red",
             borderRadius: "50px",
-            transform: `rotate(${angle}deg)`,
+            transform: `rotate(${gameEngine.domEvent.angle}deg)`,
           }}
         >
           <div
@@ -137,7 +179,28 @@ function App() {
             }}
           ></div>
         </div>
-        {bullets.map((bullet) => {
+        <div
+          key={bullet.trajectory.x}
+          style={{
+            position: "absolute",
+            width: 10,
+            height: 5,
+            backgroundColor: "white",
+            top: bullet.y,
+            left: bullet.x,
+            zIndex: 99,
+          }}
+        ></div>
+        <div
+          id="some-element-you-want-to-animate"
+          style={{ width: "50px", height: "10px", backgroundColor: " green" }}
+        ></div>
+
+        {gameEngine.enemies.map((enemy) => {
+          return <DomGameObject item={enemy}></DomGameObject>;
+        })}
+
+        {/*  {bullets.map((bullet) => {
           return (
             <div
               key={bullet.trajectory.x}
@@ -152,7 +215,7 @@ function App() {
               }}
             ></div>
           );
-        })}
+        })} */}
       </div>
     </>
   );
