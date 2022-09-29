@@ -3,6 +3,7 @@ import { GameEngine } from "./GameEngine";
 export class GameEventDom {
   cursor: Coord = { x: 0, y: 0 };
   angle: number = 0;
+  clicked: number = 0;
   constructor() {}
   init() {}
   destroy() {}
@@ -19,5 +20,9 @@ export class GameEventDom {
     if (this.angle < 0) {
       this.angle = (this.angle + 360) % 360;
     }
+  }
+  onClick() {
+    this.clicked = this.clicked + 1;
+    console.log(this.cursor.x);
   }
 }
