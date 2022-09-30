@@ -1,9 +1,11 @@
 import { Coord } from "../types/CommunType";
-import { GameEngine } from "./GameEngine";
+import { GameEngine, gameEngine } from "./GameEngine";
+import { Bullet } from "./Object/Bullet";
 export class GameEventDom {
   cursor: Coord = { x: 0, y: 0 };
   angle: number = 0;
   clicked: number = 0;
+
   constructor() {}
   init() {}
   destroy() {}
@@ -23,6 +25,9 @@ export class GameEventDom {
   }
   onClick() {
     this.clicked = this.clicked + 1;
-    console.log(this.cursor.x);
+    gameEngine.fire();
+  }
+  onKeyDown(event: any) {
+    console.log(event.key);
   }
 }
