@@ -1,9 +1,16 @@
 import { gameEngine } from "../Class/GameEngine";
+import { GameEventDom } from "../Class/GameEventDom";
+import DomGameObject from "./DomGameObject";
+import GameOver from "./GameOver";
 
 const GameBoard = () => {
-  return (
+  const OverOrStart = gameEngine.over();
+
+  return OverOrStart ? (
     <div>
-      {" "}
+      {gameEngine.enemies.map((enemy) => {
+        return <DomGameObject key={enemy.id} item={enemy}></DomGameObject>;
+      })}
       <div
         className="player"
         style={{
@@ -33,6 +40,9 @@ const GameBoard = () => {
           }}
         ></div>
       </div>
+      {gameEngine.bullets.map((bullet) => {
+        return <DomGameObject key={bullet.id} item={bullet}></DomGameObject>;
+      })}
       {/*  <div
         key={bullet.trajectory.x}
         style={{
@@ -46,6 +56,8 @@ const GameBoard = () => {
         }}
       ></div> */}
     </div>
+  ) : (
+    <GameOver />
   );
 };
 
