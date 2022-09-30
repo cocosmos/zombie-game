@@ -6,7 +6,7 @@ import GameInformations from "./components/GameInformations";
 import "./css/App.css";
 
 function App() {
-  const appDom = useRef(null);
+  const appDom = useRef<any>(null);
 
   /*Frame and gameEngine*/
   const [frame, setframe] = useState(0);
@@ -22,6 +22,9 @@ function App() {
   }, [appDom]);
 
   useEffect(() => {
+    if (appDom.current) {
+      appDom.current.focus();
+    }
     return () => {
       gameEngine.destroy();
     };
@@ -34,13 +37,11 @@ function App() {
         className="App"
         onMouseMove={(event) => gameEngine.domEvent.mouseMove(event)}
         onClick={() => gameEngine.domEvent.onClick()}
+        onKeyDown={(event) => gameEngine.domEvent.onKeyDown(event)}
         ref={appDom}
+        tabIndex={-1}
       >
         <GameBoard />
-
-        {gameEngine.enemies.map((enemy) => {
-          return <DomGameObject key={enemy.id} item={enemy}></DomGameObject>;
-        })}
       </div>
     </>
   );
