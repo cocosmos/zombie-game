@@ -8,27 +8,29 @@ type GameInformationsProps = {
 const GameInformations: FunctionComponent<GameInformationsProps> = ({
   frame,
 }) => {
-  const w = window.innerWidth / 2;
-  const h = window.innerHeight / 2;
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "space-evenly",
-        alignItems: "center",
+        flexDirection: "column",
+        position: "absolute",
+        left: 500,
+        top: 0,
+        zIndex: 2,
       }}
     >
       <span>frame: {frame}</span>
       <span>
-        w: {w} h: {h}
+        w: {gameEngine.domEvent.center.w} h: {gameEngine.domEvent.center.h}
       </span>
       <span>y:{gameEngine.domEvent.cursor.y}</span>
       <span>x:{gameEngine.domEvent.cursor.x}</span>
       <span>angle: {gameEngine.domEvent.angle}</span>
       <span>clicked: {gameEngine.domEvent.clicked}</span>
-      <button type="reset" onClick={() => {}}>
+      {/* <button type="reset" onClick={() => {}}>
         reset
-      </button>
+      </button> */}
     </div>
   );
 };

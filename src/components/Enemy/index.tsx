@@ -1,10 +1,8 @@
-import { GameObject } from "../Class/Object/GameObject";
+import React from "react";
+import { GameObject } from "../../Class/Object/GameObject";
+import { DomGameObjectProps } from "../DomGameObject";
 
-export type DomGameObjectProps = {
-  item: GameObject;
-};
-
-const DomGameObject = ({ item }: DomGameObjectProps) => {
+const Enemy = ({ item }: DomGameObjectProps) => {
   return (
     <div
       className="gameObject"
@@ -20,14 +18,14 @@ const DomGameObject = ({ item }: DomGameObjectProps) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          background: "pink",
+          background: item.out ? "red" : "pink",
           borderRadius: "50px",
-          width: "10px",
-          height: "10px",
+          width: "50px",
+          height: "50px",
         }}
       ></div>
     </div>
   );
 };
 
-export default DomGameObject;
+export default Enemy;

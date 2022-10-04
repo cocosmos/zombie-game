@@ -1,10 +1,10 @@
-import React from "react";
-import { Wrapper } from "./styled";
+import React from 'react';
 
-interface Props {}
+interface Props {
+}
 
 const Bullet = (props: Props) => {
-  return <Wrapper></Wrapper>;
+    return null;
 };
 
 export default Bullet;

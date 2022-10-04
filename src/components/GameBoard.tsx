@@ -1,6 +1,6 @@
 import { gameEngine } from "../Class/GameEngine";
-import { GameEventDom } from "../Class/GameEventDom";
 import DomGameObject from "./DomGameObject";
+import Enemy from "./Enemy";
 import GameOver from "./GameOver";
 
 const GameBoard = () => {
@@ -9,10 +9,9 @@ const GameBoard = () => {
   return OverOrStart ? (
     <div>
       {gameEngine.enemies.map((enemy) => {
-        return <DomGameObject key={enemy.id} item={enemy}></DomGameObject>;
+        return <Enemy key={enemy.id} item={enemy}></Enemy>;
       })}
       <div
-        className="player"
         style={{
           position: "absolute",
           left: 0,
@@ -22,18 +21,16 @@ const GameBoard = () => {
           margin: "auto",
           width: "50px",
           height: "50px",
-          backgroundColor: "red",
+          backgroundColor: "green",
           borderRadius: "50px",
           transform: `rotate(${gameEngine.domEvent.angle}deg)`,
         }}
       >
         <div
-          className="gun"
-          id="gun"
           style={{
             width: "50px",
             height: "10px",
-            backgroundColor: " green",
+            backgroundColor: "green",
             position: "absolute",
             top: 20,
             right: 30,
