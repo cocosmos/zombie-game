@@ -22,30 +22,45 @@ export class GameEngine {
 
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    /* this.enemies.push(
-      new Enemy({ x: 100, y: 100 }, 0.1),
-      new Enemy({ x: 100, y: 100 }, 0.2),
-      new Enemy({ x: 100, y: 100 }, 0.3),
-      new Enemy({ x: 100, y: 100 }, 0.4)
-    ); */
+    this.enemies.push(new Enemy({ x: 250, y: 20 }, 0.2, -90));
   }
-  fire() {
-    this.bullets.push(new Bullet({ x: 1280, y: 646 }, { x: -11, y: 10 }));
+  fire(bullet: Bullet) {
+    this.bullets.push(bullet);
   }
+
   over() {
     return true;
   }
-  destroy() {
-    this.gameLoop.stop();
+
+  checkCollision(bullet: Bullet, enemy: Enemy) {
+    if (
+      bullet.position.x < enemy.position.x + 25 &&
+      bullet.position.x + 5 > enemy.position.x - 25 &&
+      bullet.position.y < enemy.position.y + 25 &&
+      bullet.position.y + 5 > enemy.position.y - 25
+    ) {
+      enemy.out = true;
+      bullet.out = true;
+    }
   }
   update() {
     this.updateCallback();
+
     this.enemies.forEach((enemy) => {
-      enemy.update();
+      this.bullets.forEach((bullet) => {
+        this.checkCollision(bullet, enemy);
+        if (!bullet.out) {
+          bullet.update();
+        } else {
+          bullet.destroy(this.bullets);
+        }
+      });
+      //Enemy update
+      if (!enemy.out) enemy.update();
     });
-    this.bullets.forEach((bullet) => {
-      bullet.update();
-    });
+  }
+  destroy() {
+    this.gameLoop.stop();
   }
 }
 
