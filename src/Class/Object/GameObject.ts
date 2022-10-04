@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { Coord } from "../../types/CommunType";
+import { Coord, Size } from "../../types/CommunType";
 
 export class GameObject {
   position: Coord = { x: 0, y: 0 };
@@ -7,6 +7,7 @@ export class GameObject {
   trajectory: Coord = { x: 0, y: 0 };
   degree: number = 0;
   out: boolean = false;
+  size: Size = { w: 0, h: 0 };
 
   speed: number = 0;
   id = nanoid();
