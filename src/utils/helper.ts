@@ -12,11 +12,11 @@ export const move = (
   coordFinish.y = base.y - velocity * Math.sin(radian);
   return coordFinish;
 };
+
 export const checkCollision = (
   firstObject: { position: Coord; size: Size },
   secondObject: { position: Coord; size: Size }
 ) => {
-  let touched: boolean = false;
   if (
     firstObject.position.x < secondObject.position.x + secondObject.size.w &&
     firstObject.position.x + firstObject.size.w >
@@ -24,6 +24,17 @@ export const checkCollision = (
     firstObject.position.y < secondObject.position.y + secondObject.size.h &&
     firstObject.position.y + firstObject.size.h >
       secondObject.position.y - secondObject.size.h
-  )
-    return touched;
+  ) {
+    return true;
+  }
+  return false;
+};
+
+export const calculateAngle = (depart: Coord, finish: Coord) => {
+  let angle = Math.atan2(depart.x - finish.x, depart.y - finish.y);
+  return radianToDegree(angle);
+};
+
+export const radianToDegree = (degree: number) => {
+  return (degree * 180) / Math.PI;
 };
