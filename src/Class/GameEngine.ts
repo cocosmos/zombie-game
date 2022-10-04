@@ -1,8 +1,13 @@
 import { random } from "nanoid";
+import {
+  /* calculateAngle, */ calculateAngle,
+  checkCollision,
+} from "../utils/helper";
 import { getRandomFloat } from "../utils/random";
-import { GameEventDom } from "./GameEventDom";
+import { GameEventDom, gameEvent } from "./GameEventDom";
 import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
+import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
 export class GameEngine {
   gameLoop: GameLoop;
@@ -11,6 +16,7 @@ export class GameEngine {
   domEvent: GameEventDom;
   enemies: Enemy[] = [];
   bullets: Bullet[] = [];
+  character: Character = new Character();
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -22,8 +28,16 @@ export class GameEngine {
 
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    this.enemies.push(new Enemy({ x: 250, y: 20 }, 0.2, -90));
+    this.enemies.push(
+      new Enemy(
+        { x: 250, y: 20 },
+        3,
+        calculateAngle({ x: 250, y: 20 }, this.character.position)
+      )
+    );
+    console.log(calculateAngle({ x: 250, y: 20 }, this.character.position));
   }
+
   fire(bullet: Bullet) {
     this.bullets.push(bullet);
   }
@@ -32,7 +46,7 @@ export class GameEngine {
     return true;
   }
 
-  checkCollision(bullet: Bullet, enemy: Enemy) {
+  /* checkCollision(bullet: Bullet, enemy: Enemy) {
     if (
       bullet.position.x < enemy.position.x + 25 &&
       bullet.position.x + 5 > enemy.position.x - 25 &&
@@ -42,13 +56,31 @@ export class GameEngine {
       enemy.out = true;
       bullet.out = true;
     }
-  }
+  } */
   update() {
     this.updateCallback();
 
     this.enemies.forEach((enemy) => {
+      if (
+        checkCollision(
+          { position: this.character.position, size: this.character.size },
+          { position: enemy.position, size: enemy.size }
+        )
+      ) {
+        enemy.out = true;
+        this.character.out = true;
+      }
       this.bullets.forEach((bullet) => {
-        this.checkCollision(bullet, enemy);
+        if (
+          checkCollision(
+            { position: bullet.position, size: bullet.size },
+            { position: enemy.position, size: enemy.size }
+          )
+        ) {
+          enemy.out = true;
+          bullet.out = true;
+        }
+
         if (!bullet.out) {
           bullet.update();
         } else {
