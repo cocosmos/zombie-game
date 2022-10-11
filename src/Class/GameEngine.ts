@@ -2,6 +2,7 @@ import { random } from "nanoid";
 import {
   /* calculateAngle, */ calculateAngle,
   checkCollision,
+  getRandomArbitrary,
 } from "../utils/helper";
 import { getRandomFloat } from "../utils/random";
 import { GameEventDom, gameEvent } from "./GameEventDom";
@@ -25,17 +26,18 @@ export class GameEngine {
   }
   init(updateCallback: AnimateCallback, appDom: HTMLElement) {
     this.appDom = appDom;
-
+    this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    this.enemies.push(
-      new Enemy(
-        { x: 250, y: 20 },
-        3,
-        calculateAngle({ x: 250, y: 20 }, this.character.position)
-      )
-    );
-    console.log(calculateAngle({ x: 250, y: 20 }, this.character.position));
+    for (let index = 0; index < 5; index++) {
+      this.enemies.push(
+        new Enemy(
+          { x: getRandomArbitrary(0, 1919), y: getRandomArbitrary(0, 940) },
+          3,
+          this.character.position
+        )
+      );
+    }
   }
 
   fire(bullet: Bullet) {

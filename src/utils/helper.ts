@@ -31,10 +31,17 @@ export const checkCollision = (
 };
 
 export const calculateAngle = (depart: Coord, finish: Coord) => {
-  let angle = Math.atan2(depart.x - finish.x, depart.y - finish.y);
+  let angle = Math.atan2(depart.y - finish.y, depart.x - finish.x);
+
   return radianToDegree(angle);
 };
 
-export const radianToDegree = (degree: number) => {
-  return (degree * 180) / Math.PI;
+export const radianToDegree = (radian: number) => {
+  return (radian * 180) / Math.PI;
 };
+export const degreeToRadian = (degree: number) => {
+  return (degree / 180) * Math.PI;
+};
+export function getRandomArbitrary(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}

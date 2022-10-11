@@ -12,18 +12,16 @@ const Character = (props: Props) => {
         transform: `rotate(${gameEngine.domEvent.angle}deg) `,
       }}
     >
-      <div>
-        <div
-          style={{
-            width: "50px",
-            height: "10px",
-            backgroundColor: gameEngine.character.out ? "red" : "green",
-            position: "absolute",
-            top: 20,
-            right: 30,
-          }}
-        ></div>
-      </div>
+      <div
+        style={{
+          width: "50px",
+          height: "10px",
+          backgroundColor: gameEngine.character.out ? "red" : "green",
+          position: "absolute",
+          top: 20,
+          right: 30,
+        }}
+      ></div>
     </div>
   );
 };

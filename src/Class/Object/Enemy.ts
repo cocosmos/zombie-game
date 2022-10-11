@@ -1,20 +1,23 @@
 import { Coord, Size } from "../../types/CommunType";
-import { move } from "../../utils/helper";
+import { calculateAngle, move } from "../../utils/helper";
 import { gameEngine } from "../GameEngine";
 import { gameEvent } from "../GameEventDom";
 import { Bullet } from "./Bullet";
 import { GameObject } from "./GameObject";
 
 export class Enemy extends GameObject {
-  constructor(position: Coord, speed: number, degree: number) {
+  character: Coord;
+  constructor(position: Coord, speed: number, character: Coord) {
     super();
     this.position = position;
+    this.character = character;
     this.speed = speed;
-    this.degree = degree;
+    this.degree = 0;
     this.size = { w: 25, h: 25 };
   }
 
   update(): void {
+    this.degree = calculateAngle(this.position, this.character);
     this.position = move(this.position, this.degree, this.speed);
 
     if (
