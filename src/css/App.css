@@ -19,6 +19,8 @@ body {
 }
 .gameBoard {
   height: 100%;
+  background-image: url("../assets/background.svg");
+  background-size: cover;
 }
 
 .player {
