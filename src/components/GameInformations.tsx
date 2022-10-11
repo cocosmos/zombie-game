@@ -29,9 +29,14 @@ const GameInformations: FunctionComponent<GameInformationsProps> = ({
       <span>x:{gameEngine.domEvent.cursor.x}</span>
       <span>angle: {gameEngine.domEvent.angle}</span>
       <span>clicked: {gameEngine.domEvent.clicked}</span>
-      {/* <button type="reset" onClick={() => {}}>
+      <button
+        type="reset"
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
         reset
-      </button> */}
+      </button>
     </div>
   );
 };
