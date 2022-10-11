@@ -29,7 +29,7 @@ export class GameEngine {
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    for (let index = 0; index < 5; index++) {
+    for (let index = 0; index < getRandomArbitrary(0, 20); index++) {
       this.enemies.push(
         new Enemy(
           { x: getRandomArbitrary(0, 1919), y: getRandomArbitrary(0, 940) },
