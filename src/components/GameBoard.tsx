@@ -13,7 +13,6 @@ const GameBoard = () => {
         return <Enemy key={enemy.id} item={enemy}></Enemy>;
       })}
       <Character />
-
       {gameEngine.bullets.map((bullet) => {
         return <DomGameObject key={bullet.id} item={bullet}></DomGameObject>;
       })}

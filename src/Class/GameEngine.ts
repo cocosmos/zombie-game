@@ -3,6 +3,7 @@ import {
   /* calculateAngle, */ calculateAngle,
   checkCollision,
   getRandomArbitrary,
+  moveCharact,
 } from "../utils/helper";
 import { getRandomFloat } from "../utils/random";
 import { GameEventDom, gameEvent } from "./GameEventDom";
@@ -10,6 +11,8 @@ import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
 import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
+import { Coord, Keys } from "../types/CommunType";
+import { keyframes } from "styled-components";
 export class GameEngine {
   gameLoop: GameLoop;
   updateCallback: AnimateCallback;
@@ -33,11 +36,14 @@ export class GameEngine {
       this.enemies.push(
         new Enemy(
           { x: getRandomArbitrary(0, 1919), y: getRandomArbitrary(0, 940) },
-          3,
+          getRandomArbitrary(1, 3),
           this.character.position
         )
       );
     }
+  }
+  moveCharacter(keys: Keys) {
+    this.character.keys = keys;
   }
 
   fire(bullet: Bullet) {
@@ -48,20 +54,19 @@ export class GameEngine {
     return true;
   }
 
-  /* checkCollision(bullet: Bullet, enemy: Enemy) {
-    if (
-      bullet.position.x < enemy.position.x + 25 &&
-      bullet.position.x + 5 > enemy.position.x - 25 &&
-      bullet.position.y < enemy.position.y + 25 &&
-      bullet.position.y + 5 > enemy.position.y - 25
-    ) {
-      enemy.out = true;
-      bullet.out = true;
-    }
-  } */
   update() {
     this.updateCallback();
-
+    if (
+      this.character.keys.w ||
+      this.character.keys.s ||
+      this.character.keys.a ||
+      this.character.keys.d
+    ) {
+      this.character.position = moveCharact(
+        this.character.keys,
+        this.character.position
+      );
+    }
     this.enemies.forEach((enemy) => {
       if (
         checkCollision(

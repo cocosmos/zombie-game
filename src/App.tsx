@@ -38,6 +38,7 @@ function App() {
         onMouseMove={(event) => gameEngine.domEvent.mouseMove(event)}
         onClick={() => gameEngine.domEvent.onClick()}
         onKeyDown={(event) => gameEngine.domEvent.onKeyDown(event)}
+        onKeyUp={(event) => gameEngine.domEvent.onKeyUp(event)}
         ref={appDom}
         tabIndex={-1}
       >

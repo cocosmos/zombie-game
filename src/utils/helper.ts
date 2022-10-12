@@ -1,4 +1,4 @@
-import { Coord, Size } from "../types/CommunType";
+import { Coord, Keys, Size } from "../types/CommunType";
 export const move = (
   base: { x: number; y: number },
   angle: number,
@@ -45,3 +45,22 @@ export const degreeToRadian = (degree: number) => {
 export function getRandomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
+
+export const moveCharact = (keys: Keys, position: Coord) => {
+  const speed = 5;
+  let newPosition: Coord = position;
+
+  if (keys.w) {
+    newPosition.y -= speed;
+  }
+  if (keys.s) {
+    newPosition.y += speed;
+  }
+  if (keys.a) {
+    newPosition.x -= speed;
+  }
+  if (keys.d) {
+    newPosition.x += speed;
+  }
+  return newPosition;
+};

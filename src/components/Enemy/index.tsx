@@ -24,8 +24,8 @@ const Enemy = ({ item }: DomGameObjectProps) => {
           borderRadius: "50px",
           width: "50px",
           height: "50px",
-          backgroundImage: `url(${zombieImage})`,
-          backgroundSize: "cover",
+          /* backgroundImage: `url(${zombieImage})`, */
+          /*  backgroundSize: "cover", */
         }}
       ></div>
     </div>

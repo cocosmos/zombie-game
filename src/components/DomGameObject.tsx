@@ -12,6 +12,8 @@ const DomGameObject = ({ item }: DomGameObjectProps) => {
         position: "absolute",
         top: item.position.y,
         left: item.position.x,
+        width: "50px",
+        height: "50px",
       }}
     >
       <div
@@ -24,6 +26,7 @@ const DomGameObject = ({ item }: DomGameObjectProps) => {
           borderRadius: "50px",
           width: "10px",
           height: "10px",
+          zIndex: 5,
         }}
       ></div>
     </div>

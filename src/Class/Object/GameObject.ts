@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { Coord, Size } from "../../types/CommunType";
+import { Coord, Keys, Size } from "../../types/CommunType";
 
 export class GameObject {
   position: Coord = { x: 0, y: 0 };
@@ -8,6 +8,7 @@ export class GameObject {
   degree: number = 0;
   out: boolean = false;
   size: Size = { w: 0, h: 0 };
+  keys: Keys = { w: false, a: false, s: false, d: false };
 
   speed: number = 0;
   id = nanoid();

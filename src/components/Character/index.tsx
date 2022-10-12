@@ -1,5 +1,6 @@
 import React from "react";
 import { gameEngine } from "../../Class/GameEngine";
+import DomGameObject from "../DomGameObject";
 
 interface Props {}
 
@@ -10,6 +11,8 @@ const Character = (props: Props) => {
       style={{
         backgroundColor: gameEngine.character.out ? "red" : "green",
         transform: `rotate(${gameEngine.domEvent.angle}deg) `,
+        left: gameEngine.character.position.x,
+        top: gameEngine.character.position.y,
       }}
     >
       <div

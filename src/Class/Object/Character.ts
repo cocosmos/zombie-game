@@ -10,4 +10,16 @@ export class Character extends GameObject {
     };
     this.size = { w: 25, h: 25 };
   }
+  update(): void {
+    if (
+      this.position.x > gameEvent.gameSize.w ||
+      this.position.y > gameEvent.gameSize.h ||
+      this.position.x < -5 ||
+      this.position.y < -5
+    ) {
+      this.out = true;
+    } else {
+      this.out = false;
+    }
+  }
 }
