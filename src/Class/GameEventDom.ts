@@ -1,7 +1,6 @@
 import { Coord, Keys, Size } from "../types/CommunType";
 import { gameEngine } from "./GameEngine";
 import { Bullet } from "./Object/Bullet";
-import { keyframes } from "styled-components";
 export class GameEventDom {
   cursor: Coord = { x: 0, y: 0 };
   angle: number = 0;

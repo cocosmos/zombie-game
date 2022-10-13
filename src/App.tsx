@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameEngine } from "./Class/GameEngine";
+import Character from "./components/Character";
 import DomGameObject from "./components/DomGameObject";
+import Enemy from "./components/Enemy";
 import GameBoard from "./components/GameBoard";
 import GameInformations from "./components/GameInformations";
 import "./css/App.css";
 
 function App() {
   const appDom = useRef<any>(null);
+  const holder = useRef<any>(null);
 
   /*Frame and gameEngine*/
   const [frame, setframe] = useState(0);
@@ -25,6 +28,7 @@ function App() {
     if (appDom.current) {
       appDom.current.focus();
     }
+
     return () => {
       gameEngine.destroy();
     };

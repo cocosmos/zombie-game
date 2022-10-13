@@ -32,7 +32,7 @@ export class GameEngine {
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    for (let index = 0; index < getRandomArbitrary(0, 20); index++) {
+    for (let index = 0; index < getRandomArbitrary(5, 20); index++) {
       this.enemies.push(
         new Enemy(
           { x: getRandomArbitrary(0, 1919), y: getRandomArbitrary(0, 940) },
@@ -50,8 +50,8 @@ export class GameEngine {
     this.bullets.push(bullet);
   }
 
-  over() {
-    return true;
+  over(isOver: boolean | null) {
+    return isOver;
   }
 
   update() {
@@ -98,6 +98,7 @@ export class GameEngine {
       if (!enemy.out) enemy.update();
     });
   }
+
   destroy() {
     this.gameLoop.stop();
   }
