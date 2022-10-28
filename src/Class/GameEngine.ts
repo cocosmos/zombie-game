@@ -8,7 +8,7 @@ import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
 import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
-import { Keys } from "../types/CommunType";
+import { Keys, Status } from "../types/CommunType";
 export class GameEngine {
   gameLoop: GameLoop;
   updateCallback: AnimateCallback;
@@ -18,7 +18,7 @@ export class GameEngine {
   touchedEnemies: Enemy[] = [];
   bullets: Bullet[] = [];
   character: Character = new Character();
-  status: "Start" | "Play" | "Win" | "Over" = "Start";
+  status: Status = "Start";
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -138,6 +138,14 @@ export class GameEngine {
     });
     if (this.character.out === true) {
       this.status = "Over";
+    } else {
+      if (this.status === "Play") {
+        const allDead = this.enemies.every((e) => e.out === true);
+
+        if (allDead) {
+          this.status = "Win";
+        }
+      }
     }
   }
 

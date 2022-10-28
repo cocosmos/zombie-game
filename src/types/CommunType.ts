@@ -12,3 +12,5 @@ export type Keys = {
   a: boolean;
   d: boolean;
 };
+
+export type Status = "Start" | "Play" | "Win" | "Over";
