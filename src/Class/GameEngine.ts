@@ -1,26 +1,24 @@
-import { random } from "nanoid";
 import {
-  /* calculateAngle, */ calculateAngle,
   checkCollision,
   getRandomArbitrary,
   moveCharact,
 } from "../utils/helper";
-import { getRandomFloat } from "../utils/random";
-import { GameEventDom, gameEvent } from "./GameEventDom";
+import { gameEvent, GameEventDom } from "./GameEventDom";
 import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
 import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
-import { Coord, Keys } from "../types/CommunType";
-import { keyframes } from "styled-components";
+import { Keys } from "../types/CommunType";
 export class GameEngine {
   gameLoop: GameLoop;
   updateCallback: AnimateCallback;
   appDom!: HTMLElement;
   domEvent: GameEventDom;
   enemies: Enemy[] = [];
+  touchedEnemies: Enemy[] = [];
   bullets: Bullet[] = [];
   character: Character = new Character();
+  status: "Start" | "Play" | "Win" | "Over" = "Start";
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -32,26 +30,66 @@ export class GameEngine {
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    for (let index = 0; index < getRandomArbitrary(0, 20); index++) {
+  }
+
+  play() {
+    this.enemies = [];
+    this.status = "Play";
+    this.character = new Character();
+    this.makeEnemies();
+  }
+
+  makeEnemies() {
+    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 1; index++) {
       this.enemies.push(
         new Enemy(
-          { x: getRandomArbitrary(0, 1919), y: getRandomArbitrary(0, 940) },
+          {
+            x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
+            y: getRandomArbitrary(-100, -5),
+          },
+          getRandomArbitrary(1, 3),
+          this.character.position
+        ),
+        new Enemy(
+          {
+            x: getRandomArbitrary(-100, -5),
+            y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
+          },
+          getRandomArbitrary(1, 3),
+          this.character.position
+        ),
+        new Enemy(
+          {
+            x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
+            y: getRandomArbitrary(
+              gameEvent.gameSize.h,
+              gameEvent.gameSize.h + 100
+            ),
+          },
+          getRandomArbitrary(1, 3),
+          this.character.position
+        ),
+        new Enemy(
+          {
+            x: getRandomArbitrary(
+              gameEvent.gameSize.w,
+              gameEvent.gameSize.w + 100
+            ),
+            y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
+          },
           getRandomArbitrary(1, 3),
           this.character.position
         )
       );
     }
   }
+
   moveCharacter(keys: Keys) {
     this.character.keys = keys;
   }
 
   fire(bullet: Bullet) {
     this.bullets.push(bullet);
-  }
-
-  over() {
-    return true;
   }
 
   update() {
@@ -77,6 +115,7 @@ export class GameEngine {
         enemy.out = true;
         this.character.out = true;
       }
+
       this.bullets.forEach((bullet) => {
         if (
           checkCollision(
@@ -97,7 +136,11 @@ export class GameEngine {
       //Enemy update
       if (!enemy.out) enemy.update();
     });
+    if (this.character.out === true) {
+      this.status = "Over";
+    }
   }
+
   destroy() {
     this.gameLoop.stop();
   }

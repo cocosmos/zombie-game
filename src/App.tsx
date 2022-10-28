@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameEngine } from "./Class/GameEngine";
-import DomGameObject from "./components/DomGameObject";
 import GameBoard from "./components/GameBoard";
 import GameInformations from "./components/GameInformations";
 import "./css/App.css";
