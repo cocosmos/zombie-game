@@ -1,3 +1,4 @@
+import { useEffect, useState, FunctionComponent, Component, FC } from "react";
 import { gameEngine } from "../Class/GameEngine";
 import Character from "./Character";
 import DomGameObject from "./DomGameObject";
@@ -5,20 +6,20 @@ import Enemy from "./Enemy";
 import GameOver from "./GameOver";
 
 const GameBoard = () => {
-  const OverOrStart = gameEngine.over();
+  return (
+    <>
+      <div className="gameBoard">
+        {gameEngine.enemies.map((enemy) => {
+          return <Enemy key={enemy.id} item={enemy}></Enemy>;
+        })}
+        <Character />
+        {gameEngine.bullets.map((bullet) => {
+          return <DomGameObject key={bullet.id} item={bullet}></DomGameObject>;
+        })}
+      </div>
 
-  return OverOrStart ? (
-    <div className="gameBoard">
-      {gameEngine.enemies.map((enemy) => {
-        return <Enemy key={enemy.id} item={enemy}></Enemy>;
-      })}
-      <Character />
-      {gameEngine.bullets.map((bullet) => {
-        return <DomGameObject key={bullet.id} item={bullet}></DomGameObject>;
-      })}
-    </div>
-  ) : (
-    <GameOver />
+      <GameOver status={gameEngine.status} />
+    </>
   );
 };
 

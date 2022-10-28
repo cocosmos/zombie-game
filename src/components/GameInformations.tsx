@@ -32,7 +32,7 @@ const GameInformations: FunctionComponent<GameInformationsProps> = ({
       <button
         type="reset"
         onClick={() => {
-          window.location.reload();
+          gameEngine.play();
         }}
       >
         reset
