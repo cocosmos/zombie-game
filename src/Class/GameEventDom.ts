@@ -1,7 +1,7 @@
 import { Coord, Keys, Size } from "../types/CommunType";
 import { gameEngine } from "./GameEngine";
+import { AnimateCallback } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
-import { keyframes } from "styled-components";
 export class GameEventDom {
   cursor: Coord = { x: 0, y: 0 };
   angle: number = 0;
@@ -17,8 +17,10 @@ export class GameEventDom {
   constructor() {
     this.gameSize = { w: window.innerWidth, h: window.innerHeight };
   }
-  init() {}
-  destroy() {}
+  init() {
+    gameEngine.play();
+  }
+
   mouseMove(event: any) {
     this.cursor.x = event.clientX;
     this.cursor.y = event.clientY;
@@ -35,8 +37,12 @@ export class GameEventDom {
   }
 
   onClick() {
-    this.clicked = this.clicked + 1;
-    gameEngine.fire(new Bullet(gameEngine.character.position, this.angle, 10));
+    if (gameEngine.status === "Play") {
+      this.clicked = this.clicked + 1;
+      gameEngine.fire(
+        new Bullet(gameEngine.character.position, this.angle, 10)
+      );
+    }
   }
   onKeyDown(event: any) {
     switch (event.key) {
@@ -55,6 +61,12 @@ export class GameEventDom {
       case "ArrowRight":
       case "d":
         this.keys.d = true;
+        break;
+
+      case "Enter":
+        if (gameEngine.status !== "Play") {
+          this.init();
+        }
         break;
 
       default:
@@ -79,6 +91,10 @@ export class GameEventDom {
       case "ArrowRight":
       case "d":
         this.keys.d = false;
+        break;
+
+      case " ":
+        this.onClick();
         break;
 
       default:
