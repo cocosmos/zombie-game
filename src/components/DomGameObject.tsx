@@ -1,5 +1,5 @@
 import { GameObject } from "../Class/Object/GameObject";
-
+import b from "../assets/sprite/shot/shot.png";
 export type DomGameObjectProps = {
   item: GameObject;
 };
@@ -9,26 +9,18 @@ const DomGameObject = ({ item }: DomGameObjectProps) => {
     <div
       className="gameObject"
       style={{
-        position: "absolute",
         top: item.position.y,
         left: item.position.x,
-        width: "50px",
-        height: "50px",
+        transform: `rotate(${item.degree + 90}deg)`,
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background: "pink",
-          borderRadius: "50px",
-          width: "10px",
-          height: "10px",
-          zIndex: 5,
-        }}
-      ></div>
+      <img
+        className="bullet"
+        draggable="false"
+        src={b}
+        width={"10px"}
+        height={"10px"}
+      />
     </div>
   );
 };

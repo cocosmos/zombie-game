@@ -25,10 +25,23 @@ body {
 
 .player {
   position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: url("../assets/sprite/c1/sprites.png") -0px 0px;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  /*animation: walker 1s steps(5) infinite*/
+}
 
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+@keyframes pwalker {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -500px;
+  }
 }
 
 .game__status {
@@ -44,4 +57,52 @@ body {
   justify-content: center;
   flex-direction: column;
   padding: 100px;
+}
+
+.gameObject {
+  position: absolute;
+}
+
+@keyframes walker {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -800px;
+  }
+}
+
+.zombie {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: inline-block;
+}
+.alive {
+  background: url("../assets/sprite/z1/sprites.png") -0px 0px;
+  animation: walker 1.6s steps(8) infinite;
+  width: 100px;
+  height: 100px;
+}
+.dead {
+  background: url("../assets/sprite/z1/spritedead.png") -0px -975px;
+  animation: zdead 0.3s steps(5);
+  width: 147px;
+  height: 195px;
+}
+
+.bullet {
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  width: 50px;
+  height: 50px;
+}
+@keyframes zdead {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -975px;
+  }
 }

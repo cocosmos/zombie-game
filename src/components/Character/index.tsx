@@ -7,24 +7,14 @@ interface Props {}
 const Character = (props: Props) => {
   return (
     <div
-      className="player"
+      className="gameObject"
       style={{
-        backgroundColor: gameEngine.character.out ? "red" : "green",
-        transform: `rotate(${gameEngine.domEvent.angle}deg) `,
+        transform: `rotate(${gameEngine.domEvent.angle + 90}deg) `,
         left: gameEngine.character.position.x,
         top: gameEngine.character.position.y,
       }}
     >
-      <div
-        style={{
-          width: "50px",
-          height: "10px",
-          backgroundColor: gameEngine.character.out ? "red" : "green",
-          position: "absolute",
-          top: 20,
-          right: 30,
-        }}
-      ></div>
+      <div className="player"></div>
     </div>
   );
 };

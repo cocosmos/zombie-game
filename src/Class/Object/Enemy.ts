@@ -1,7 +1,6 @@
 import { Coord } from "../../types/CommunType";
 import { calculateAngle, move } from "../../utils/helper";
 import { GameObject } from "./GameObject";
-
 export class Enemy extends GameObject {
   character: Coord;
   constructor(position: Coord, speed: number, character: Coord) {
@@ -10,7 +9,7 @@ export class Enemy extends GameObject {
     this.character = character;
     this.speed = speed;
     this.degree = 0;
-    this.size = { w: 25, h: 25 };
+    this.size = { w: 50, h: 50 };
   }
 
   update(): void {

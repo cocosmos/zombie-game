@@ -4,6 +4,7 @@ import Character from "./Character";
 import DomGameObject from "./DomGameObject";
 import Enemy from "./Enemy";
 import GameOver from "./GameOver";
+import ZombieGroup from "../assets/sound/zombie/zs2.mp3";
 
 const GameBoard = () => {
   return (

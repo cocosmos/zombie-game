@@ -1,33 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { GameObject } from "../../Class/Object/GameObject";
 import { DomGameObjectProps } from "../DomGameObject";
-import zombieImage from "../../assets/zombie.svg";
+import zombieImage from "../../assets/sprite/z1/walk_zombie1.png";
 import { urlAlphabet } from "nanoid";
+import { gameEngine } from "../../Class/GameEngine";
+import { useRef } from "react";
 
 const Enemy = ({ item }: DomGameObjectProps) => {
   return (
     <div
-      className="gameObject"
+      className="gameObject "
       style={{
-        position: "absolute",
         top: item.position.y,
         left: item.position.x,
+        transform: `rotate(${item.degree + 90}deg)`,
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background: item.out ? "red" : "green",
-          borderRadius: "50px",
-          width: "50px",
-          height: "50px",
-          /* backgroundImage: `url(${zombieImage})`, */
-          /*  backgroundSize: "cover", */
-        }}
-      ></div>
+      <div className={`zombie ${!item.out ? "alive" : "dead"}`}></div>
     </div>
   );
 };
