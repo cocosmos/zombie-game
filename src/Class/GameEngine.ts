@@ -9,6 +9,9 @@ import { Bullet } from "./Object/Bullet";
 import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
 import { Keys, Status } from "../types/CommunType";
+import GunSound from "../assets/sound/gunshot.mp3";
+import ZombieGroup from "../assets/sound/zombie/zs2.mp3";
+
 export class GameEngine {
   gameLoop: GameLoop;
   updateCallback: AnimateCallback;
@@ -19,6 +22,8 @@ export class GameEngine {
   bullets: Bullet[] = [];
   character: Character = new Character();
   status: Status = "Start";
+  allDead: boolean = false;
+  zombies = new Audio(ZombieGroup);
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -37,10 +42,12 @@ export class GameEngine {
     this.status = "Play";
     this.character = new Character();
     this.makeEnemies();
+    this.zombies.play();
+    this.zombies.loop = true;
   }
 
   makeEnemies() {
-    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 1; index++) {
+    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 3; index++) {
       this.enemies.push(
         new Enemy(
           {
@@ -89,11 +96,14 @@ export class GameEngine {
   }
 
   fire(bullet: Bullet) {
+    const audio = new Audio(GunSound);
+    audio.play();
     this.bullets.push(bullet);
   }
 
   update() {
     this.updateCallback();
+
     if (
       this.character.keys.w ||
       this.character.keys.s ||
@@ -124,7 +134,6 @@ export class GameEngine {
           )
         ) {
           enemy.out = true;
-          bullet.out = true;
         }
 
         if (!bullet.out) {
@@ -134,15 +143,19 @@ export class GameEngine {
         }
       });
       //Enemy update
-      if (!enemy.out) enemy.update();
+      if (!enemy.out) {
+        enemy.update();
+      }
     });
     if (this.character.out === true) {
+      this.zombies.pause();
       this.status = "Over";
     } else {
       if (this.status === "Play") {
-        const allDead = this.enemies.every((e) => e.out === true);
+        this.allDead = this.enemies.every((e) => e.out === true);
 
-        if (allDead) {
+        if (this.allDead) {
+          this.zombies.pause();
           this.status = "Win";
         }
       }
