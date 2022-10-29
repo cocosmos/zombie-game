@@ -8,7 +8,7 @@ export class Character extends GameObject {
       x: gameEvent.gameSize.w / 2,
       y: gameEvent.gameSize.h / 2,
     };
-    this.size = { w: 50, h: 50 };
+    this.size = { w: 40, h: 40 };
   }
   update(): void {
     if (
