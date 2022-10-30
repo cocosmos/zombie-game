@@ -4,7 +4,7 @@ import { GameObject } from "./GameObject";
 export class Enemy extends GameObject {
   character: Coord;
   type: Type;
-  constructor(position: Coord, speed: number, character: Coord, type: Type) {
+  constructor(position: Coord, character: Coord, type: Type) {
     super();
     this.position = position;
     this.character = character;

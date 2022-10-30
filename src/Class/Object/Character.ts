@@ -1,7 +1,9 @@
 import { gameEvent } from "../GameEventDom";
 import { GameObject } from "./GameObject";
+import { gameEngine } from "../GameEngine";
 
 export class Character extends GameObject {
+  shoot: boolean;
   constructor() {
     super();
     this.position = {
@@ -9,6 +11,7 @@ export class Character extends GameObject {
       y: gameEvent.gameSize.h / 2,
     };
     this.size = { w: 40, h: 40 };
+    this.shoot = false;
   }
   update(): void {
     if (

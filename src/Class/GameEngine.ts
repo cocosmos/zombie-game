@@ -55,7 +55,6 @@ export class GameEngine {
             x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
             y: getRandomArbitrary(-100, -5),
           },
-          getRandomArbitrary(1, 3),
           this.character.position,
           { level: 1, number: getRandomFloat(1, 4, 0) }
         ),
@@ -64,7 +63,6 @@ export class GameEngine {
             x: getRandomArbitrary(-100, -5),
             y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
           },
-          getRandomArbitrary(1, 3),
           this.character.position,
           { level: 1, number: getRandomFloat(1, 4, 0) }
         ),
@@ -76,9 +74,8 @@ export class GameEngine {
               gameEvent.gameSize.h + 100
             ),
           },
-          getRandomArbitrary(1, 3),
           this.character.position,
-          { level: 5, number: getRandomFloat(1, 4, 0) }
+          { level: 1, number: getRandomFloat(1, 4, 0) }
         ),
         new Enemy(
           {
@@ -88,7 +85,6 @@ export class GameEngine {
             ),
             y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
           },
-          getRandomArbitrary(1, 3),
           this.character.position,
           { level: 1, number: getRandomFloat(1, 4, 0) }
         )
@@ -103,6 +99,7 @@ export class GameEngine {
   fire(bullet: Bullet) {
     const audio = new Audio(GunSound);
     audio.play();
+    this.character.shoot = true;
     this.bullets.push(bullet);
   }
 
@@ -110,10 +107,11 @@ export class GameEngine {
     this.updateCallback();
 
     if (
-      this.character.keys.w ||
-      this.character.keys.s ||
-      this.character.keys.a ||
-      this.character.keys.d
+      (this.character.keys.w ||
+        this.character.keys.s ||
+        this.character.keys.a ||
+        this.character.keys.d) &&
+      this.status === "Play"
     ) {
       this.character.position = moveCharact(
         this.character.keys,
@@ -168,6 +166,9 @@ export class GameEngine {
           this.status = "Win";
         }
       }
+    }
+    if (this.bullets.length === 0) {
+      this.character.shoot = false;
     }
   }
 

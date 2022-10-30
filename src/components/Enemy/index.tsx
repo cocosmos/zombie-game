@@ -1,5 +1,4 @@
 import { DomGameObjectProps } from "../DomGameObject";
-
 const Enemy = ({ item }: DomGameObjectProps) => {
   const isDead = !item.out ? "walk" : "dead";
   const type =
