@@ -1,20 +1,27 @@
-import React from "react";
 import { gameEngine } from "../../Class/GameEngine";
-import DomGameObject from "../DomGameObject";
 
-interface Props {}
+const Character = () => {
+  let whatDo = "idle";
+  if (gameEngine.character.shoot) {
+    whatDo = "shoot";
+  } else if (gameEngine.character.out) {
+    whatDo = "dead";
+  } else {
+    whatDo = "idle";
+  }
 
-const Character = (props: Props) => {
   return (
     <div
       className="gameObject"
       style={{
-        transform: `rotate(${gameEngine.domEvent.angle + 90}deg) `,
+        transform: `rotate(${
+          !gameEngine.character.out ? gameEngine.domEvent.angle + 90 : 0
+        }deg) `,
         left: gameEngine.character.position.x,
         top: gameEngine.character.position.y,
       }}
     >
-      <div className="player"></div>
+      <div className={"player" + " " + "player__" + whatDo}></div>
     </div>
   );
 };
