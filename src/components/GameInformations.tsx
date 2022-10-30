@@ -33,6 +33,7 @@ const GameInformations: FunctionComponent<GameInformationsProps> = ({
         type="reset"
         onClick={() => {
           gameEngine.play();
+          gameEngine.appDom.focus();
         }}
       >
         reset

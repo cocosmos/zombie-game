@@ -14,8 +14,8 @@ export const move = (
 };
 
 export const checkCollision = (
-  firstObject: { position: Coord; size: Size },
-  secondObject: { position: Coord; size: Size }
+  firstObject: { position: Coord; size: Size; out: boolean },
+  secondObject: { position: Coord; size: Size; out: boolean }
 ) => {
   if (
     firstObject.position.x < secondObject.position.x + secondObject.size.w &&
@@ -23,7 +23,9 @@ export const checkCollision = (
       secondObject.position.x - secondObject.size.h &&
     firstObject.position.y < secondObject.position.y + secondObject.size.h &&
     firstObject.position.y + firstObject.size.h >
-      secondObject.position.y - secondObject.size.h
+      secondObject.position.y - secondObject.size.h &&
+    !firstObject.out &&
+    !secondObject.out
   ) {
     return true;
   }

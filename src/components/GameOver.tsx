@@ -12,7 +12,12 @@ const GameOver: FunctionComponent<GameOverProps> = ({ status }) => {
   return (
     <div className="game__status">
       <h1>{information?.title}</h1>
-      <button onClick={() => gameEngine.domEvent.init()}>
+      <button
+        onClick={() => {
+          gameEngine.domEvent.init();
+          gameEngine.appDom.focus();
+        }}
+      >
         {information?.button}
       </button>
     </div>
