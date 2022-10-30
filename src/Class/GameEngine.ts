@@ -11,6 +11,7 @@ import { Enemy } from "./Object/Enemy";
 import { Keys, Status } from "../types/CommunType";
 import GunSound from "../assets/sound/gunshot.mp3";
 import ZombieGroup from "../assets/sound/zombie/zs2.mp3";
+import { getRandomFloat } from "../utils/random";
 
 export class GameEngine {
   gameLoop: GameLoop;
@@ -55,7 +56,8 @@ export class GameEngine {
             y: getRandomArbitrary(-100, -5),
           },
           getRandomArbitrary(1, 3),
-          this.character.position
+          this.character.position,
+          { level: 1, number: getRandomFloat(1, 4, 0) }
         ),
         new Enemy(
           {
@@ -63,7 +65,8 @@ export class GameEngine {
             y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
           },
           getRandomArbitrary(1, 3),
-          this.character.position
+          this.character.position,
+          { level: 1, number: getRandomFloat(1, 4, 0) }
         ),
         new Enemy(
           {
@@ -74,7 +77,8 @@ export class GameEngine {
             ),
           },
           getRandomArbitrary(1, 3),
-          this.character.position
+          this.character.position,
+          { level: 5, number: getRandomFloat(1, 4, 0) }
         ),
         new Enemy(
           {
@@ -85,7 +89,8 @@ export class GameEngine {
             y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
           },
           getRandomArbitrary(1, 3),
-          this.character.position
+          this.character.position,
+          { level: 1, number: getRandomFloat(1, 4, 0) }
         )
       );
     }
@@ -118,8 +123,12 @@ export class GameEngine {
     this.enemies.forEach((enemy) => {
       if (
         checkCollision(
-          { position: this.character.position, size: this.character.size },
-          { position: enemy.position, size: enemy.size }
+          {
+            position: this.character.position,
+            size: this.character.size,
+            out: this.character.out,
+          },
+          { position: enemy.position, size: enemy.size, out: enemy.out }
         )
       ) {
         enemy.out = true;
@@ -129,8 +138,8 @@ export class GameEngine {
       this.bullets.forEach((bullet) => {
         if (
           checkCollision(
-            { position: bullet.position, size: bullet.size },
-            { position: enemy.position, size: enemy.size }
+            { position: bullet.position, size: bullet.size, out: bullet.out },
+            { position: enemy.position, size: enemy.size, out: enemy.out }
           )
         ) {
           enemy.out = true;

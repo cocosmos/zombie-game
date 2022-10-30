@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import { GameObject } from "../../Class/Object/GameObject";
 import { DomGameObjectProps } from "../DomGameObject";
-import zombieImage from "../../assets/sprite/z1/walk_zombie1.png";
-import { urlAlphabet } from "nanoid";
-import { gameEngine } from "../../Class/GameEngine";
-import { useRef } from "react";
 
 const Enemy = ({ item }: DomGameObjectProps) => {
+  const isDead = !item.out ? "walk" : "dead";
+  const type =
+    "level" + item.type?.level + "z" + item.type?.number + "__" + isDead;
   return (
     <div
       className="gameObject "
@@ -14,9 +11,10 @@ const Enemy = ({ item }: DomGameObjectProps) => {
         top: item.position.y,
         left: item.position.x,
         transform: `rotate(${item.degree + 90}deg)`,
+        zIndex: item.out ? 0 : 1,
       }}
     >
-      <div className={`zombie ${!item.out ? "alive" : "dead"}`}></div>
+      <div className={`zombie ${isDead + " " + type}`}></div>
     </div>
   );
 };

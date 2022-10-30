@@ -5,11 +5,9 @@ import GameInformations from "./components/GameInformations";
 import "./css/App.css";
 
 function App() {
-  const appDom = useRef<any>(null);
-
   /*Frame and gameEngine*/
   const [frame, setframe] = useState(0);
-
+  const appDom = useRef<any>(null);
   const unUpdate = useCallback(() => {
     setframe((frame) => frame + 1);
   }, [setframe]);

@@ -14,3 +14,5 @@ export type Keys = {
 };
 
 export type Status = "Start" | "Play" | "Win" | "Over";
+
+export type Type = { level: number; number: number };

@@ -28,7 +28,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  background: url("../assets/sprite/c1/sprites.png") -0px 0px;
+  background: url("../assets/sprite/c1/walk.png") -0px 0px;
   width: 100px;
   height: 100px;
   display: inline-block;
@@ -57,19 +57,11 @@ body {
   justify-content: center;
   flex-direction: column;
   padding: 100px;
+  z-index: 99;
 }
 
 .gameObject {
   position: absolute;
-}
-
-@keyframes walker {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -0px -800px;
-  }
 }
 
 .zombie {
@@ -79,14 +71,37 @@ body {
   transform: translateX(-50%) translateY(-50%);
   display: inline-block;
 }
-.alive {
-  background: url("../assets/sprite/z1/sprites.png") -0px 0px;
+.level1z1__walk {
+  background: url("../assets/sprite/zombie/level1/z1/walk.png") -0px 0px;
+}
+.level1z2__walk {
+  background: url("../assets/sprite/zombie/level1/z2/walk.png") -0px 0px;
+}
+.level1z3__walk {
+  background: url("../assets/sprite/zombie/level1/z3/walk.png") -0px 0px;
+}
+.level1z4__walk {
+  background: url("../assets/sprite/zombie/level1/z4/walk.png") -0px 0px;
+}
+.level1z1__dead {
+  background: url("../assets/sprite/zombie/level1/z1/dead.png") -0px -975px;
+}
+.level1z2__dead {
+  background: url("../assets/sprite/zombie/level1/z2/dead.png") -0px -975px;
+}
+.level1z3__dead {
+  background: url("../assets/sprite/zombie/level1/z3/dead.png") -0px -975px;
+}
+.level1z4__dead {
+  background: url("../assets/sprite/zombie/level1/z4/dead.png") -0px -975px;
+}
+
+.walk {
   animation: walker 1.6s steps(8) infinite;
   width: 100px;
   height: 100px;
 }
 .dead {
-  background: url("../assets/sprite/z1/spritedead.png") -0px -975px;
   animation: zdead 0.3s steps(5);
   width: 147px;
   height: 195px;
@@ -97,6 +112,14 @@ body {
   transform: translateX(-50%) translateY(-50%);
   width: 50px;
   height: 50px;
+}
+@keyframes walker {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -800px;
+  }
 }
 @keyframes zdead {
   from {
