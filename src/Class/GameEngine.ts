@@ -86,7 +86,7 @@ export class GameEngine {
             y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
           },
           this.character.position,
-          { level: 1, number: getRandomFloat(1, 4, 0) }
+          { level: 2, number: getRandomFloat(1, 2, 0) }
         )
       );
     }
