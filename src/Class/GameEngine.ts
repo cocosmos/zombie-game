@@ -1,5 +1,6 @@
 import {
   checkCollision,
+  currentTime,
   getRandomArbitrary,
   moveCharact,
 } from "../utils/helper";
@@ -25,6 +26,10 @@ export class GameEngine {
   status: Status = "Start";
   allDead: boolean = false;
   zombies = new Audio(ZombieGroup);
+  dayStatus: { status: "Day" | "Night"; time: number } = {
+    status: "Day",
+    time: 0,
+  };
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -45,6 +50,7 @@ export class GameEngine {
     this.makeEnemies();
     this.zombies.play();
     this.zombies.loop = true;
+    console.log(currentTime());
   }
 
   makeEnemies() {
@@ -141,6 +147,7 @@ export class GameEngine {
           )
         ) {
           enemy.out = true;
+          this.character.kills++;
         }
 
         if (!bullet.out) {
