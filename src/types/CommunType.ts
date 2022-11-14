@@ -1,3 +1,5 @@
+import { GameObject } from "../Class/Object/GameObject";
+
 export type Coord = {
   x: number;
   y: number;
@@ -16,3 +18,6 @@ export type Keys = {
 export type Status = "Start" | "Play" | "Win" | "Over";
 
 export type Type = { level: number; number: number };
+export type DomGameObjectProps = {
+  item: GameObject;
+};

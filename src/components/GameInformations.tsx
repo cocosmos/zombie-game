@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { gameEngine } from "../Class/GameEngine";
 import { Size } from "../types/CommunType";
+import man from "../assets/character/man.png";
 
 type GameInformationsProps = {
   frame: number;
@@ -21,6 +22,9 @@ const GameInformations: FunctionComponent<GameInformationsProps> = ({
         zIndex: 2,
       }}
     >
+      <div className="character__info small">
+        <img src={man} alt="character" />
+      </div>
       <span>frame: {frame}</span>
       {/*   <span>
         w: {gameEngine.domEvent.Size.w} h: {gameEngine.domEvent.center.h}

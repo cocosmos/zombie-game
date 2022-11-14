@@ -1,0 +1,26 @@
+h1 {
+  font-size: 6em;
+  line-height: 1.1;
+}
+
+button {
+  color: $red;
+  font-size: 2em;
+  border-radius: 8px;
+  border: 1px solid $red;
+  padding: 0.6em 1.2em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: $background;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  background-color: $red;
+  color: $background;
+  animation: pulse 3s infinite;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
