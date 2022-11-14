@@ -1,0 +1,157 @@
+/**
+* Player
+*/
+@keyframes deadplayer {
+  0% {
+    background-position: 0px -0px;
+    width: 73px;
+    height: 83px;
+  }
+  20% {
+    background-position: -73px -13px;
+    width: 73px;
+    height: 70px;
+  }
+  40% {
+    background-position: -146px -15px;
+    width: 73px;
+    height: 68px;
+  }
+  60% {
+    background-position: -219px -10px;
+    width: 136px;
+    height: 73px;
+  }
+  80% {
+    background-position: -355px -10px;
+    width: 171px;
+    height: 73px;
+  }
+
+  100% {
+    background-position: -526px -10px;
+    width: 163px;
+    height: 73px;
+  }
+}
+@keyframes walk {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -500px;
+  }
+}
+@keyframes idle {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -1015px;
+  }
+}
+
+/**
+* Status
+*/
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes bounceIn {
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 0;
+    transform: translateY(-250px);
+  }
+
+  38% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  55% {
+    animation-timing-function: ease-in;
+    transform: translateY(-65px);
+  }
+
+  72% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+
+  81% {
+    animation-timing-function: ease-in;
+    transform: translateY(-28px);
+  }
+
+  90% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+
+  95% {
+    animation-timing-function: ease-in;
+    transform: translateY(-8px);
+  }
+
+  100% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+}
+/**
+* Zombie
+*/
+@keyframes l1walker {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -800px;
+  }
+}
+@keyframes l2walker {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -904px;
+  }
+}
+
+@keyframes l1dead {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -975px;
+  }
+}
+
+@keyframes l2dead {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -1075px;
+  }
+}
+
+@keyframes dayAndNight {
+  0% {
+    filter: $day;
+  }
+  50% {
+    filter: $night;
+  }
+  100% {
+    filter: $day;
+  }
+}

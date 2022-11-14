@@ -58,37 +58,3 @@
     }
   }
 }
-@keyframes l1walker {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -0px -800px;
-  }
-}
-@keyframes l2walker {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -0px -904px;
-  }
-}
-
-@keyframes l1dead {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -0px -975px;
-  }
-}
-
-@keyframes l2dead {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -0px -1075px;
-  }
-}

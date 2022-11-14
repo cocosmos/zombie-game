@@ -17,8 +17,6 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-image: url("../assets/background.jpg");
-  background-size: cover;
 }
 
 .App:focus {
@@ -26,81 +24,11 @@ body {
 }
 .gameBoard {
   height: 100%;
+  // filter: $night;
+  background: url("../assets/background.jpg");
   background-size: cover;
-}
 
-.game__status {
-  width: 101%;
-  height: 101%;
-  position: absolute;
-  background-color: $background;
-  color: $red;
-
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-
-  z-index: 99;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  /*  &__title {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-  } */
-  &__principal {
-    display: flex;
-    justify-content: space-around;
-    gap: 1em;
-    width: 100%;
-    &__box {
-      min-width: 300px;
-      border: 1px solid $red;
-      border-radius: 20px;
-      padding: 5%;
-      h2 {
-        font-size: 5em;
-        margin-bottom: 0.5em;
-      }
-    }
-    &__character {
-    }
-    & > div {
-      flex: 1;
-    }
-  }
-
-  &__informations {
-    margin-top: 5%;
-    p {
-      font-size: 2em;
-      margin-bottom: 0.5em;
-    }
-  }
-}
-
-.character__info {
-  background-image: url("../assets/character/character-info.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 200px;
-  height: 250px;
-  position: relative;
-  img {
-    position: absolute;
-    top: 5%;
-    left: 21%;
-    width: 65%;
-  }
-  &__name {
-    position: absolute;
-    top: 165px;
-    left: 100px;
-    font-size: 2em;
-    color: $red;
-  }
+  animation: dayAndNight 60s infinite;
 }
 
 .gameObject {
