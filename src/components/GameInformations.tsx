@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import { gameEngine } from "../Class/GameEngine";
 import { Size } from "../types/CommunType";
 import man from "../assets/character/man.png";
+import Profile from "./Character/Profile";
 
 type GameInformationsProps = {
   frame: number;
@@ -22,26 +23,13 @@ const GameInformations: FunctionComponent<GameInformationsProps> = ({
         zIndex: 2,
       }}
     >
-      <div className="character__info small">
-        <img src={man} alt="character" />
-      </div>
+      <Profile />
       <span>frame: {frame}</span>
-      {/*   <span>
-        w: {gameEngine.domEvent.Size.w} h: {gameEngine.domEvent.center.h}
-      </span> */}
+
       <span>y:{gameEngine.domEvent.cursor.y}</span>
       <span>x:{gameEngine.domEvent.cursor.x}</span>
       <span>angle: {gameEngine.domEvent.angle}</span>
       <span>clicked: {gameEngine.domEvent.clicked}</span>
-      <button
-        type="reset"
-        onClick={() => {
-          gameEngine.play();
-          gameEngine.appDom.focus();
-        }}
-      >
-        reset
-      </button>
     </div>
   );
 };

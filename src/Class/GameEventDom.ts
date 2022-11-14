@@ -21,6 +21,10 @@ export class GameEventDom {
     gameEngine.play();
   }
 
+  onRezise(event: Size) {
+    this.gameSize = event;
+  }
+
   mouseMove(event: any) {
     this.cursor.x = event.clientX;
     this.cursor.y = event.clientY;
@@ -49,6 +53,7 @@ export class GameEventDom {
       case "ArrowUp":
       case "w":
         this.keys.w = true;
+
         break;
       case "ArrowDown":
       case "s":

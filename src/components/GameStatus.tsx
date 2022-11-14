@@ -1,8 +1,15 @@
 import { gameEngine } from "../Class/GameEngine";
 import { FunctionComponent } from "react";
 import { Status } from "../types/CommunType";
-import man from "../assets/character/man.png";
-
+import zombie from "../assets/zombie.png";
+import {
+  IoMdArrowDropdown,
+  IoMdArrowDropup,
+  IoMdArrowDropright,
+  IoMdArrowDropleft,
+} from "react-icons/io";
+import { BsFillMouse2Fill } from "react-icons/bs";
+import Profile from "./Character/Profile";
 type GameStatusProps = {
   status: Status;
 };
@@ -17,10 +24,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
       </div>
       <div className="game__status__principal">
         <div className="game__status__principal__character">
-          <div className="character__info">
-            <img src={man} alt="character" />
-            <p className="character__info__name">Marcus</p>
-          </div>
+          <Profile />
         </div>
         <div className="game__status__principal__box">
           <h2>{information?.title}</h2>
@@ -33,14 +37,45 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
             {information?.button}
           </button>
         </div>
-        <div className="game__status__principal__zombie">dd</div>
+        <div className="game__status__principal__zombie">
+          <img src={zombie} alt="character" />
+        </div>
       </div>
 
       <div className="game__status__informations">
-        <p>Press ENTER to play</p>
-        <p>Click with mouse or Press Space to Fire</p>
-        <p>Move with w, a, s, d or Arrows</p>
-        <p>Try to survive ... !</p>
+        {status === "Start" ? (
+          <>
+            <p>
+              Press <span className="key">ENTER</span> to play
+            </p>
+            <p>
+              Direction and fire with{" "}
+              <span className="key">
+                <BsFillMouse2Fill />{" "}
+              </span>{" "}
+              or Press <span className="key">SPACE</span> to Fire
+            </p>
+
+            <div className="move">
+              <div className="keys">
+                <span className="key">w</span>
+                <span className="key">A</span>
+                <span className="key">S</span>
+                <span className="key">D</span>
+              </div>
+              <p>Move with</p>
+              <div className="keys">
+                <span className="key">{<IoMdArrowDropup />}</span>
+                <span className="key">{<IoMdArrowDropleft />}</span>
+
+                <span className="key">{<IoMdArrowDropdown />}</span>
+                <span className="key">{<IoMdArrowDropright />}</span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <p>Try again if you dare...</p>
+        )}
       </div>
     </div>
   );
