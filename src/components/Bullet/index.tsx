@@ -1,4 +1,3 @@
-import React from "react";
 import { DomGameObjectProps } from "../../types/CommunType";
 import b from "../../assets/sprite/shot/shot.png";
 
