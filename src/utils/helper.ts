@@ -1,4 +1,11 @@
 import { Coord, Keys, Size } from "../types/CommunType";
+/**
+ * Move an object
+ * @param base
+ * @param angle
+ * @param velocity
+ * @returns
+ */
 export const move = (
   base: { x: number; y: number },
   angle: number,
@@ -12,6 +19,12 @@ export const move = (
   coordFinish.y = base.y - velocity * Math.sin(radian);
   return coordFinish;
 };
+/**
+ * Check the collision between two objects
+ * @param firstObject
+ * @param secondObject
+ * @returns
+ */
 
 export const checkCollision = (
   firstObject: { position: Coord; size: Size; out: boolean },
@@ -31,23 +44,40 @@ export const checkCollision = (
   }
   return false;
 };
-
+/**
+ * Calculate the angle between two points
+ * @param depart
+ * @param finish
+ * @returns
+ */
 export const calculateAngle = (depart: Coord, finish: Coord) => {
   let angle = Math.atan2(depart.y - finish.y, depart.x - finish.x);
 
   return radianToDegree(angle);
 };
-
+/**
+ * Convert radian to degree
+ * @param radian
+ * @returns
+ */
 export const radianToDegree = (radian: number) => {
   return (radian * 180) / Math.PI;
 };
+/**
+ * Convert degree to radian
+ * @param degree
+ * @returns
+ */
 export const degreeToRadian = (degree: number) => {
   return (degree / 180) * Math.PI;
 };
-export function getRandomArbitrary(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
 
+/**
+ * Move the player
+ * @param keys
+ * @param position
+ * @returns
+ */
 export const moveCharact = (keys: Keys, position: Coord) => {
   const speed = 5;
   let newPosition: Coord = position;
@@ -67,6 +97,10 @@ export const moveCharact = (keys: Keys, position: Coord) => {
   return newPosition;
 };
 
+/**
+ * TODO
+ * @returns
+ */
 export function currentTime() {
   let date = new Date();
   let hh = date.getHours();

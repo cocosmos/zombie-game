@@ -1,31 +1,25 @@
-import {
-  checkCollision,
-  currentTime,
-  getRandomArbitrary,
-  moveCharact,
-} from "../utils/helper";
+import { checkCollision, currentTime, moveCharact } from "../utils/helper";
 import { gameEvent, GameEventDom } from "./GameEventDom";
 import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
 import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
 import { Keys, Status } from "../types/CommunType";
-import GunSound from "../assets/sound/gunshot.mp3";
-import ZombieGroup from "../assets/sound/zombie/zs2.mp3";
-import { getRandomFloat } from "../utils/random";
+
+import { getRandomArbitrary, getRandomFloat } from "../utils/random";
+import { GameSound } from "./GameSound";
 
 export class GameEngine {
   gameLoop: GameLoop;
   updateCallback: AnimateCallback;
   appDom!: HTMLElement;
   domEvent: GameEventDom;
+  gameSound: GameSound;
   enemies: Enemy[] = [];
-  touchedEnemies: Enemy[] = [];
   bullets: Bullet[] = [];
   character: Character = new Character();
   status: Status = "Start";
   allDead: boolean = false;
-  zombies = new Audio(ZombieGroup);
   dayStatus: { status: "Day" | "Night"; time: number } = {
     status: "Day",
     time: 0,
@@ -35,6 +29,7 @@ export class GameEngine {
     this.gameLoop = new GameLoop(this.update.bind(this));
     this.updateCallback = () => null;
     this.domEvent = new GameEventDom();
+    this.gameSound = new GameSound();
   }
   init(updateCallback: AnimateCallback, appDom: HTMLElement) {
     this.appDom = appDom;
@@ -48,10 +43,25 @@ export class GameEngine {
     this.status = "Play";
     this.character = new Character();
     this.makeEnemies();
-    this.zombies.play();
-    this.zombies.loop = true;
+    this.gameSound.playZombies(true);
     console.log(currentTime());
   }
+  /**
+   * TODO: Refactor this function
+   */
+  menu() {
+    console.log("menu");
+  }
+  /**
+   * TODO: Refactor this function
+   */
+  wawe() {
+    console.log("wawe");
+  }
+
+  /**
+   * TODO: Refactor this function
+   */
 
   makeEnemies() {
     for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 3; index++) {
@@ -103,8 +113,7 @@ export class GameEngine {
   }
 
   fire(bullet: Bullet) {
-    const audio = new Audio(GunSound);
-    audio.play();
+    this.gameSound.playShot();
     this.character.shoot = true;
     this.bullets.push(bullet);
   }
@@ -162,14 +171,14 @@ export class GameEngine {
       }
     });
     if (this.character.out === true) {
-      this.zombies.pause();
+      this.gameSound.playZombies(false);
       this.status = "Over";
     } else {
       if (this.status === "Play") {
         this.allDead = this.enemies.every((e) => e.out === true);
 
         if (this.allDead) {
-          this.zombies.pause();
+          this.gameSound.playZombies(false);
           this.status = "Win";
         }
       }
