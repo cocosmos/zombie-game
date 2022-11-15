@@ -4,7 +4,7 @@ import { Coord, Keys, Size } from "../types/CommunType";
  * @param base
  * @param angle
  * @param velocity
- * @returns
+ * @returns coordFinish
  */
 export const move = (
   base: { x: number; y: number },
@@ -13,7 +13,7 @@ export const move = (
 ) => {
   let coordFinish: Coord = { x: 0, y: 0 };
 
-  const radian = (angle * Math.PI) / 180;
+  const radian = degreeToRadian(angle);
 
   coordFinish.x = base.x - velocity * Math.cos(radian);
   coordFinish.y = base.y - velocity * Math.sin(radian);
@@ -23,7 +23,7 @@ export const move = (
  * Check the collision between two objects
  * @param firstObject
  * @param secondObject
- * @returns
+ * @returns boolean
  */
 
 export const checkCollision = (
@@ -48,7 +48,7 @@ export const checkCollision = (
  * Calculate the angle between two points
  * @param depart
  * @param finish
- * @returns
+ * @returns angle
  */
 export const calculateAngle = (depart: Coord, finish: Coord) => {
   let angle = Math.atan2(depart.y - finish.y, depart.x - finish.x);
@@ -58,7 +58,7 @@ export const calculateAngle = (depart: Coord, finish: Coord) => {
 /**
  * Convert radian to degree
  * @param radian
- * @returns
+ * @returns degree
  */
 export const radianToDegree = (radian: number) => {
   return (radian * 180) / Math.PI;
@@ -66,17 +66,17 @@ export const radianToDegree = (radian: number) => {
 /**
  * Convert degree to radian
  * @param degree
- * @returns
+ * @returns radian
  */
 export const degreeToRadian = (degree: number) => {
-  return (degree / 180) * Math.PI;
+  return (degree * Math.PI) / 180;
 };
 
 /**
  * Move the player
  * @param keys
  * @param position
- * @returns
+ * @returns position
  */
 export const moveCharact = (keys: Keys, position: Coord) => {
   const speed = 5;
