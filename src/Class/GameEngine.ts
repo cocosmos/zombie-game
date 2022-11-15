@@ -64,7 +64,7 @@ export class GameEngine {
    */
 
   makeEnemies() {
-    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 3; index++) {
+    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 5; index++) {
       this.enemies.push(
         new Enemy(
           {
@@ -176,6 +176,13 @@ export class GameEngine {
     } else {
       if (this.status === "Play") {
         this.allDead = this.enemies.every((e) => e.out === true);
+        const numberDead = this.enemies.filter((enemy) => enemy.out).length;
+        if (numberDead > 10) {
+          this.enemies = this.enemies.filter(function (obj) {
+            return obj.out !== true;
+          });
+          //remove an enemy who is out  of the screen to make the game more fluid and not too heavy for the browser to handle
+        }
 
         if (this.allDead) {
           this.gameSound.playZombies(false);

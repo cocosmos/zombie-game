@@ -1,4 +1,5 @@
-import { DomGameObjectProps } from "../DomGameObject";
+import { DomGameObjectProps } from "../../types/CommunType";
+
 const Enemy = ({ item }: DomGameObjectProps) => {
   const level = "l" + item.type?.level;
   const isDead = !item.out ? level + "walk" : level + "dead";
