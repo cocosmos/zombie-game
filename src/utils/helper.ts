@@ -1,3 +1,4 @@
+import { GameObject } from "../Class/Object/GameObject";
 import { Coord, Keys, Size } from "../types/CommunType";
 
 /**
@@ -26,6 +27,40 @@ export const radianToDegree = (radian: number) => {
  */
 export const degreeToRadian = (degree: number) => {
   return (degree * Math.PI) / 180;
+};
+
+/**
+ * Move an object
+ * @param base
+ * @param angle
+ * @param velocity
+ * @returns coordFinish
+ */
+export const move = (
+  base: { x: number; y: number },
+  angle: number,
+  speed: number
+) => {
+  let coordFinish: Coord = { x: 0, y: 0 };
+
+  //const radian = degreeToRadian(angle);
+
+  coordFinish.x = base.x - speed * Math.cos(angle);
+  coordFinish.y = base.y - speed * Math.sin(angle);
+  return coordFinish;
+};
+
+export const checkOutOfScreen = (position: Coord, gameSize: Size) => {
+  if (
+    position.x > gameSize.w ||
+    position.y > gameSize.h ||
+    position.x < -5 ||
+    position.y < -5
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 /**

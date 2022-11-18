@@ -1,10 +1,9 @@
 import { nanoid } from "nanoid";
 import { Coord, Keys, Size } from "../../types/CommunType";
-import { degreeToRadian, calculateAngle } from "../../utils/helper";
 
 export class GameObject {
   position: Coord = { x: 0, y: 0 };
-  velocity: Coord = { x: 0, y: 0 };
+  velocity: number = 0;
   trajectory: Coord = { x: 0, y: 0 };
   degree: number = 0;
   out: boolean = false;
@@ -15,14 +14,6 @@ export class GameObject {
   id = nanoid();
 
   constructor() {}
-
-  update() {}
-
-  move() {
-    const radian = degreeToRadian(this.degree);
-    this.position.x = this.position.x - this.speed * Math.cos(radian);
-    this.position.y = this.position.y - this.speed * Math.sin(radian);
-  }
 
   checkCollision(object: GameObject) {
     if (

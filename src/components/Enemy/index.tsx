@@ -1,10 +1,13 @@
-import { DomGameObjectProps } from "../../types/CommunType";
+import { Enemy } from "../../Class/Object/Enemy";
 
-const Enemy = ({ item }: DomGameObjectProps) => {
-  const level = "l" + item.type?.level;
+type EnemyProps = {
+  item: Enemy;
+};
+
+const EnemyDom = ({ item }: EnemyProps) => {
+  const level = "l" + item.level;
   const isDead = !item.out ? level + "walk" : level + "dead";
-  const type =
-    "level" + item.type?.level + "z" + item.type?.number + "__" + isDead;
+  const type = "level" + item.level + "z" + 1 + "__" + isDead;
   return (
     <div
       className="gameObject "
@@ -20,4 +23,4 @@ const Enemy = ({ item }: DomGameObjectProps) => {
   );
 };
 
-export default Enemy;
+export default EnemyDom;

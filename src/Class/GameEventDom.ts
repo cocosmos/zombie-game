@@ -1,6 +1,5 @@
 import { Coord, Keys, Size } from "../types/CommunType";
 import { gameEngine } from "./GameEngine";
-import { AnimateCallback } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
 export class GameEventDom {
   cursor: Coord = { x: 0, y: 0 };
@@ -29,12 +28,13 @@ export class GameEventDom {
     this.cursor.x = event.clientX;
     this.cursor.y = event.clientY;
 
-    this.delta.x = gameEngine.character.position.x - this.cursor.x;
-    this.delta.y = gameEngine.character.position.y - this.cursor.y;
+    this.delta.x = gameEngine.character.getPosition().x - this.cursor.x;
+    this.delta.y = gameEngine.character.getPosition().y - this.cursor.y;
 
     const radians = Math.atan2(this.delta.y, this.delta.x);
 
     this.angle = Math.round(radians * (180 / Math.PI));
+
     if (this.angle < 0) {
       this.angle = (this.angle + 360) % 360;
     }
@@ -43,8 +43,11 @@ export class GameEventDom {
   onClick() {
     if (gameEngine.status === "Play") {
       this.clicked = this.clicked + 1;
-      gameEngine.fire(this.angle);
+      gameEngine.fire(
+        new Bullet(gameEngine.character.getPosition(), this.angle)
+      );
     }
+    console.log("click");
   }
   onKeyDown(event: any) {
     switch (event.key) {

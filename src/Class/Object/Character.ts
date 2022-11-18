@@ -1,5 +1,6 @@
-import { Keys } from "../../types/CommunType";
+import { Coord, Keys } from "../../types/CommunType";
 import { gameEvent } from "../GameEventDom";
+import { Bullet } from "./Bullet";
 import { GameObject } from "./GameObject";
 
 export class Character extends GameObject {
@@ -16,17 +17,13 @@ export class Character extends GameObject {
     this.kills = 0;
     this.speed = 5;
   }
-  update(): void {
-    if (
-      this.position.x > gameEvent.gameSize.w ||
-      this.position.y > gameEvent.gameSize.h ||
-      this.position.x < -5 ||
-      this.position.y < -5
-    ) {
-      this.out = true;
-    } else {
-      this.out = false;
-    }
+
+  getPosition(): Coord {
+    return this.position;
+  }
+
+  setPosition(position: Coord): void {
+    this.position = position;
   }
   moveCharacter(keys: Keys) {
     this.keys = keys;
@@ -51,5 +48,9 @@ export class Character extends GameObject {
   }
   isShooting(shoot: boolean) {
     this.shoot = shoot;
+  }
+  fire() {
+    console.log("fire");
+    return new Bullet(this.position, this.degree);
   }
 }

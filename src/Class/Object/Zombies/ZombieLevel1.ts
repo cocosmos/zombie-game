@@ -8,6 +8,7 @@ export class ZombieLevel1 extends Enemy {
     this.health = 1;
     this.speed = 1;
     this.damage = 1;
+    this.level = 1;
     this.size = { w: 50, h: 50 };
   }
 }

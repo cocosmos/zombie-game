@@ -8,6 +8,7 @@ export class GameSound {
     if (isPlaying) {
       audio.play();
       audio.loop = true;
+      console.log(isPlaying);
     } else {
       audio.pause();
     }

@@ -1,27 +1,24 @@
-import { Coord, Size } from "../../types/CommunType";
+import { Coord } from "../../types/CommunType";
+import { checkOutOfScreen, degreeToRadian, move } from "../../utils/helper";
 import { gameEvent } from "../GameEventDom";
 import { GameObject } from "./GameObject";
 
 export class Bullet extends GameObject {
+  radian: number = 0;
   constructor(position: Coord, degree: number) {
     super();
-    this.position = position;
     this.speed = 10;
     this.degree = degree;
+    this.radian = degreeToRadian(degree);
     this.size = { w: 5, h: 5 };
+    this.velocity = 10;
+    this.position = position;
   }
 
   //function to go increment until the trajectory is done
-  update(): void {
-    if (
-      this.position.x > gameEvent.gameSize.w ||
-      this.position.y > gameEvent.gameSize.h ||
-      this.position.x < -5 ||
-      this.position.y < -5
-    ) {
-      this.out = true;
-    } else {
-      this.out = false;
-    }
+  update() {
+    this.out = checkOutOfScreen(this.position, gameEvent.gameSize);
+
+    this.position = move(this.position, this.radian, this.speed);
   }
 }

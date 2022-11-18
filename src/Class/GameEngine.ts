@@ -22,10 +22,10 @@ export class GameEngine {
   character: Character = new Character();
   status: Status = "Start";
   allDead: boolean = false;
-  dayStatus: { status: "Day" | "Night"; time: number } = {
+  /* dayStatus: { status: "Day" | "Night"; time: number } = {
     status: "Day",
     time: 0,
-  };
+  }; */
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -38,15 +38,16 @@ export class GameEngine {
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
+    console.log(this.character);
   }
 
   play() {
     this.enemies = [];
     this.status = "Play";
     this.character = new Character();
+
     this.makeEnemies();
-    this.gameSound.playZombies(true);
-    console.log(currentTime());
+    //  this.gameSound.playZombies(true);
   }
   /**
    * TODO: Refactor this function
@@ -66,7 +67,7 @@ export class GameEngine {
    */
 
   makeEnemies() {
-    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 5; index++) {
+    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 2; index++) {
       this.enemies.push(
         new ZombieLevel1({
           x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
@@ -92,12 +93,13 @@ export class GameEngine {
         })
       );
     }
+    console.log(this.character);
   }
 
-  fire(degree: number) {
+  fire(bullet: Bullet) {
     this.character.isShooting(true);
     this.gameSound.playShot();
-    this.bullets.push(new Bullet(this.character.position, degree));
+    this.bullets.push(bullet);
   }
 
   update() {
@@ -114,23 +116,23 @@ export class GameEngine {
       this.bullets.forEach((bullet) => {
         if (enemy.checkCollision(bullet)) {
           this.character.increaseKills();
+          enemy.dead();
         }
 
         if (!bullet.out) {
           bullet.update();
-          bullet.move();
+          //bullet.move();
         } else {
           bullet.destroy(this.bullets);
         }
       });
       //Enemy update
       if (!enemy.out) {
-        enemy.calculateAngle(this.character.position);
-        enemy.update();
-        enemy.move();
+        // enemy.update();
+        enemy.move(this.character.position);
       }
     });
-    if (this.character.out === true) {
+    /* if (this.character.out) {
       this.gameSound.playZombies(false);
       this.status = "Over";
     } else {
@@ -149,7 +151,7 @@ export class GameEngine {
           this.status = "Win";
         }
       }
-    }
+    }*/
     if (this.bullets.length === 0) {
       this.character.isShooting(false);
     }
