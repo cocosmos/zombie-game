@@ -21,3 +21,5 @@ export class GameSound {
     console.log("playMenu");
   }
 }
+
+export const gameSound = new GameSound();

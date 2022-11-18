@@ -1,3 +1,4 @@
+import { Keys } from "../../types/CommunType";
 import { gameEvent } from "../GameEventDom";
 import { GameObject } from "./GameObject";
 
@@ -13,6 +14,7 @@ export class Character extends GameObject {
     this.size = { w: 40, h: 40 };
     this.shoot = false;
     this.kills = 0;
+    this.speed = 5;
   }
   update(): void {
     if (
@@ -25,5 +27,29 @@ export class Character extends GameObject {
     } else {
       this.out = false;
     }
+  }
+  moveCharacter(keys: Keys) {
+    this.keys = keys;
+    if (keys.w) {
+      this.position.y -= this.speed;
+    }
+    if (keys.s) {
+      this.position.y += this.speed;
+    }
+    if (keys.a) {
+      this.position.x -= this.speed;
+    }
+    if (keys.d) {
+      this.position.x += this.speed;
+    }
+  }
+  increaseKills() {
+    this.kills++;
+  }
+  resetKills() {
+    this.kills = 0;
+  }
+  isShooting(shoot: boolean) {
+    this.shoot = shoot;
   }
 }

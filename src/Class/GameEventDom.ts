@@ -43,9 +43,7 @@ export class GameEventDom {
   onClick() {
     if (gameEngine.status === "Play") {
       this.clicked = this.clicked + 1;
-      gameEngine.fire(
-        new Bullet(gameEngine.character.position, this.angle, 10)
-      );
+      gameEngine.fire(this.angle);
     }
   }
   onKeyDown(event: any) {
@@ -77,7 +75,6 @@ export class GameEventDom {
       default:
         break;
     }
-    gameEngine.moveCharacter(this.keys);
   }
   onKeyUp(event: any) {
     switch (event.key) {
@@ -105,7 +102,6 @@ export class GameEventDom {
       default:
         break;
     }
-    gameEngine.moveCharacter(this.keys);
   }
 }
 export const gameEvent = new GameEventDom();

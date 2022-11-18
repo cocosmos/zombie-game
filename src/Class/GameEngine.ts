@@ -1,4 +1,4 @@
-import { checkCollision, currentTime, moveCharact } from "../utils/helper";
+import { currentTime } from "../utils/helper";
 import { gameEvent, GameEventDom } from "./GameEventDom";
 import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
@@ -8,6 +8,8 @@ import { Keys, Status } from "../types/CommunType";
 
 import { getRandomArbitrary, getRandomFloat } from "../utils/random";
 import { GameSound } from "./GameSound";
+import { ZombieLevel1 } from "./Object/Zombies/ZombieLevel1";
+import { ZombieLevel2 } from "./Object/Zombies/ZombieLevel2";
 
 export class GameEngine {
   gameLoop: GameLoop;
@@ -66,108 +68,66 @@ export class GameEngine {
   makeEnemies() {
     for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 5; index++) {
       this.enemies.push(
-        new Enemy(
-          {
-            x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
-            y: getRandomArbitrary(-100, -5),
-          },
-          this.character.position,
-          { level: 1, number: getRandomFloat(1, 4, 0) }
-        ),
-        new Enemy(
-          {
-            x: getRandomArbitrary(-100, -5),
-            y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
-          },
-          this.character.position,
-          { level: 1, number: getRandomFloat(1, 4, 0) }
-        ),
-        new Enemy(
-          {
-            x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
-            y: getRandomArbitrary(
-              gameEvent.gameSize.h,
-              gameEvent.gameSize.h + 100
-            ),
-          },
-          this.character.position,
-          { level: 1, number: getRandomFloat(1, 4, 0) }
-        ),
-        new Enemy(
-          {
-            x: getRandomArbitrary(
-              gameEvent.gameSize.w,
-              gameEvent.gameSize.w + 100
-            ),
-            y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
-          },
-          this.character.position,
-          { level: 2, number: getRandomFloat(1, 2, 0) }
-        )
+        new ZombieLevel1({
+          x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
+          y: getRandomArbitrary(-100, -5),
+        }),
+        new ZombieLevel2({
+          x: getRandomArbitrary(-100, -5),
+          y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
+        }),
+        new Enemy({
+          x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
+          y: getRandomArbitrary(
+            gameEvent.gameSize.h,
+            gameEvent.gameSize.h + 100
+          ),
+        }),
+        new Enemy({
+          x: getRandomArbitrary(
+            gameEvent.gameSize.w,
+            gameEvent.gameSize.w + 100
+          ),
+          y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
+        })
       );
     }
   }
 
-  moveCharacter(keys: Keys) {
-    this.character.keys = keys;
-  }
-
-  fire(bullet: Bullet) {
+  fire(degree: number) {
+    this.character.isShooting(true);
     this.gameSound.playShot();
-    this.character.shoot = true;
-    this.bullets.push(bullet);
+    this.bullets.push(new Bullet(this.character.position, degree));
   }
 
   update() {
     this.updateCallback();
 
-    if (
-      (this.character.keys.w ||
-        this.character.keys.s ||
-        this.character.keys.a ||
-        this.character.keys.d) &&
-      this.status === "Play"
-    ) {
-      this.character.position = moveCharact(
-        this.character.keys,
-        this.character.position
-      );
+    if (this.status === "Play") {
+      this.character.moveCharacter(this.domEvent.keys);
     }
     this.enemies.forEach((enemy) => {
-      if (
-        checkCollision(
-          {
-            position: this.character.position,
-            size: this.character.size,
-            out: this.character.out,
-          },
-          { position: enemy.position, size: enemy.size, out: enemy.out }
-        )
-      ) {
-        enemy.out = true;
-        this.character.out = true;
+      if (enemy.checkCollision(this.character)) {
+        this.character.dead();
       }
 
       this.bullets.forEach((bullet) => {
-        if (
-          checkCollision(
-            { position: bullet.position, size: bullet.size, out: bullet.out },
-            { position: enemy.position, size: enemy.size, out: enemy.out }
-          )
-        ) {
-          enemy.out = true;
-          this.character.kills++;
+        if (enemy.checkCollision(bullet)) {
+          this.character.increaseKills();
         }
 
         if (!bullet.out) {
           bullet.update();
+          bullet.move();
         } else {
           bullet.destroy(this.bullets);
         }
       });
       //Enemy update
       if (!enemy.out) {
+        enemy.calculateAngle(this.character.position);
         enemy.update();
+        enemy.move();
       }
     });
     if (this.character.out === true) {
@@ -191,7 +151,7 @@ export class GameEngine {
       }
     }
     if (this.bullets.length === 0) {
-      this.character.shoot = false;
+      this.character.isShooting(false);
     }
   }
 
