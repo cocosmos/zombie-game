@@ -10,7 +10,7 @@ export class Enemy extends GameObject {
     this.position = position;
     this.speed = 1;
     this.degree = 0;
-    this.size = { w: 75, h: 75 };
+    this.size = { w: 100, h: 100 };
   }
 
   move(object: Coord) {

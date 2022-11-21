@@ -1,10 +1,15 @@
-import { gameEngine } from "../../Class/GameEngine";
+import { Character } from "../../Class/Object/Character";
+import { DomGameObjectProps } from "../../types/CommunType";
 
-const Character = () => {
+type CharacterProps = {
+  item: Character;
+};
+
+const CharacterDom = ({ item }: CharacterProps) => {
   let whatDo = "idle";
-  if (gameEngine.character.shoot) {
+  if (item.shoot) {
     whatDo = "shoot";
-  } else if (gameEngine.character.out) {
+  } else if (item.out) {
     whatDo = "dead";
   } else {
     whatDo = "idle";
@@ -14,11 +19,9 @@ const Character = () => {
     <div
       className="gameObject"
       style={{
-        transform: `rotate(${
-          !gameEngine.character.out ? gameEngine.domEvent.angle + 90 : 0
-        }deg) `,
-        left: gameEngine.character.position.x,
-        top: gameEngine.character.position.y,
+        transform: `rotate(${!item.out ? item.degree + 90 : 0}deg) `,
+        left: item.position.x,
+        top: item.position.y,
       }}
     >
       <div className={"player" + " " + "player__" + whatDo}></div>
@@ -26,4 +29,4 @@ const Character = () => {
   );
 };
 
-export default Character;
+export default CharacterDom;

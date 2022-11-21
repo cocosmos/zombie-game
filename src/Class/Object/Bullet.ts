@@ -7,7 +7,7 @@ export class Bullet extends GameObject {
   radian: number = 0;
   constructor(position: Coord, degree: number) {
     super();
-    this.speed = 10;
+    this.speed = 30;
     this.degree = degree;
     this.radian = degreeToRadian(degree);
     this.size = { w: 5, h: 5 };

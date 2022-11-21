@@ -50,10 +50,9 @@ function App() {
       <GameInformations frame={frame} />
       <div
         className="App"
-        onMouseMove={(event) => gameEngine.domEvent.mouseMove(event)}
-        onClick={() => gameEngine.domEvent.onClick()}
-        onKeyDown={(event) => gameEngine.domEvent.onKeyDown(event)}
-        onKeyUp={(event) => gameEngine.domEvent.onKeyUp(event)}
+        onMouseMove={(event) => gameEvent.mouseMove(event)}
+        onKeyDown={(event) => gameEvent.onKeyDown(event)}
+        onKeyUp={(event) => gameEvent.onKeyUp(event)}
         ref={appDom}
         tabIndex={-1}
       >

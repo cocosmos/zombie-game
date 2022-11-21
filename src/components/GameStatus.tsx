@@ -10,6 +10,7 @@ import {
 } from "react-icons/io";
 import { BsFillMouse2Fill } from "react-icons/bs";
 import Profile from "./Character/Profile";
+import { gameEvent } from "../Class/GameEventDom";
 type GameStatusProps = {
   status: Status;
 };
@@ -30,7 +31,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
           <h2>{information?.title}</h2>
           <button
             onClick={() => {
-              gameEngine.domEvent.init();
+              gameEvent.init();
               gameEngine.appDom.focus();
             }}
           >

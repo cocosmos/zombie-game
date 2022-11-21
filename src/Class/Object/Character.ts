@@ -1,4 +1,5 @@
-import { Coord, Keys } from "../../types/CommunType";
+import { Keys } from "../../types/CommunType";
+import { checkOutOfScreen } from "../../utils/helper";
 import { gameEvent } from "../GameEventDom";
 import { Bullet } from "./Bullet";
 import { GameObject } from "./GameObject";
@@ -20,18 +21,21 @@ export class Character extends GameObject {
     this.speed = 5;
   }
 
-  moveCharacter(keys: Keys) {
-    this.keys = keys;
-    if (keys.w) {
+  update = () => {
+    this.out = checkOutOfScreen(this.position, gameEvent.gameSize);
+  };
+
+  moveCharacter() {
+    if (this.keys.w) {
       this.position.y -= this.speed;
     }
-    if (keys.s) {
+    if (this.keys.s) {
       this.position.y += this.speed;
     }
-    if (keys.a) {
+    if (this.keys.a) {
       this.position.x -= this.speed;
     }
-    if (keys.d) {
+    if (this.keys.d) {
       this.position.x += this.speed;
     }
   }
@@ -40,7 +44,7 @@ export class Character extends GameObject {
   }
 
   fire() {
-    console.log("fire");
+    this.shoot = true;
     return new Bullet(this.position, this.degree);
   }
 
@@ -55,8 +59,8 @@ export class Character extends GameObject {
   getKills(): number {
     return this.kills;
   }
-  setKills(kills: number): void {
-    this.kills = +kills;
+  setKills(): void {
+    this.kills++;
   }
   getKeys(): Keys {
     return this.keys;

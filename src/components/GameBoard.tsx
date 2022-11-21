@@ -1,24 +1,24 @@
 import { gameEngine } from "../Class/GameEngine";
-import Character from "./Character";
-import Enemy from "./Enemy";
 import GameOver from "./GameStatus";
 import Bullet from "./Bullet";
 import EnemyDom from "./Enemy/index";
+import CharacterDom from "./Character";
+import { gameEvent } from "../Class/GameEventDom";
 
 const GameBoard = () => {
   return (
     <>
-      <div className="gameBoard">
-        {gameEngine.enemies.map((enemy) => {
+      <div className="gameBoard" onClick={() => gameEvent.onClick()}>
+        {gameEngine.getEnemies().map((enemy) => {
           return <EnemyDom key={enemy.id} item={enemy}></EnemyDom>;
         })}
-        <Character />
-        {gameEngine.bullets.map((bullet) => {
+        <CharacterDom item={gameEngine.getCharacter()} />
+        {gameEngine.getBullets().map((bullet) => {
           return <Bullet key={bullet.id} item={bullet}></Bullet>;
         })}
       </div>
 
-      <GameOver status={gameEngine.status} />
+      <GameOver status={gameEngine.getStatus()} />
     </>
   );
 };

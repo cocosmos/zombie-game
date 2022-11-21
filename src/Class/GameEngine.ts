@@ -4,24 +4,22 @@ import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
 import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
-import { Keys, Status } from "../types/CommunType";
+import { Status } from "../types/CommunType";
 
-import { getRandomArbitrary, getRandomFloat } from "../utils/random";
 import { GameSound } from "./GameSound";
 import { ZombieLevel1 } from "./Object/Zombies/ZombieLevel1";
-import { ZombieLevel2 } from "./Object/Zombies/ZombieLevel2";
 
 export class GameEngine {
   gameLoop: GameLoop;
   updateCallback: AnimateCallback;
   appDom!: HTMLElement;
-  domEvent: GameEventDom;
   gameSound: GameSound;
+  character: Character;
+  status: Status;
+  allDead: boolean;
   enemies: Enemy[] = [];
   bullets: Bullet[] = [];
-  character: Character = new Character();
-  status: Status = "Start";
-  allDead: boolean = false;
+
   /* dayStatus: { status: "Day" | "Night"; time: number } = {
     status: "Day",
     time: 0,
@@ -30,24 +28,25 @@ export class GameEngine {
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
     this.updateCallback = () => null;
-    this.domEvent = new GameEventDom();
     this.gameSound = new GameSound();
+    this.character = new Character();
+    this.status = "Start";
+    this.allDead = false;
   }
   init(updateCallback: AnimateCallback, appDom: HTMLElement) {
     this.appDom = appDom;
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    console.log(this.character);
+    console.log(this.gameSound);
   }
 
   play() {
     this.enemies = [];
     this.status = "Play";
-    //this.character = new Character();
+    this.character = new Character();
 
     this.makeEnemies();
-    this.gameSound.playZombies(true);
   }
   /**
    * TODO: Refactor this function
@@ -61,7 +60,14 @@ export class GameEngine {
    */
 
   makeEnemies() {
-    for (let index = 0; index < /* getRandomArbitrary(0, 20) */ 2; index++) {
+    this.gameSound.playZombies(true);
+    this.enemies = [
+      new ZombieLevel1({
+        x: 200,
+        y: 200,
+      }),
+    ];
+    /* for (let index = 0; index <  getRandomArbitrary(0, 20) ; index++) {
       this.enemies.push(
         new ZombieLevel1({
           x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
@@ -86,21 +92,20 @@ export class GameEngine {
           y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
         })
       );
-    }
+    } */
     console.log(this.character);
   }
 
-  fire(bullet: Bullet) {
-    this.character.setShoot(true);
+  fire() {
     this.gameSound.playShot();
-    this.bullets.push(bullet);
+    this.bullets.push(this.character.fire());
   }
 
   update() {
     this.updateCallback();
 
     if (this.status === "Play") {
-      this.character.moveCharacter(this.domEvent.keys);
+      this.character.moveCharacter();
     }
     this.enemies.forEach((enemy) => {
       if (enemy.checkCollision(this.character)) {
@@ -109,7 +114,7 @@ export class GameEngine {
 
       this.bullets.forEach((bullet) => {
         if (enemy.checkCollision(bullet)) {
-          this.character.setKills(this.character.kills + 1);
+          this.character.setKills();
           enemy.dead();
         }
 
@@ -117,13 +122,13 @@ export class GameEngine {
           bullet.update();
           //bullet.move();
         } else {
+          this.character.setShoot(false);
           bullet.destroy(this.bullets);
         }
       });
       //Enemy update
       if (!enemy.out) {
-        // enemy.update();
-        enemy.move(this.character.position);
+        enemy.move(this.character.getPosition());
       }
     });
     if (this.character.out) {
@@ -131,8 +136,11 @@ export class GameEngine {
       this.status = "Over";
     } else {
       if (this.status === "Play") {
+        this.character.update();
         this.allDead = this.enemies.every((e) => e.out === true);
+
         const numberDead = this.enemies.filter((enemy) => enemy.out).length;
+
         if (numberDead > 10) {
           this.enemies = this.enemies.filter(function (obj) {
             return obj.out !== true;
@@ -146,13 +154,23 @@ export class GameEngine {
         }
       }
     }
-    if (this.bullets.length === 0) {
-      this.character.setShoot(false);
-    }
   }
 
   destroy() {
     this.gameLoop.stop();
+  }
+
+  getCharacter() {
+    return this.character;
+  }
+  getEnemies() {
+    return this.enemies;
+  }
+  getBullets() {
+    return this.bullets;
+  }
+  getStatus() {
+    return this.status;
   }
 }
 

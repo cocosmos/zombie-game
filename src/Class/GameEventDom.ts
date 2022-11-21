@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+import { GiConsoleController } from "react-icons/gi";
 import { Coord, Keys, Size } from "../types/CommunType";
 import { gameEngine } from "./GameEngine";
 import { Bullet } from "./Object/Bullet";
@@ -38,23 +40,21 @@ export class GameEventDom {
     if (this.angle < 0) {
       this.angle = (this.angle + 360) % 360;
     }
+    gameEngine.character.setDegree(this.angle);
   }
 
   onClick() {
-    if (gameEngine.status === "Play") {
-      this.clicked = this.clicked + 1;
-      gameEngine.fire(
-        new Bullet(gameEngine.character.getPosition(), this.angle)
-      );
+    if (gameEngine.getStatus() === "Play") {
+      this.clicked++;
+      gameEngine.fire();
     }
-    console.log("click");
   }
+
   onKeyDown(event: any) {
     switch (event.key) {
       case "ArrowUp":
       case "w":
         this.keys.w = true;
-
         break;
       case "ArrowDown":
       case "s":
@@ -70,7 +70,7 @@ export class GameEventDom {
         break;
 
       case "Enter":
-        if (gameEngine.status !== "Play") {
+        if (gameEngine.getStatus() !== "Play") {
           this.init();
         }
         break;
@@ -78,6 +78,7 @@ export class GameEventDom {
       default:
         break;
     }
+    gameEngine.character.setKeys(this.keys);
   }
   onKeyUp(event: any) {
     switch (event.key) {
@@ -105,6 +106,7 @@ export class GameEventDom {
       default:
         break;
     }
+    gameEngine.character.setKeys(this.keys);
   }
 }
 export const gameEvent = new GameEventDom();

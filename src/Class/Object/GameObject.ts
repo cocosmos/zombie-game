@@ -2,14 +2,12 @@ import { nanoid } from "nanoid";
 import { Coord, Size } from "../../types/CommunType";
 
 export class GameObject {
+  id = nanoid();
   position: Coord = { x: 0, y: 0 };
   degree: number = 0;
   out: boolean = false;
   size: Size = { w: 0, h: 0 };
   speed: number = 0;
-  id = nanoid();
-
-  constructor() {}
 
   checkCollision(object: GameObject) {
     if (
