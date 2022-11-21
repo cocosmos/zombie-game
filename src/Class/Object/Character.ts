@@ -48,6 +48,9 @@ export class Character extends GameObject {
     return new Bullet(this.position, this.degree);
   }
 
+  addKill(): void {
+    this.kills++;
+  }
   //Getters and setters
 
   getShoot(): boolean {
@@ -59,8 +62,8 @@ export class Character extends GameObject {
   getKills(): number {
     return this.kills;
   }
-  setKills(): void {
-    this.kills++;
+  setKills(kills: number): void {
+    this.kills = kills;
   }
   getKeys(): Keys {
     return this.keys;

@@ -21,3 +21,5 @@ export type Type = { level: number; number: number };
 export type DomGameObjectProps = {
   item: GameObject;
 };
+
+export type numberEnemy = { amount: number; levelZombie: number };

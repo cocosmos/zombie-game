@@ -7,7 +7,8 @@ import { Enemy } from "./Object/Enemy";
 import { Status } from "../types/CommunType";
 
 import { GameSound } from "./GameSound";
-import { ZombieLevel1 } from "./Object/Zombies/ZombieLevel1";
+import { GameObject } from "./Object/GameObject";
+import { GameLevel } from "./GameLevel";
 
 export class GameEngine {
   gameLoop: GameLoop;
@@ -19,6 +20,7 @@ export class GameEngine {
   allDead: boolean;
   enemies: Enemy[] = [];
   bullets: Bullet[] = [];
+  gameLevel: GameLevel;
 
   /* dayStatus: { status: "Day" | "Night"; time: number } = {
     status: "Day",
@@ -32,68 +34,22 @@ export class GameEngine {
     this.character = new Character();
     this.status = "Start";
     this.allDead = false;
+    this.gameLevel = new GameLevel(1);
   }
   init(updateCallback: AnimateCallback, appDom: HTMLElement) {
     this.appDom = appDom;
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    console.log(this.gameSound);
   }
 
   play() {
     this.enemies = [];
     this.status = "Play";
     this.character = new Character();
-
-    this.makeEnemies();
-  }
-  /**
-   * TODO: Refactor this function
-   */
-  menu() {
-    console.log("menu");
-  }
-
-  /**
-   * TODO: Refactor this function
-   */
-
-  makeEnemies() {
+    this.gameLevel = new GameLevel(1);
     this.gameSound.playZombies(true);
-    this.enemies = [
-      new ZombieLevel1({
-        x: 200,
-        y: 200,
-      }),
-    ];
-    /* for (let index = 0; index <  getRandomArbitrary(0, 20) ; index++) {
-      this.enemies.push(
-        new ZombieLevel1({
-          x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
-          y: getRandomArbitrary(-100, -5),
-        }),
-        new ZombieLevel2({
-          x: getRandomArbitrary(-100, -5),
-          y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
-        }),
-        new Enemy({
-          x: getRandomArbitrary(-100, gameEvent.gameSize.w + 100),
-          y: getRandomArbitrary(
-            gameEvent.gameSize.h,
-            gameEvent.gameSize.h + 100
-          ),
-        }),
-        new Enemy({
-          x: getRandomArbitrary(
-            gameEvent.gameSize.w,
-            gameEvent.gameSize.w + 100
-          ),
-          y: getRandomArbitrary(-100, gameEvent.gameSize.h + 100),
-        })
-      );
-    } */
-    console.log(this.character);
+    this.enemies = this.gameLevel.getEnemies();
   }
 
   fire() {
@@ -102,30 +58,35 @@ export class GameEngine {
   }
 
   update() {
+    let bulletsAlives: GameObject[] = [];
     this.updateCallback();
 
     if (this.status === "Play") {
       this.character.moveCharacter();
     }
+    //Bullets
+    this.bullets.forEach((bullet) => {
+      bullet.update();
+      if (!bullet.getOut()) {
+        bulletsAlives.push(bullet);
+      }
+    });
     this.enemies.forEach((enemy) => {
       if (enemy.checkCollision(this.character)) {
         this.character.dead();
       }
-
-      this.bullets.forEach((bullet) => {
+      //needed a new array to avoid the error of the array changing during the loop
+      bulletsAlives.forEach((bullet) => {
         if (enemy.checkCollision(bullet)) {
-          this.character.setKills();
           enemy.dead();
-        }
-
-        if (!bullet.out) {
-          bullet.update();
-          //bullet.move();
-        } else {
-          this.character.setShoot(false);
-          bullet.destroy(this.bullets);
+          bullet.destroy(bulletsAlives);
+          this.character.addKill();
         }
       });
+      if (bulletsAlives.length === 0) {
+        this.bullets = [];
+        this.character.setShoot(false);
+      }
       //Enemy update
       if (!enemy.out) {
         enemy.move(this.character.getPosition());
@@ -149,8 +110,16 @@ export class GameEngine {
         }
 
         if (this.allDead) {
-          this.gameSound.playZombies(false);
-          this.status = "Win";
+          const maxLevel = 5;
+
+          if (this.gameLevel.getLevel() === maxLevel) {
+            this.status = "Win";
+            this.gameSound.playZombies(false);
+          } else {
+            this.gameLevel.nextLevel();
+            this.enemies = this.gameLevel.getEnemies();
+            this.gameSound.playZombies(true);
+          }
         }
       }
     }
