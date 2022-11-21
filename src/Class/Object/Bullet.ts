@@ -11,7 +11,6 @@ export class Bullet extends GameObject {
     this.degree = degree;
     this.radian = degreeToRadian(degree);
     this.size = { w: 5, h: 5 };
-    this.velocity = 10;
     this.position = position;
   }
 

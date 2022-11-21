@@ -44,22 +44,16 @@ export class GameEngine {
   play() {
     this.enemies = [];
     this.status = "Play";
-    this.character = new Character();
+    //this.character = new Character();
 
     this.makeEnemies();
-    //  this.gameSound.playZombies(true);
+    this.gameSound.playZombies(true);
   }
   /**
    * TODO: Refactor this function
    */
   menu() {
     console.log("menu");
-  }
-  /**
-   * TODO: Refactor this function
-   */
-  wawe() {
-    console.log("wawe");
   }
 
   /**
@@ -97,7 +91,7 @@ export class GameEngine {
   }
 
   fire(bullet: Bullet) {
-    this.character.isShooting(true);
+    this.character.setShoot(true);
     this.gameSound.playShot();
     this.bullets.push(bullet);
   }
@@ -115,7 +109,7 @@ export class GameEngine {
 
       this.bullets.forEach((bullet) => {
         if (enemy.checkCollision(bullet)) {
-          this.character.increaseKills();
+          this.character.setKills(this.character.kills + 1);
           enemy.dead();
         }
 
@@ -132,7 +126,7 @@ export class GameEngine {
         enemy.move(this.character.position);
       }
     });
-    /* if (this.character.out) {
+    if (this.character.out) {
       this.gameSound.playZombies(false);
       this.status = "Over";
     } else {
@@ -151,9 +145,9 @@ export class GameEngine {
           this.status = "Win";
         }
       }
-    }*/
+    }
     if (this.bullets.length === 0) {
-      this.character.isShooting(false);
+      this.character.setShoot(false);
     }
   }
 

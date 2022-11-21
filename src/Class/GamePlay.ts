@@ -6,16 +6,6 @@ export class GamePlay {
     console.log("play");
   }
 
-  //function to pause the game
-  pause() {
-    console.log("pause");
-  }
-
-  //function to resume the game
-  resume() {
-    console.log("resume");
-  }
-
   //function to restart the game
   restart() {
     console.log("restart");

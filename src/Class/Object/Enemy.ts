@@ -19,4 +19,24 @@ export class Enemy extends GameObject {
     this.position.x = this.position.x - this.speed * Math.cos(radian);
     this.position.y = this.position.y - this.speed * Math.sin(radian);
   }
+
+  getHealth(): number {
+    return this.health;
+  }
+
+  setHealth(health: number): void {
+    this.health = health;
+  }
+
+  getDamage(): number {
+    return this.damage;
+  }
+
+  setDamage(damage: number): void {
+    this.damage = damage;
+  }
+
+  getLevel(): number {
+    return this.level;
+  }
 }

@@ -6,6 +6,8 @@ import { GameObject } from "./GameObject";
 export class Character extends GameObject {
   shoot: boolean;
   kills: number;
+  keys: Keys = { w: false, a: false, s: false, d: false };
+
   constructor() {
     super();
     this.position = {
@@ -18,13 +20,6 @@ export class Character extends GameObject {
     this.speed = 5;
   }
 
-  getPosition(): Coord {
-    return this.position;
-  }
-
-  setPosition(position: Coord): void {
-    this.position = position;
-  }
   moveCharacter(keys: Keys) {
     this.keys = keys;
     if (keys.w) {
@@ -40,17 +35,33 @@ export class Character extends GameObject {
       this.position.x += this.speed;
     }
   }
-  increaseKills() {
-    this.kills++;
-  }
   resetKills() {
     this.kills = 0;
   }
-  isShooting(shoot: boolean) {
-    this.shoot = shoot;
-  }
+
   fire() {
     console.log("fire");
     return new Bullet(this.position, this.degree);
+  }
+
+  //Getters and setters
+
+  getShoot(): boolean {
+    return this.shoot;
+  }
+  setShoot(shoot: boolean): void {
+    this.shoot = shoot;
+  }
+  getKills(): number {
+    return this.kills;
+  }
+  setKills(kills: number): void {
+    this.kills = +kills;
+  }
+  getKeys(): Keys {
+    return this.keys;
+  }
+  setKeys(keys: Keys): void {
+    this.keys = keys;
   }
 }
