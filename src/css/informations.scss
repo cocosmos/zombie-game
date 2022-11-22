@@ -1,0 +1,25 @@
+.gameInformations {
+  display: "flex";
+  justify-content: "space-evenly";
+  flex-direction: "column";
+  position: "absolute";
+  left: 0;
+  top: 0;
+  z-index: 2;
+  &__level {
+    display: "flex";
+    justify-content: "space-between";
+    align-items: "center";
+    margin: 0 0 10px 0;
+    &__text {
+      font-size: 20px;
+      color: #fff;
+      font-weight: 700;
+    }
+    &__number {
+      font-size: 20px;
+      color: #fff;
+      font-weight: 700;
+    }
+  }
+}

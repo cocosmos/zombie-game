@@ -13,17 +13,7 @@ const GameInformations: FunctionComponent<GameInformationsProps> = ({
   frame,
 }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-evenly",
-        flexDirection: "column",
-        position: "absolute",
-        left: 0,
-        top: 0,
-        zIndex: 2,
-      }}
-    >
+    <div className="gameInformations">
       <Profile />
       <span>frame: {frame}</span>
 
@@ -31,6 +21,9 @@ const GameInformations: FunctionComponent<GameInformationsProps> = ({
       <span>x:{gameEvent.cursor.x}</span>
       <span>angle: {gameEvent.angle}</span>
       <span>clicked: {gameEvent.clicked}</span>
+      <div className="gameInformations__level">
+        {gameEngine.gameLevel.getLevel()}
+      </div>
     </div>
   );
 };
