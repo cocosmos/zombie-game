@@ -8,6 +8,7 @@ export class Character extends GameObject {
   shoot: boolean;
   kills: number;
   keys: Keys = { w: false, a: false, s: false, d: false };
+  battery: number;
 
   constructor() {
     super();
@@ -19,23 +20,25 @@ export class Character extends GameObject {
     this.shoot = false;
     this.kills = 0;
     this.speed = 5;
+    this.battery = 100;
   }
 
-  update = () => {
-    this.out = checkOutOfScreen(this.position, gameEvent.gameSize);
-  };
-
   moveCharacter() {
-    if (this.keys.w) {
+    const { top, bottom, left, right } = checkOutOfScreen(
+      this.position,
+      gameEvent.gameSize,
+      this.size
+    );
+    if (this.keys.w && !top) {
       this.position.y -= this.speed;
     }
-    if (this.keys.s) {
+    if (this.keys.s && !bottom) {
       this.position.y += this.speed;
     }
-    if (this.keys.a) {
+    if (this.keys.a && !left) {
       this.position.x -= this.speed;
     }
-    if (this.keys.d) {
+    if (this.keys.d && !right) {
       this.position.x += this.speed;
     }
   }
@@ -70,5 +73,11 @@ export class Character extends GameObject {
   }
   setKeys(keys: Keys): void {
     this.keys = keys;
+  }
+  getBattery(): number {
+    return this.battery;
+  }
+  setBattery(battery: number): void {
+    this.battery = battery;
   }
 }

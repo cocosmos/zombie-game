@@ -1,14 +1,20 @@
 import { gameEngine } from "../Class/GameEngine";
-import GameOver from "./GameStatus";
+import GameStatus from "./GameStatus";
 import Bullet from "./Bullet";
 import EnemyDom from "./Enemy/index";
 import CharacterDom from "./Character";
 import { gameEvent } from "../Class/GameEventDom";
+import GameInformations from "./GameInformations";
 
 const GameBoard = () => {
+  const { status } = gameEngine.getDayStatus();
   return (
     <>
-      <div className="gameBoard" onClick={() => gameEvent.onClick()}>
+      <GameInformations frame={0} />
+      <div
+        className={`gameBoard  ${status === "Night" ? "night" : "day"}`}
+        onClick={() => gameEvent.onClick()}
+      >
         {gameEngine.getEnemies().map((enemy) => {
           return <EnemyDom key={enemy.id} item={enemy}></EnemyDom>;
         })}
@@ -18,7 +24,7 @@ const GameBoard = () => {
         })}
       </div>
 
-      <GameOver status={gameEngine.getStatus()} />
+      <GameStatus status={gameEngine.getStatus()} />
     </>
   );
 };

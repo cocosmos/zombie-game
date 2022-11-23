@@ -1,5 +1,5 @@
 import { GameObject } from "../Class/Object/GameObject";
-import { Coord, Keys, Size } from "../types/CommunType";
+import { Coord, Keys, Size, Clock, ClockStatus } from "../types/CommunType";
 
 /**
  * Calculate the angle between two points
@@ -50,44 +50,66 @@ export const move = (
   return coordFinish;
 };
 
-export const checkOutOfScreen = (position: Coord, gameSize: Size) => {
-  if (
-    position.x > gameSize.w ||
-    position.y > gameSize.h ||
-    position.x < -5 ||
-    position.y < -5
-  ) {
-    return true;
-  } else {
-    return false;
+export const checkOutOfScreen = (
+  position: Coord,
+  gameSize: Size,
+  size: Size
+) => {
+  let out = {
+    top: false,
+    bottom: false,
+    left: false,
+    right: false,
+    isOut: false,
+  };
+  if (position.y < 0 + size.h) {
+    out.top = true;
+    out.isOut = true;
   }
+  if (position.y > gameSize.h - size.h) {
+    out.bottom = true;
+    out.isOut = true;
+  }
+  if (position.x < 0 + size.w) {
+    out.left = true;
+    out.isOut = true;
+  }
+  if (position.x > gameSize.w - size.w) {
+    out.right = true;
+    out.isOut = true;
+  }
+  return out;
 };
 
-/**
- * TODO
- * @returns
- */
-export function currentTime() {
-  let date = new Date();
-  let hh = date.getHours();
-  let mm = date.getMinutes();
-  let ss = date.getSeconds();
-  let session = "AM";
+//28800 8h
 
-  if (hh > 12) {
-    session = "PM";
+// 23h in seconds 82800
+export const virtualClock = (time: number) => {
+  let oneday = 82800;
+  let status: ClockStatus = "Night";
+
+  let hour = Math.floor(time / 3500);
+  let minutes = Math.floor((time - hour * 3500) / 60);
+  if (time > oneday) {
+    hour = hour % 24;
+  }
+  if (hour >= 8 && hour < 20) {
+    status = "Day";
+  } else {
+    status = "Night";
   }
 
-  hh = hh < 10 ? 0 + hh : hh;
-  mm = mm < 10 ? 0 + mm : mm;
-  ss = ss < 10 ? 0 + ss : ss;
+  let hourStr = hour < 10 ? "0" + hour : hour;
+  let minutesStr = minutes < 10 ? "0" + minutes : minutes;
+  const timeStr = hourStr + "h" + minutesStr;
 
-  let time = hh + ":" + mm + ":" + ss + " " + session;
+  const timeObj: Clock = {
+    timeStr: timeStr,
+    status: status,
+    hours: hour,
+    minutes: minutes,
+    days: Math.floor(time / oneday),
+  };
 
-  var t = setTimeout(function () {
-    currentTime();
-  }, 1000);
-  return time;
-}
-
-currentTime();
+  return timeObj;
+};

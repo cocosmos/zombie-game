@@ -9,7 +9,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Zombie";
-  background-color: rgb(0, 0, 0);
+  background-image: url("../assets/interface/background2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .App {
@@ -30,6 +32,14 @@ body {
 
   // animation: dayAndNight 60s infinite;
 }
+.night {
+  animation: night 5s ease-in;
+  filter: $night;
+}
+.day {
+  animation: day 5s ease-in;
+  filter: $day;
+}
 
 .gameObject {
   position: absolute;
@@ -47,4 +57,20 @@ body {
 .small {
   width: 150px;
   height: 150px;
+}
+
+.rezize {
+  height: 100vh;
+  margin: 1%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  color: $red;
+  h2 {
+    font-size: 3rem;
+    line-height: normal;
+  }
 }

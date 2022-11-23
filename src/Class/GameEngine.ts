@@ -1,14 +1,13 @@
-import { currentTime } from "../utils/helper";
-import { gameEvent, GameEventDom } from "./GameEventDom";
 import { AnimateCallback, GameLoop } from "./GameLoop";
 import { Bullet } from "./Object/Bullet";
 import { Character } from "./Object/Character";
 import { Enemy } from "./Object/Enemy";
-import { Status } from "../types/CommunType";
+import { Clock, Status } from "../types/CommunType";
 
 import { GameSound } from "./GameSound";
 import { GameObject } from "./Object/GameObject";
 import { GameLevel } from "./GameLevel";
+import { virtualClock } from "../utils/helper";
 
 export class GameEngine {
   gameLoop: GameLoop;
@@ -21,11 +20,16 @@ export class GameEngine {
   enemies: Enemy[] = [];
   bullets: Bullet[] = [];
   gameLevel: GameLevel;
+  isPaused: boolean;
+  time: number;
 
-  /* dayStatus: { status: "Day" | "Night"; time: number } = {
+  dayStatus: Clock = {
     status: "Day",
-    time: 0,
-  }; */
+    timeStr: "19h00",
+    hours: 0,
+    minutes: 0,
+    days: 0,
+  };
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -35,6 +39,11 @@ export class GameEngine {
     this.status = "Start";
     this.allDead = false;
     this.gameLevel = new GameLevel(1);
+    this.isPaused = false;
+    this.time = 72000;
+
+    //8h in seconds 28800
+    //20h in seconds 72000
   }
   init(updateCallback: AnimateCallback, appDom: HTMLElement) {
     this.appDom = appDom;
@@ -52,9 +61,39 @@ export class GameEngine {
     this.enemies = this.gameLevel.getEnemies();
   }
 
+  pause() {
+    this.isPaused = true;
+    this.gameSound.playZombies(false);
+  }
+
+  resume() {
+    this.isPaused = false;
+    this.status = "Play";
+    if (this.allDead) {
+      this.enemies = this.gameLevel.getEnemies();
+      this.gameSound.playZombies(true);
+    }
+  }
+
   fire() {
     this.gameSound.playShot();
     this.bullets.push(this.character.fire());
+  }
+
+  manageClock() {
+    this.time = this.time + 20;
+    this.dayStatus = virtualClock(this.time);
+    if (this.dayStatus.days === 0) {
+      this.character.setBattery(100);
+    } else if (this.dayStatus.days === 1) {
+      this.character.setBattery(75);
+    } else if (this.dayStatus.days === 2) {
+      this.character.setBattery(50);
+    } else if (this.dayStatus.days === 3) {
+      this.character.setBattery(25);
+    } else {
+      this.character.setBattery(0);
+    }
   }
 
   update() {
@@ -63,41 +102,40 @@ export class GameEngine {
 
     if (this.status === "Play") {
       this.character.moveCharacter();
-    }
-    //Bullets
-    this.bullets.forEach((bullet) => {
-      bullet.update();
-      if (!bullet.getOut()) {
-        bulletsAlives.push(bullet);
-      }
-    });
-    this.enemies.forEach((enemy) => {
-      if (enemy.checkCollision(this.character)) {
-        this.character.dead();
-      }
-      //needed a new array to avoid the error of the array changing during the loop
-      bulletsAlives.forEach((bullet) => {
-        if (enemy.checkCollision(bullet)) {
-          enemy.dead();
-          bullet.destroy(bulletsAlives);
-          this.character.addKill();
+      this.manageClock();
+
+      //Bullets
+      this.bullets.forEach((bullet) => {
+        bullet.update();
+        if (!bullet.getOut()) {
+          bulletsAlives.push(bullet);
         }
       });
-      if (bulletsAlives.length === 0) {
-        this.bullets = [];
-        this.character.setShoot(false);
-      }
-      //Enemy update
-      if (!enemy.out) {
-        enemy.move(this.character.getPosition());
-      }
-    });
-    if (this.character.out) {
-      this.gameSound.playZombies(false);
-      this.status = "Over";
-    } else {
-      if (this.status === "Play") {
-        this.character.update();
+      this.enemies.forEach((enemy) => {
+        if (enemy.checkCollision(this.character)) {
+          this.character.dead();
+        }
+        //needed a new array to avoid the error of the array changing during the loop
+        bulletsAlives.forEach((bullet) => {
+          if (enemy.checkCollision(bullet)) {
+            enemy.dead();
+            bullet.destroy(bulletsAlives);
+            this.character.addKill();
+          }
+        });
+        if (bulletsAlives.length === 0) {
+          this.bullets = [];
+          this.character.setShoot(false);
+        }
+        //Enemy update
+        if (!enemy.out) {
+          enemy.move(this.character.getPosition());
+        }
+      });
+      if (this.character.out) {
+        this.gameSound.playZombies(false);
+        this.status = "Over";
+      } else {
         this.allDead = this.enemies.every((e) => e.out === true);
 
         const numberDead = this.enemies.filter((enemy) => enemy.out).length;
@@ -114,11 +152,11 @@ export class GameEngine {
 
           if (this.gameLevel.getLevel() === maxLevel) {
             this.status = "Win";
-            this.gameSound.playZombies(false);
+            this.pause();
           } else {
+            this.pause();
+            this.status = "LevelUp";
             this.gameLevel.nextLevel();
-            this.enemies = this.gameLevel.getEnemies();
-            this.gameSound.playZombies(true);
           }
         }
       }
@@ -140,6 +178,20 @@ export class GameEngine {
   }
   getStatus() {
     return this.status;
+  }
+  getIsPaused() {
+    return this.isPaused;
+  }
+  setIsPaused(isPaused: boolean) {
+    this.isPaused = isPaused;
+  }
+
+  getDayStatus() {
+    return this.dayStatus;
+  }
+
+  setDayStatus(dayStatus: Clock) {
+    this.dayStatus = dayStatus;
   }
 }
 

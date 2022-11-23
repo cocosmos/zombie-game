@@ -144,14 +144,43 @@
   }
 }
 
-@keyframes dayAndNight {
+@keyframes night {
   0% {
     filter: $day;
   }
-  50% {
+  100% {
+    filter: $night;
+  }
+}
+
+@keyframes day {
+  0% {
     filter: $night;
   }
   100% {
     filter: $day;
+  }
+}
+
+@keyframes appearLevel {
+  0% {
+    opacity: 0;
+    transform: rotate(-540deg) scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+@keyframes arrow {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-50px);
   }
 }
