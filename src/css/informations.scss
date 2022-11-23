@@ -1,25 +1,70 @@
-.gameInformations {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
+.info {
   position: absolute;
+  z-index: 2;
+}
+
+.info-profile {
   left: 0;
   top: 0;
-  z-index: 2;
-  &__level {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 10px 0;
-    &__text {
-      font-size: 20px;
-      color: #fff;
-      font-weight: 700;
+}
+
+.info-level {
+  right: 10px;
+  top: 20px;
+}
+
+.info-clock {
+  left: 20px;
+  bottom: 20px;
+}
+
+.level {
+  background-image: url("../assets/interface/fortext.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 80px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__text {
+    font-size: 60px;
+    color: $white;
+    text-shadow: 0 0 10px $black;
+  }
+}
+
+.clock {
+  background-image: url("../assets/interface/box2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 150px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 45px;
+
+  &__battery {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    transform: rotate(90deg);
+    font-size: 20px;
+    &-dead {
+      transform: rotate(90deg);
     }
-    &__number {
-      font-size: 20px;
-      color: #fff;
-      font-weight: 700;
-    }
+  }
+  &__luck {
+    font-size: 35px;
+  }
+  &__battery &__text {
+    color: $white;
+    text-shadow: 0 0 10px $black;
+  }
+  &__days {
+    font-size: 20px;
   }
 }

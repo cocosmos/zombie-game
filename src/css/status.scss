@@ -1,3 +1,19 @@
+.bounceIn {
+  animation: bounceIn 1s ease 0s 1 normal forwards;
+  background-color: $darkred;
+  box-shadow: $redshadow;
+  border: 1px solid $red;
+  color: $red;
+}
+
+.appearLevel {
+  animation: appearLevel 1s ease 0s 1 normal forwards;
+  background-color: $darkgreen;
+  box-shadow: $greenshadow;
+  border: 1px solid $green;
+  color: $green;
+}
+
 .game__status {
   width: 100.1%;
   height: 100.1%;
@@ -25,20 +41,33 @@
     width: 100%;
     &__box {
       min-width: 300px;
-      border: 1px solid $red;
-      background-color: rgba(128, 0, 0, 0.322);
       border-radius: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: rgba(255, 5, 5, 0.56) 0px 22px 200px 4px;
       padding: 10px;
-      animation: bounceIn 1s ease 0s 1 normal forwards;
 
       h2 {
         font-size: 5em;
         margin-bottom: 0.5em;
+      }
+      &__levelup {
+        font-size: 1.5em;
+        margin-top: 0.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        img {
+          width: 2.5em;
+          animation: arrow 0.8s ease-in-out 0s infinite normal forwards;
+        }
+      }
+      button {
+        margin: 40px 0;
       }
     }
     &__character {

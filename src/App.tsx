@@ -14,6 +14,7 @@ import "./css/styles.scss";
 function App() {
   /*Frame and gameEngine*/
   const [frame, setframe] = useState(0);
+  const [showGame, setShowGame] = useState(false);
   const appDom = useRef<any>(null);
   const unUpdate = useCallback(() => {
     setframe((frame) => frame + 1);
@@ -37,7 +38,13 @@ function App() {
   useEffect(() => {
     function updateSize() {
       gameEvent.onRezise({ w: window.innerWidth, h: window.innerHeight });
+      if (window.innerWidth > 900) {
+        setShowGame(true);
+      } else {
+        setShowGame(false);
+      }
     }
+
     window.addEventListener("resize", updateSize);
 
     updateSize();
@@ -46,19 +53,23 @@ function App() {
   }, []);
 
   return (
-    <>
-      <GameInformations frame={frame} />
-      <div
-        className="App"
-        onMouseMove={(event) => gameEvent.mouseMove(event)}
-        onKeyDown={(event) => gameEvent.onKeyDown(event)}
-        onKeyUp={(event) => gameEvent.onKeyUp(event)}
-        ref={appDom}
-        tabIndex={-1}
-      >
+    <div
+      className="App"
+      onMouseMove={(event) => gameEvent.mouseMove(event)}
+      onKeyDown={(event) => gameEvent.onKeyDown(event)}
+      onKeyUp={(event) => gameEvent.onKeyUp(event)}
+      ref={appDom}
+      tabIndex={-1}
+    >
+      {showGame ? (
         <GameBoard />
-      </div>
-    </>
+      ) : (
+        <div className="rezize">
+          <h1>Resize your window !</h1>
+          <h2>Not available for mobile yet...</h2>
+        </div>
+      )}
+    </div>
   );
 }
 

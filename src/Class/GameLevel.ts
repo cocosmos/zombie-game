@@ -50,7 +50,6 @@ export class GameLevel {
   nextLevel() {
     this.level++;
     this.cleanEnemies();
-    this.makeLevel();
   }
 
   getEnemies() {

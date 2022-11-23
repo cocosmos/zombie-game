@@ -11,15 +11,20 @@ import {
 import { BsFillMouse2Fill } from "react-icons/bs";
 import Profile from "./Character/Profile";
 import { gameEvent } from "../Class/GameEventDom";
+import arrow from "../assets/interface/arrowgreen.png";
+import Level from "./Character/Level";
 type GameStatusProps = {
   status: Status;
 };
 
 const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
   const information = informations.find((info) => info.status === status);
+
+  const isLevelUp = status === "LevelUp";
+
   if (status === "Play") return null;
   return (
-    <div className="game__status">
+    <div className={`game__status `}>
       <div className="game__status__title">
         <h1>Survive one more day !</h1>
       </div>
@@ -27,16 +32,44 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
         <div className="game__status__principal__character">
           <Profile />
         </div>
-        <div className="game__status__principal__box">
-          <h2>{information?.title}</h2>
-          <button
-            onClick={() => {
-              gameEvent.init();
-              gameEngine.appDom.focus();
-            }}
-          >
-            {information?.button}
-          </button>
+        <div
+          className={`game__status__principal__box ${
+            isLevelUp || status === "Win" ? "appearLevel" : "bounceIn"
+          }`}
+        >
+          {isLevelUp ? (
+            <>
+              <div className="game__status__principal__box__levelup">
+                <h2>{information?.title}</h2>
+                {isLevelUp ? (
+                  <img src={arrow} alt="green arrow" className="arrowup" />
+                ) : null}
+                <Level />
+              </div>
+              <button
+                onClick={() => {
+                  gameEngine.resume();
+                  gameEngine.appDom.focus();
+                }}
+              >
+                {information?.button}
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="game__status__principal__box__title">
+                <h2>{information?.title}</h2>
+              </div>
+              <button
+                onClick={() => {
+                  gameEvent.init();
+                  gameEngine.appDom.focus();
+                }}
+              >
+                {information?.button}
+              </button>
+            </>
+          )}
         </div>
         <div className="game__status__principal__zombie">
           <img src={zombie} alt="character" />
@@ -75,7 +108,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
             </div>
           </>
         ) : (
-          <p>Try again if you dare...</p>
+          <p>{information?.text}</p>
         )}
       </div>
     </div>
@@ -87,16 +120,25 @@ const informations = [
     status: "Start",
     title: "Please Start",
     button: "Play",
+    text: "",
   },
   {
     status: "Over",
     title: "Game Over !",
     button: "Play again",
+    text: "Try again if you dare...",
   },
   {
     status: "Win",
     title: "You win !!!",
     button: "Play again",
+    text: "Try again if you dare...",
+  },
+  {
+    status: "LevelUp",
+    title: "Level Up !",
+    button: "Continue",
+    text: "Well done you have survived one more day but how many more before you died?",
   },
 ];
 

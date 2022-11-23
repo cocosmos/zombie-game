@@ -16,7 +16,11 @@ export class Bullet extends GameObject {
 
   //function to go increment until the trajectory is done
   update() {
-    this.out = checkOutOfScreen(this.position, gameEvent.gameSize);
+    this.out = checkOutOfScreen(
+      this.position,
+      gameEvent.gameSize,
+      this.size
+    ).isOut;
 
     this.position = move(this.position, this.#radian, this.speed);
   }
