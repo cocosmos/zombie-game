@@ -1,38 +1,52 @@
-import { numberEnemy } from "../types/CommunType";
+import { ClockStatus, numberEnemy } from "../types/CommunType";
 import { Enemy } from "./Object/Enemy";
+import { getRandomFloat } from "../utils/random";
 export class GameLevel {
   level: number;
   enemies: Enemy[];
-  status: "Play" | "Win" | "Over";
   constructor(level: number) {
     this.level = level;
     this.enemies = [];
-    this.status = "Play";
   }
-  makeLevel() {
-    switch (this.level) {
-      case 1:
-        this.setEnemies([{ amount: 5, levelZombie: 1 }]);
-        break;
-      case 2:
-        this.setEnemies([
-          { amount: 10, levelZombie: 1 },
-          { amount: 3, levelZombie: 2 },
-        ]);
-        break;
-      case 3:
-        this.setEnemies([{ amount: 3, levelZombie: 1 }]);
-        break;
-      case 4:
-        this.setEnemies([{ amount: 4, levelZombie: 1 }]);
-        break;
-      case 5:
-        this.setEnemies([{ amount: 5, levelZombie: 1 }]);
-        break;
-      default:
-        this.setEnemies([{ amount: 5, levelZombie: 1 }]);
-        break;
+  makeLevel(dayOrNight: ClockStatus) {
+    const enemiesToMake: numberEnemy[] = [];
+    let coeficientMultiplier = 1;
+    if (dayOrNight === "Night") {
+      coeficientMultiplier = 2;
     }
+
+    for (let index = 1; index <= this.level; index++) {
+      let amount = 1;
+
+      switch (index) {
+        case 1:
+          amount = getRandomFloat(5, 6 * coeficientMultiplier, 0);
+          break;
+        case 2:
+          amount = getRandomFloat(1, 3 * coeficientMultiplier, 0);
+          break;
+        case 3:
+          amount = getRandomFloat(1, 4, 0);
+          break;
+        case 4:
+          amount = getRandomFloat(1, 3, 0);
+          break;
+        case 5:
+          amount = 1;
+          break;
+        default:
+          amount = 5;
+          break;
+      }
+
+      enemiesToMake.push({
+        amount: amount,
+        levelZombie: index,
+      });
+    }
+
+    console.log(enemiesToMake);
+    this.setEnemies(enemiesToMake);
   }
 
   cleanEnemies() {
@@ -52,8 +66,8 @@ export class GameLevel {
     this.cleanEnemies();
   }
 
-  getEnemies() {
-    this.makeLevel(); //make the enemies for the level
+  getEnemies(dayOrNight: ClockStatus) {
+    this.makeLevel(dayOrNight); //make the enemies for the level
     return this.enemies;
   }
 
@@ -63,12 +77,5 @@ export class GameLevel {
 
   setLevel(level: number) {
     this.level = level;
-  }
-
-  getStatus() {
-    return this.status;
-  }
-  setStatus(status: "Play" | "Win" | "Over") {
-    this.status = status;
   }
 }
