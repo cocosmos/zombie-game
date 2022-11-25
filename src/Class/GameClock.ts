@@ -1,6 +1,6 @@
-import { ClockStatus } from "../../types/CommunType";
+import { ClockStatus } from "../types/CommunType";
 
-export class Clock {
+export class GameClock {
   status: ClockStatus;
   timeStr: string;
   hours: number;

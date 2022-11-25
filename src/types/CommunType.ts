@@ -24,12 +24,4 @@ export type DomGameObjectProps = {
 
 export type numberEnemy = { amount: number; levelZombie: number };
 
-export type Clock = {
-  status: ClockStatus;
-  timeStr: string;
-  hours: number;
-  minutes: number;
-  days: number;
-};
-
 export type ClockStatus = "Day" | "Night";

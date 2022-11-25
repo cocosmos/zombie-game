@@ -7,7 +7,7 @@ import { Status } from "../types/CommunType";
 import { GameSound } from "./GameSound";
 import { GameObject } from "./Object/GameObject";
 import { GameLevel } from "./GameLevel";
-import { Clock } from "./Object/Clock";
+import { GameClock } from "./GameClock";
 
 export class GameEngine {
   gameLoop: GameLoop;
@@ -20,7 +20,7 @@ export class GameEngine {
   enemies: Enemy[] = [];
   bullets: Bullet[] = [];
   gameLevel: GameLevel;
-  clock: Clock;
+  clock: GameClock;
 
   constructor() {
     this.gameLoop = new GameLoop(this.update.bind(this));
@@ -30,7 +30,7 @@ export class GameEngine {
     this.status = "Start";
     this.allDead = false;
     this.gameLevel = new GameLevel(1);
-    this.clock = new Clock(28800);
+    this.clock = new GameClock(28800);
   }
   init(updateCallback: AnimateCallback, appDom: HTMLElement) {
     this.appDom = appDom;
@@ -44,7 +44,7 @@ export class GameEngine {
     this.status = "Play";
     this.character = new Character();
     this.gameLevel = new GameLevel(1);
-    this.clock = new Clock(28800);
+    this.clock = new GameClock(28800);
     this.gameSound.playZombies(true);
     this.enemies = this.gameLevel.getEnemies(this.clock.getStatus());
   }
@@ -173,7 +173,7 @@ export class GameEngine {
     return this.clock;
   }
 
-  setClock(clock: Clock) {
+  setClock(clock: GameClock) {
     this.clock = clock;
   }
 }
