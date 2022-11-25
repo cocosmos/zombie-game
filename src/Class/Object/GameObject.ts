@@ -6,7 +6,7 @@ export class GameObject {
   position: Coord = { x: 0, y: 0 };
   degree: number = 0;
   out: boolean = false;
-  size: Size = { w: 0, h: 0 };
+  size: Size = { w: 50, h: 50 };
   speed: number = 0;
 
   checkCollision(object: GameObject) {

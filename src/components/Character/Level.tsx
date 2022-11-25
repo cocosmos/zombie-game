@@ -4,8 +4,10 @@ import { gameEngine } from "../../Class/GameEngine";
 const Level = () => {
   return (
     <div className="level">
-      <GiMedalSkull />
       <p className="level__text">Level: {gameEngine.gameLevel.getLevel()}</p>
+      <span className="level__icon">
+        <GiMedalSkull color="white" />
+      </span>
     </div>
   );
 };

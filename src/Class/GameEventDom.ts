@@ -1,8 +1,5 @@
-import { MouseEvent } from "react";
-import { GiConsoleController } from "react-icons/gi";
 import { Coord, Keys, Size } from "../types/CommunType";
 import { gameEngine } from "./GameEngine";
-import { Bullet } from "./Object/Bullet";
 export class GameEventDom {
   cursor: Coord = { x: 0, y: 0 };
   angle: number = 0;

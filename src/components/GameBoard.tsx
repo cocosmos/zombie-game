@@ -7,10 +7,10 @@ import { gameEvent } from "../Class/GameEventDom";
 import GameInformations from "./GameInformations";
 
 const GameBoard = () => {
-  const { status } = gameEngine.getDayStatus();
+  const { status } = gameEngine.getClock();
   return (
     <>
-      <GameInformations frame={0} />
+      <GameInformations />
       <div
         className={`gameBoard  ${status === "Night" ? "night" : "day"}`}
         onClick={() => gameEvent.onClick()}

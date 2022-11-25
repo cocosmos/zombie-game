@@ -9,8 +9,10 @@ import {
 } from "react-icons/gi";
 import { gameEngine } from "../Class/GameEngine";
 const Clock = () => {
-  const time = gameEngine.getDayStatus();
+  const time = gameEngine.getClock();
   const battery = gameEngine.character.getBattery();
+
+  const days = time.getDays();
 
   const Battery = () => {
     switch (battery) {
@@ -45,9 +47,11 @@ const Clock = () => {
             {time.status === "Day" ? <GiSun /> : <GiNightSleep />}
           </div>
           <div className="clock__text">
-            <p>{time.timeStr}</p>
+            <p>{time.getTimeStr()}</p>
           </div>
-          <span className="clock__days">{time.days} days survived</span>
+          <span className="clock__days">
+            {days} {days <= 1 ? "Day" : "Days"} survived
+          </span>
         </>
       )}{" "}
     </div>

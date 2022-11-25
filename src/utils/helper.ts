@@ -80,36 +80,3 @@ export const checkOutOfScreen = (
   }
   return out;
 };
-
-//28800 8h
-
-// 23h in seconds 82800
-export const virtualClock = (time: number) => {
-  let oneday = 82800;
-  let status: ClockStatus = "Night";
-
-  let hour = Math.floor(time / 3500);
-  let minutes = Math.floor((time - hour * 3500) / 60);
-  if (time > oneday) {
-    hour = hour % 24;
-  }
-  if (hour >= 8 && hour < 20) {
-    status = "Day";
-  } else {
-    status = "Night";
-  }
-
-  let hourStr = hour < 10 ? "0" + hour : hour;
-  let minutesStr = minutes < 10 ? "0" + minutes : minutes;
-  const timeStr = hourStr + "h" + minutesStr;
-
-  const timeObj: Clock = {
-    timeStr: timeStr,
-    status: status,
-    hours: hour,
-    minutes: minutes,
-    days: Math.floor(time / oneday),
-  };
-
-  return timeObj;
-};

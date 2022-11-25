@@ -78,6 +78,24 @@ export class Character extends GameObject {
     return this.battery;
   }
   setBattery(battery: number): void {
-    this.battery = battery;
+    switch (battery) {
+      case 0:
+        this.battery = 100;
+        break;
+      case 1:
+        this.battery = 75;
+        break;
+      case 2:
+        this.battery = 50;
+        break;
+      case 3:
+        this.battery = 25;
+        break;
+      case 4:
+        this.battery = 0;
+        break;
+      default:
+        this.battery = battery;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import man from "../../assets/character/man.png";
+import man from "../../assets/profile/man.png";
 import { GiDeadHead } from "react-icons/gi";
 import { DomGameObjectProps } from "../../types/CommunType";
 import { gameEngine } from "../../Class/GameEngine";
