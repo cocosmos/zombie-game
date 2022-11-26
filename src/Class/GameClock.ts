@@ -8,6 +8,7 @@ export class GameClock {
   days: number;
   time: number;
   speed: number;
+  hourDay: { day: number; night: number };
   constructor(time: number) {
     this.status = "Day";
     this.timeStr = "08h00";
@@ -15,14 +16,16 @@ export class GameClock {
     this.minutes = 0;
     this.days = 0;
     this.time = time;
-    this.speed = 20;
+    this.speed = 200;
+    this.hourDay = { day: 8, night: 20 };
   }
   update() {
     this.time += this.speed;
     //24h = 86400s
     const oneday = 86400;
+    const onemorning = 28800 + oneday;
 
-    if (this.hours >= 8 && this.hours < 20) {
+    if (this.hours >= this.hourDay.day && this.hours < this.hourDay.night) {
       this.status = "Day";
     } else {
       this.status = "Night";
@@ -33,7 +36,7 @@ export class GameClock {
     if (this.time > oneday) {
       this.hours = this.hours % 24;
     }
-    this.days = Math.floor(this.time / oneday);
+    this.days = Math.floor(this.time / onemorning);
 
     let hourStr = this.hours < 10 ? "0" + this.hours : this.hours;
     let minutesStr = this.minutes < 10 ? "0" + this.minutes : this.minutes;

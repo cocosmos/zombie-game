@@ -1,7 +1,7 @@
 import { gameEngine } from "../Class/GameEngine";
 import { FunctionComponent } from "react";
 import { Status } from "../types/CommunType";
-import zombie from "../assets/zombie.png";
+import zombie from "../assets/zombie.webp";
 import {
   IoMdArrowDropdown,
   IoMdArrowDropup,
