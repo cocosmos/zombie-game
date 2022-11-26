@@ -7,6 +7,7 @@ export class Enemy extends GameObject {
   health: number = 1;
   damage: number = 1;
   level: number = 1;
+  design: { type: number; animation: number };
   constructor(level: number) {
     super();
     this.position = this.setPosition();
@@ -14,6 +15,31 @@ export class Enemy extends GameObject {
     this.degree = 0;
     this.size = { w: 100, h: 100 };
     this.level = level;
+    this.design = { type: 1, animation: 1 };
+    this.changeDesign();
+  }
+
+  changeDesign(): void {
+    switch (this.level) {
+      case 1:
+        this.design = {
+          type: getRandomFloat(1, 4, 0),
+          animation: getRandomFloat(1, 1.6, 1),
+        };
+        break;
+      case 5:
+        this.design = {
+          type: 1,
+          animation: getRandomFloat(1, 3, 1),
+        };
+        break;
+      default:
+        this.design = {
+          type: getRandomFloat(1, 2, 0),
+          animation: getRandomFloat(1, 2.5, 1),
+        };
+        break;
+    }
   }
 
   move(object: Coord) {
@@ -86,5 +112,17 @@ export class Enemy extends GameObject {
 
   getLevel(): number {
     return this.level;
+  }
+
+  setLevel(level: number): void {
+    this.level = level;
+  }
+
+  getDesign(): { type: number; animation: number } {
+    return this.design;
+  }
+
+  setDesign(design: { type: number; animation: number }): void {
+    this.design = design;
   }
 }

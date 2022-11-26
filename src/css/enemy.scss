@@ -1,25 +1,16 @@
 .zombie {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  top: 0;
+  left: 0;
   display: inline-block;
 }
-.l1walk {
-  animation: l1walker 1.6s steps(8) infinite;
-  width: 100px;
-  height: 100px;
-}
+
 .l2walk {
-  animation: l2walker 1.6s steps(8) infinite;
+  animation: l2walker 1.8s steps(8) infinite;
   width: 100px;
   height: 113px;
 }
-.l1dead {
-  width: 147px;
-  height: 195px;
-  //animation: l1dead 0.1s steps(1);
-}
+
 .l2dead {
   width: 147px;
   height: 215px;
@@ -27,8 +18,31 @@
 }
 /* Five level and multiple zombies by level*/
 
+.l4walk {
+  width: 100px;
+  height: 100px;
+  animation: l1walker 1.6s steps(8) infinite;
+  // animation: l4dead 0.5s steps(1);
+}
+
+.l4dead {
+  width: 147px;
+  height: 222px;
+  // animation: l4dead 0.5s steps(1);
+}
+
 @for $i from 1 through 5 {
-  @if $i==1 {
+  @if ($i==1 or $i==3) {
+    .l#{$i}walk {
+      animation: l1walker 1.6s steps(8) infinite;
+      width: 100px;
+      height: 100px;
+    }
+    .l#{$i}dead {
+      width: 147px;
+      height: 195px;
+      //animation: l1dead 0.1s steps(1);
+    }
     @for $j from 1 through 4 {
       .level#{$i}z#{$j}__l#{$i}walk {
         background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.png") -0px
@@ -38,23 +52,44 @@
         background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.png") -0px -975px;
       }
     }
-  } @else if $i==5 {
-    .level#{$i}z5__l#{$i}walk {
-      background: url("../assets/sprite/zombie/level#{$i}/z5/walk.png") -0px
-        0px;
-    }
-    .level#{$i}z5__l#{$i}dead {
-      background: url("../assets/sprite/zombie/level#{$i}/z5/dead.png") -0px -975px;
-    }
   } @else {
     @for $j from 1 through 2 {
-      .level#{$i}z#{$j}__l#{$i}walk {
-        background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.png") -0px
-          0px;
-      }
-      .level#{$i}z#{$j}__l#{$i}dead {
-        background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.png") -0px -1075px;
+      @if $i==4 {
+        .level#{$i}z#{$j}__l#{$i}walk {
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.png") -0px
+            0px;
+        }
+        .level#{$i}z#{$j}__l#{$i}dead {
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.png") -0px -1998px;
+        }
+      } @else {
+        .level#{$i}z#{$j}__l#{$i}walk {
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.png") -0px
+            0px;
+        }
+        .level#{$i}z#{$j}__l#{$i}dead {
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.png") -0px -1075px;
+        }
       }
     }
   }
+}
+
+.l5walk {
+  animation: l5walker 1.6s steps(7) infinite;
+  width: 150px;
+  height: 135px;
+}
+
+.l5dead {
+  animation: l5dead 0.5s steps(1);
+  width: 211px;
+  height: 185px;
+}
+
+.level5z1__l5walk {
+  background: url("../assets/sprite/zombie/level5/z1/walk.png") -0px 0px;
+}
+.level5z1__l5dead {
+  background: url("../assets/sprite/zombie/level5/z1/dead.png") -0px -945px;
 }
