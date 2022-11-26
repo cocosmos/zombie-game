@@ -5,6 +5,9 @@ import EnemyDom from "./Enemy/index";
 import CharacterDom from "./Character";
 import { gameEvent } from "../Class/GameEventDom";
 import GameInformations from "./GameInformations";
+import Character from "./Character";
+import Enemy from "./Enemy/index";
+import GameObject from "./GameObject";
 
 const GameBoard = () => {
   const { status } = gameEngine.getClock();
@@ -15,6 +18,10 @@ const GameBoard = () => {
         className={`gameBoard  ${status === "Night" ? "night" : "day"}`}
         onClick={() => gameEvent.onClick()}
       >
+        {gameEngine.getObjects().map((item) => {
+          return <GameObject item={item} />;
+        })}
+
         {gameEngine.getEnemies().map((enemy) => {
           return <EnemyDom key={enemy.id} item={enemy}></EnemyDom>;
         })}

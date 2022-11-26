@@ -49,6 +49,10 @@ export class GameLevel {
     this.setEnemies(enemiesToMake);
   }
 
+  makeMap() {
+    //TODO
+  }
+
   cleanEnemies() {
     this.enemies = [];
   }

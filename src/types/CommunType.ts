@@ -25,3 +25,5 @@ export type DomGameObjectProps = {
 export type numberEnemy = { amount: number; levelZombie: number };
 
 export type ClockStatus = "Day" | "Night";
+
+export type TypeObject = "car" | "camp" | "fence" | "tree";

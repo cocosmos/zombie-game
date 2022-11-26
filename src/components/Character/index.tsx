@@ -1,5 +1,4 @@
 import { Character } from "../../Class/Object/Character";
-import { DomGameObjectProps } from "../../types/CommunType";
 
 type CharacterProps = {
   item: Character;

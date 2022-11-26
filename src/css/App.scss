@@ -24,26 +24,6 @@ body {
 .App:focus {
   outline: none;
 }
-.gameBoard {
-  height: 100%;
-  // filter: $night;
-  background: url("../assets/background.jpg");
-  background-size: cover;
-
-  // animation: dayAndNight 60s infinite;
-}
-.night {
-  animation: night 5s ease-in;
-  filter: $night;
-}
-.day {
-  animation: day 5s ease-in;
-  filter: $day;
-}
-
-.gameObject {
-  position: absolute;
-}
 
 .bullet {
   position: absolute;

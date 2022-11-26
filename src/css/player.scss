@@ -33,16 +33,16 @@
   &__idle {
     width: 100px;
     height: 145px;
-    background: url("../assets/sprite/c1/idle.png") -0px 0px;
+    background: url("../assets/sprite/man/idle.png") -0px 0px;
     animation: idle 1s steps(7) infinite;
   }
   &__walk {
-    background: url("../assets/sprite/c1/walk.png") -0px 0px;
+    background: url("../assets/sprite/man/walk.png") -0px 0px;
     animation: walk 1s steps(5) infinite;
   }
 
   &__dead {
-    background: url("../assets/sprite/c1/dead.png") -526px -10px;
+    background: url("../assets/sprite/man/dead.png") -526px -10px;
     width: 163px;
     height: 73px;
     animation: deadplayer 0.5s steps(1);
