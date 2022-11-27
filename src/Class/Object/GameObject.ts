@@ -8,6 +8,9 @@ export class GameObject {
   out: boolean = false;
   size: Size = { w: 50, h: 50 };
   speed: number = 0;
+  radius: number = 0;
+  points: Coord[] = [];
+  stopped: boolean = false;
 
   checkCollision(object: GameObject) {
     if (
@@ -22,6 +25,18 @@ export class GameObject {
       return true;
     }
     return false;
+  }
+
+  setDirection(direction: Coord): void {
+    this.position.x += direction.x;
+    this.position.y += direction.y;
+  }
+
+  getDirection(): Coord {
+    return {
+      x: this.position.x,
+      y: this.position.y,
+    };
   }
 
   destroy(array: GameObject[]) {
@@ -73,5 +88,29 @@ export class GameObject {
 
   setOut(out: boolean): void {
     this.out = out;
+  }
+
+  getRadius(): number {
+    return this.radius;
+  }
+
+  setRadius(radius: number): void {
+    this.radius = radius;
+  }
+
+  getPoints(): Coord[] {
+    return this.points;
+  }
+
+  setPoints(points: Coord[]): void {
+    this.points = points;
+  }
+
+  getStopped(): boolean {
+    return this.stopped;
+  }
+
+  setStopped(stopped: boolean): void {
+    this.stopped = stopped;
   }
 }

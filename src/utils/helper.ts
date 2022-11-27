@@ -1,5 +1,4 @@
-import { GameObject } from "../Class/Object/GameObject";
-import { Coord, Keys, Size, Clock, ClockStatus } from "../types/CommunType";
+import { Coord, Size } from "../types/CommunType";
 
 /**
  * Calculate the angle between two points
@@ -79,4 +78,49 @@ export const checkOutOfScreen = (
     out.isOut = true;
   }
   return out;
+};
+
+/**
+ * In Progress...
+ * @param object
+ * @param otherObject
+ * @returns
+ */
+
+export const checkCollisionEachSide = (
+  object: { position: Coord; size: Size },
+  otherObject: { position: Coord; size: Size }
+) => {
+  let collision = {
+    top: false,
+    bottom: false,
+    left: false,
+    right: false,
+    isCollision: false,
+  };
+
+  if (
+    object.position.y < otherObject.position.y + otherObject.size.h &&
+    object.position.y + object.size.h > otherObject.position.y &&
+    object.position.x < otherObject.position.x + otherObject.size.w &&
+    object.position.x + object.size.w > otherObject.position.x
+  ) {
+    collision.isCollision = true;
+    if (
+      object.position.y < otherObject.position.y + otherObject.size.h &&
+      object.position.y + object.size.h > otherObject.position.y
+    ) {
+      collision.top = true;
+      collision.bottom = true;
+    }
+    if (
+      object.position.x < otherObject.position.x + otherObject.size.w &&
+      object.position.x + object.size.w > otherObject.position.x
+    ) {
+      collision.left = true;
+      collision.right = true;
+    }
+  }
+
+  return collision;
 };

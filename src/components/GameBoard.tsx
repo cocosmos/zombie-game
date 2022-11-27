@@ -19,7 +19,7 @@ const GameBoard = () => {
         onClick={() => gameEvent.onClick()}
       >
         {gameEngine.getObjects().map((item) => {
-          return <GameObject item={item} />;
+          return <GameObject key={item.id} item={item} />;
         })}
 
         {gameEngine.getEnemies().map((enemy) => {

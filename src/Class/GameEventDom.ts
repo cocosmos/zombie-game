@@ -105,5 +105,53 @@ export class GameEventDom {
     }
     gameEngine.character.setKeys(this.keys);
   }
+
+  getCursor(): Coord {
+    return this.cursor;
+  }
+
+  getAngle(): number {
+    return this.angle;
+  }
+
+  getClicked(): number {
+    return this.clicked;
+  }
+
+  getGameSize(): Size {
+    return this.gameSize;
+  }
+
+  getKeys(): Keys {
+    return this.keys;
+  }
+
+  getDelta(): Coord {
+    return this.delta;
+  }
+
+  setCursor(cursor: Coord) {
+    this.cursor = cursor;
+  }
+
+  setAngle(angle: number) {
+    this.angle = angle;
+  }
+
+  setClicked(clicked: number) {
+    this.clicked = clicked;
+  }
+
+  setGameSize(gameSize: Size) {
+    this.gameSize = gameSize;
+  }
+
+  setKeys(keys: Keys) {
+    this.keys = keys;
+  }
+
+  setDelta(delta: Coord) {
+    this.delta = delta;
+  }
 }
 export const gameEvent = new GameEventDom();

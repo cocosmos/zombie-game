@@ -29,10 +29,15 @@
     background-size: contain;
   }
 
-  .fence {
-    background: url("../assets/objects/fence.webp") no-repeat;
+  .fencew {
+    background: url("../assets/objects/fencew.webp") no-repeat;
     background-size: contain;
   }
+  .fenceh {
+    background: url("../assets/objects/fenceh.webp") no-repeat;
+    background-size: contain;
+  }
+
   @for $var from 1 to 2 {
     .bush#{ $var } {
       background: url("../assets/objects/bush#{ $var }.webp") no-repeat;

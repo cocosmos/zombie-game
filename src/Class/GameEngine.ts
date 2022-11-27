@@ -5,7 +5,6 @@ import { Enemy } from "./Object/Enemy";
 import { Status } from "../types/CommunType";
 
 import { GameSound } from "./GameSound";
-import { GameObject } from "./Object/GameObject";
 import { GameLevel } from "./GameLevel";
 import { GameClock } from "./GameClock";
 import { Inanimate } from "./Object/Inanimate";
@@ -29,7 +28,7 @@ export class GameEngine {
     this.updateCallback = () => null;
     this.gameSound = new GameSound();
     this.character = new Character();
-    this.status = "Play";
+    this.status = "Start";
     this.allDead = false;
     this.gameLevel = new GameLevel(1);
     this.clock = new GameClock(28800);
@@ -75,12 +74,8 @@ export class GameEngine {
 
   makeMap() {
     this.objects.push(
-      new Inanimate({ x: 0, y: 15 }, { h: 400, w: 400 }, "car", 280),
-      new Inanimate({ x: 25, y: 30 }, { h: 300, w: 300 }, "camp", 0),
-      new Inanimate({ x: 20, y: 36 }, { h: 35, w: 200 }, "fence", 270),
-      new Inanimate({ x: 25, y: 27 }, { h: 35, w: 200 }, "fence", 0),
-      new Inanimate({ x: 22, y: 50 }, { h: 35, w: 200 }, "fence", 60),
-      new Inanimate({ x: 28, y: 57 }, { h: 35, w: 200 }, "fence", 10)
+      new Inanimate({ x: 0, y: 6 }, { h: 400, w: 250 }, "car", 0),
+      new Inanimate({ x: 25, y: 30 }, { h: 175, w: 300 }, "camp", 0)
     );
   }
 
@@ -111,12 +106,12 @@ export class GameEngine {
   }
 
   update() {
-    let bulletsAlives: GameObject[] = [];
     this.updateCallback();
+    let bulletsAlives: Bullet[] = [];
 
     if (this.status === "Play") {
+      this.manageClock();
       this.character.moveCharacter();
-      //this.manageClock();
 
       //Bullets
       this.bullets.forEach((bullet) => {
@@ -129,11 +124,7 @@ export class GameEngine {
         if (enemy.checkCollision(this.character)) {
           this.character.dead();
         }
-        //needed a new array to avoid the error of the array changing during the loop
-        //need to find a better way to do it
-        /* 
-        TODO 
-        */
+
         bulletsAlives.forEach((bullet) => {
           if (enemy.checkCollision(bullet)) {
             bullet.destroy(bulletsAlives);
@@ -145,8 +136,8 @@ export class GameEngine {
           this.character.setShoot(false);
         }
         //Enemy update
-        if (!enemy.out) {
-          // enemy.move(this.character.getPosition());
+        if (!enemy.getOut() && !enemy.getStopped()) {
+          enemy.move(this.character.getPosition());
         }
       });
       if (this.character.out) {

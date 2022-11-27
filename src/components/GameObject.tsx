@@ -9,13 +9,13 @@ const GameObject = ({ item }: GameObjectProps) => {
     <div
       className={`gameObject ${item.getType()}`}
       style={{
-        top: item.getPosition().y + "%",
-        left: item.getPosition().x + "%",
-        transform: `rotate(${item.getDegree()}deg) `,
+        top: item.getPosition().y + "px",
+        left: item.getPosition().x + "px",
+        transform: `rotate(${item.getDegree()}deg)`,
         width: item.getSize().w,
         height: item.getSize().h,
       }}
-    />
+    ></div>
   );
 };
 

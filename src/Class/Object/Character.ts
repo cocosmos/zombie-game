@@ -1,4 +1,4 @@
-import { Keys } from "../../types/CommunType";
+import { Coord, Keys } from "../../types/CommunType";
 import { checkOutOfScreen } from "../../utils/helper";
 import { gameEvent } from "../GameEventDom";
 import { Bullet } from "./Bullet";
@@ -23,7 +23,7 @@ export class Character extends GameObject {
     this.battery = 100;
   }
 
-  moveCharacter() {
+  moveCharacter(): void {
     const { top, bottom, left, right } = checkOutOfScreen(
       this.position,
       gameEvent.gameSize,
@@ -54,6 +54,7 @@ export class Character extends GameObject {
   addKill(): void {
     this.kills++;
   }
+
   //Getters and setters
 
   getShoot(): boolean {
