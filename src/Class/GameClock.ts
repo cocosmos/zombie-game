@@ -1,3 +1,4 @@
+import { BsArrowCounterclockwise } from "react-icons/bs";
 import { ClockStatus } from "../types/CommunType";
 
 export class GameClock {
@@ -16,14 +17,16 @@ export class GameClock {
     this.minutes = 0;
     this.days = 0;
     this.time = time;
-    this.speed = 20;
+    this.speed = 200;
     this.hourDay = { day: 8, night: 20 };
   }
   update() {
     this.time += this.speed;
     //24h = 86400s
+
     const oneday = 86400;
-    const onemorning = 28800 + oneday;
+    const heightHours = 28800;
+    const onemorning = heightHours + oneday;
 
     if (this.hours >= this.hourDay.day && this.hours < this.hourDay.night) {
       this.status = "Day";
@@ -36,7 +39,11 @@ export class GameClock {
     if (this.time > oneday) {
       this.hours = this.hours % 24;
     }
-    this.days = Math.floor(this.time / onemorning);
+    if (this.time < onemorning) {
+      this.days = Math.floor(this.time / onemorning);
+    } else {
+      this.days = Math.floor((this.time - heightHours) / oneday);
+    }
 
     let hourStr = this.hours < 10 ? "0" + this.hours : this.hours;
     let minutesStr = this.minutes < 10 ? "0" + this.minutes : this.minutes;

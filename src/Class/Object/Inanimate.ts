@@ -1,5 +1,6 @@
 import { Coord, Size, TypeObject } from "../../types/CommunType";
 import { degreeToRadian } from "../../utils/helper";
+import { getRandomFloat } from "../../utils/random";
 import { gameEvent } from "../GameEventDom";
 import { GameObject } from "./GameObject";
 
@@ -16,6 +17,17 @@ export class Inanimate extends GameObject {
     this.type = type;
     this.degree = degree;
     this.radius = degreeToRadian(this.degree);
+    this.manageDesign();
+  }
+
+  manageDesign(): void {
+    if (this.type === "tree") {
+      this.design.type = getRandomFloat(1, 3, 0);
+      this.design.animation = 0;
+    } else if (this.type === "bush") {
+      this.design.type = getRandomFloat(1, 2, 0);
+      this.design.animation = 0;
+    }
   }
 
   postitionFromPercentToPixel(position: Coord): void {

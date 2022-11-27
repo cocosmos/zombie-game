@@ -8,7 +8,6 @@ import {
 import { gameEngine } from "./Class/GameEngine";
 import { gameEvent } from "./Class/GameEventDom";
 import GameBoard from "./components/GameBoard";
-import GameInformations from "./components/GameInformations";
 import "./css/styles.scss";
 
 function App() {

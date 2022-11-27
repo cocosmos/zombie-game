@@ -74,15 +74,15 @@ export class GameEngine {
 
   makeMap() {
     this.objects.push(
-      new Inanimate({ x: 0, y: 6 }, { h: 400, w: 250 }, "car", 0),
-      new Inanimate({ x: 25, y: 30 }, { h: 175, w: 300 }, "camp", 0)
+      new Inanimate({ x: 0, y: 10 }, { h: 400, w: 250 }, "car", 0),
+      new Inanimate({ x: 25, y: 30 }, { h: 175, w: 300 }, "camp", 0),
+      new Inanimate({ x: 23, y: 30 }, { h: 175, w: 300 }, "bed", 290)
     );
   }
 
   manageClock() {
     this.clock.update();
     const maxLevel = 5;
-    const numberDays = maxLevel - 1;
 
     for (let index = 0; index < maxLevel; index++) {
       if (this.clock.getDays() === index) {
@@ -90,9 +90,8 @@ export class GameEngine {
 
         if (
           this.gameLevel.getLevel() === index &&
-          this.clock.getDays() !== (0 || numberDays)
+          this.clock.getDays() !== (0 || maxLevel)
         ) {
-          console.log(this.clock);
           this.levelUp();
         }
         if (this.allDead && this.gameLevel.getLevel() === maxLevel) {
@@ -118,6 +117,10 @@ export class GameEngine {
         bullet.update();
         if (!bullet.getOut()) {
           bulletsAlives.push(bullet);
+          this.character.setShoot(true);
+        } else {
+          //this.gameSound.playHit();
+          this.character.setShoot(false);
         }
       });
       this.enemies.forEach((enemy) => {
@@ -129,6 +132,7 @@ export class GameEngine {
           if (enemy.checkCollision(bullet)) {
             bullet.destroy(bulletsAlives);
             this.character.addKill();
+            this.character.setShoot(false);
           }
         });
         if (bulletsAlives.length === 0) {

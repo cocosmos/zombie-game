@@ -7,7 +7,7 @@ type GameObjectProps = {
 const GameObject = ({ item }: GameObjectProps) => {
   return (
     <div
-      className={`gameObject ${item.getType()}`}
+      className={`gameObject ${item.getType() + (item.getDesign().type ?? "")}`}
       style={{
         top: item.getPosition().y + "px",
         left: item.getPosition().x + "px",

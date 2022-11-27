@@ -7,7 +7,7 @@ export class Enemy extends GameObject {
   health: number = 1;
   damage: number = 1;
   level: number = 1;
-  design: { type: number; animation: number };
+
   constructor(level: number) {
     super();
     this.position = this.setPosition();
@@ -116,13 +116,5 @@ export class Enemy extends GameObject {
 
   setLevel(level: number): void {
     this.level = level;
-  }
-
-  getDesign(): { type: number; animation: number } {
-    return this.design;
-  }
-
-  setDesign(design: { type: number; animation: number }): void {
-    this.design = design;
   }
 }

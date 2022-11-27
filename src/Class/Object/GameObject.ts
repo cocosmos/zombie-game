@@ -11,6 +11,10 @@ export class GameObject {
   radius: number = 0;
   points: Coord[] = [];
   stopped: boolean = false;
+  design: { type: number | null; animation: number | null } = {
+    type: null,
+    animation: null,
+  };
 
   checkCollision(object: GameObject) {
     if (
@@ -22,6 +26,22 @@ export class GameObject {
       !object.out
     ) {
       this.out = true;
+      return true;
+    }
+    return false;
+  }
+  /**
+   * TODO: REFACTOR THIS METHOD
+   * @param object
+   * @returns
+   */
+
+  checkCollisionWithRadius(object: GameObject) {
+    const distance = Math.sqrt(
+      Math.pow(this.position.x - object.position.x, 2) +
+        Math.pow(this.position.y - object.position.y, 2)
+    );
+    if (distance < this.radius + object.radius) {
       return true;
     }
     return false;
@@ -112,5 +132,13 @@ export class GameObject {
 
   setStopped(stopped: boolean): void {
     this.stopped = stopped;
+  }
+
+  getDesign(): { type: number | null; animation: number | null } {
+    return this.design;
+  }
+
+  setDesign(design: { type: number | null; animation: number | null }): void {
+    this.design = design;
   }
 }

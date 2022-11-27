@@ -16,6 +16,7 @@ export class GameEventDom {
     this.gameSize = { w: window.innerWidth, h: window.innerHeight };
   }
   init() {
+    document.body.requestFullscreen();
     gameEngine.play();
   }
 
