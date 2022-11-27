@@ -48,19 +48,44 @@ export class GameEngine {
     this.character = new Character();
     this.gameLevel = new GameLevel(1);
     this.clock = new GameClock(28800);
+    this.gameSound.stopSound("applause");
     this.gameSound.stopSound("scary2");
     this.gameSound.playSound("zombies");
+    this.gameSound.playSound("night");
+
     this.enemies = this.gameLevel.getEnemies(this.clock.getStatus());
   }
 
   pause(status: Status) {
     this.status = status;
     this.gameSound.stopSound("zombies");
+    this.gameSound.stopSound("night2");
+
+    switch (status) {
+      case "LevelUp":
+        this.gameSound.playSound("levelUp");
+        this.gameSound.playSound("ambiant");
+        break;
+      case "Over":
+        this.gameSound.playSound("scary2");
+        break;
+      case "Win":
+        this.gameSound.playSound("applause");
+        break;
+
+      default:
+        break;
+    }
   }
 
   resume() {
     this.status = "Play";
     this.gameSound.playSound("zombies");
+    this.gameSound.playSound("night2");
+    this.gameSound.stopSound("levelUp");
+    this.gameSound.stopSound("scary2");
+    this.gameSound.stopSound("applause");
+    this.gameSound.stopSound("ambiant");
   }
 
   fire() {
@@ -71,7 +96,6 @@ export class GameEngine {
 
   levelUp() {
     this.pause("LevelUp");
-    this.gameSound.playSound("levelUp");
     this.gameLevel.nextLevel();
     this.enemies.push(...this.gameLevel.getEnemies(this.clock.getStatus()));
   }
@@ -124,15 +148,14 @@ export class GameEngine {
       this.enemies.forEach((enemy) => {
         if (enemy.checkCollision(this.character)) {
           this.gameSound.playSound("deadMan");
-          this.gameSound.stopSound("zombies");
-          this.status = "Over";
+          this.pause("Over");
           this.character.dead();
         }
 
         bulletsAlives.forEach((bullet) => {
           if (enemy.checkCollision(bullet)) {
             bullet.destroy(bulletsAlives);
-            this.gameSound.playSound("deadZombie");
+            this.gameSound.playZombieDeath();
             this.character.addKill();
             this.character.setShoot(false);
           }
