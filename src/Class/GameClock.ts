@@ -1,4 +1,3 @@
-import { BsArrowCounterclockwise } from "react-icons/bs";
 import { ClockStatus } from "../types/CommunType";
 
 export class GameClock {

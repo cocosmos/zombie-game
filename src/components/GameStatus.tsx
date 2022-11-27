@@ -9,10 +9,10 @@ import {
   IoMdArrowDropleft,
 } from "react-icons/io";
 import { BsFillMouse2Fill } from "react-icons/bs";
-import Profile from "./Character/Profile";
+import Profile from "./Informations/Profile";
 import { gameEvent } from "../Class/GameEventDom";
 import arrow from "../assets/interface/arrowgreen.png";
-import Level from "./Character/Level";
+import Level from "./Informations/Level";
 type GameStatusProps = {
   status: Status;
 };

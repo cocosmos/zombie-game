@@ -1,4 +1,4 @@
-import { Inanimate } from "../Class/Object/Inanimate";
+import { Inanimate } from "../../Class/Object/Inanimate";
 
 type GameObjectProps = {
   item: Inanimate;

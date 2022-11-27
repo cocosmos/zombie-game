@@ -7,7 +7,8 @@ import {
   GiNightSleep,
   GiSun,
 } from "react-icons/gi";
-import { gameEngine } from "../Class/GameEngine";
+import { gameEngine } from "../../Class/GameEngine";
+
 const Clock = () => {
   const time = gameEngine.getClock();
   const battery = gameEngine.character.getBattery();
@@ -44,7 +45,11 @@ const Clock = () => {
         <>
           <div className="clock__battery">{Battery()}</div>
           <div className="clock__icon">
-            {time.status === "Day" ? <GiSun /> : <GiNightSleep />}
+            {time.status === "Day" ? (
+              <GiSun color="#ffd10e" />
+            ) : (
+              <GiNightSleep color="#9bddff" />
+            )}
           </div>
           <div className="clock__text">
             <p>{time.getTimeStr()}</p>

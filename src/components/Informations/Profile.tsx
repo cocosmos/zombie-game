@@ -1,9 +1,9 @@
 import man from "../../assets/profile/man.png";
 import { GiDeadHead } from "react-icons/gi";
-import { DomGameObjectProps } from "../../types/CommunType";
 import { gameEngine } from "../../Class/GameEngine";
+
 const Profile = () => {
-  const numberKills = gameEngine.character.kills;
+  const numberKills = gameEngine.character.getKills();
   return (
     <div className="character__info">
       <img src={man} alt="character" />

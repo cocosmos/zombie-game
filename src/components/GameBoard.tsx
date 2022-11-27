@@ -1,13 +1,12 @@
 import { gameEngine } from "../Class/GameEngine";
 import GameStatus from "./GameStatus";
-import Bullet from "./Bullet";
-import EnemyDom from "./Enemy/index";
-import CharacterDom from "./Character";
+import Bullet from "./Objects/Bullet";
+import CharacterDom from "./Objects/Character";
 import { gameEvent } from "../Class/GameEventDom";
 import GameInformations from "./GameInformations";
-import Character from "./Character";
-import Enemy from "./Enemy/index";
-import GameObject from "./GameObject";
+import Character from "./Objects/Character";
+import EnemyDom from "./Objects/Enemy";
+import GameObject from "./Objects/GameObject";
 
 const GameBoard = () => {
   const { status } = gameEngine.getClock();

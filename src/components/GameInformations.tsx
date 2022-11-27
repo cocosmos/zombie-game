@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
-import Profile from "./Character/Profile";
-import Level from "./Character/Level";
-import Clock from "./Clock";
+import Profile from "./Informations/Profile";
+import Level from "./Informations/Level";
+import Clock from "./Informations/Clock";
 
 const GameInformations: FunctionComponent = () => {
   return (
