@@ -39,6 +39,7 @@ export class GameEngine {
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
+    this.gameSound.playSound("scary2");
   }
 
   play() {
@@ -47,29 +48,32 @@ export class GameEngine {
     this.character = new Character();
     this.gameLevel = new GameLevel(1);
     this.clock = new GameClock(28800);
-    this.gameSound.playZombies(true);
+    this.gameSound.stopSound("scary2");
+    this.gameSound.playSound("zombies");
     this.enemies = this.gameLevel.getEnemies(this.clock.getStatus());
   }
 
   pause(status: Status) {
     this.status = status;
-    this.gameSound.playZombies(false);
+    this.gameSound.stopSound("zombies");
   }
 
   resume() {
     this.status = "Play";
-    this.gameSound.playZombies(true);
+    this.gameSound.playSound("zombies");
   }
 
   fire() {
-    this.gameSound.playShot();
+    this.gameSound.playGunShot();
+
     this.bullets.push(this.character.fire());
   }
 
   levelUp() {
     this.pause("LevelUp");
+    this.gameSound.playSound("levelUp");
     this.gameLevel.nextLevel();
-    this.enemies = this.gameLevel.getEnemies(this.clock.getStatus());
+    this.enemies.push(...this.gameLevel.getEnemies(this.clock.getStatus()));
   }
 
   makeMap() {
@@ -94,12 +98,6 @@ export class GameEngine {
         ) {
           this.levelUp();
         }
-        if (this.allDead && this.gameLevel.getLevel() === maxLevel) {
-          this.pause("Win");
-        } else if (this.allDead) {
-          this.gameSound.playZombies(true);
-          this.enemies = this.gameLevel.getEnemies(this.clock.getStatus());
-        }
       }
     }
   }
@@ -111,6 +109,7 @@ export class GameEngine {
     if (this.status === "Play") {
       this.manageClock();
       this.character.moveCharacter();
+      console.log(this.gameSound.muted);
 
       //Bullets
       this.bullets.forEach((bullet) => {
@@ -119,18 +118,21 @@ export class GameEngine {
           bulletsAlives.push(bullet);
           this.character.setShoot(true);
         } else {
-          //this.gameSound.playHit();
           this.character.setShoot(false);
         }
       });
       this.enemies.forEach((enemy) => {
         if (enemy.checkCollision(this.character)) {
+          this.gameSound.playSound("deadMan");
+          this.gameSound.stopSound("zombies");
+          this.status = "Over";
           this.character.dead();
         }
 
         bulletsAlives.forEach((bullet) => {
           if (enemy.checkCollision(bullet)) {
             bullet.destroy(bulletsAlives);
+            this.gameSound.playSound("deadZombie");
             this.character.addKill();
             this.character.setShoot(false);
           }
@@ -144,10 +146,7 @@ export class GameEngine {
           enemy.move(this.character.getPosition());
         }
       });
-      if (this.character.out) {
-        this.gameSound.playZombies(false);
-        this.status = "Over";
-      } else {
+      if (!this.character.out) {
         this.allDead = this.enemies.every((e) => e.out === true);
 
         const numberDead = this.enemies.filter((enemy) => enemy.out).length;
@@ -157,6 +156,18 @@ export class GameEngine {
             return obj.out !== true;
           });
           //remove an enemy who is out  of the screen to make the game more fluid and not too heavy for the browser to handle
+        }
+        if (this.allDead) {
+          const maxLevel = 5;
+          if (this.gameLevel.getLevel() === maxLevel) {
+            this.pause("Win");
+          } else {
+            this.gameSound.stopSound("zombies");
+            this.gameLevel.cleanEnemies();
+            this.enemies.push(
+              ...this.gameLevel.getEnemies(this.clock.getStatus())
+            );
+          }
         }
       }
     }
@@ -189,6 +200,14 @@ export class GameEngine {
 
   getObjects() {
     return this.objects;
+  }
+
+  getGameLevel() {
+    return this.gameLevel;
+  }
+
+  getGameSound() {
+    return this.gameSound;
   }
 }
 
