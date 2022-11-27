@@ -124,3 +124,8 @@ export const checkCollisionEachSide = (
 
   return collision;
 };
+
+export const formatFloat = (number: number, precision: number) => {
+  let multiplier = Math.pow(10, precision || 0);
+  return Math.round(number * multiplier) / multiplier;
+};

@@ -98,8 +98,8 @@ export class GameEngine {
 
   fire() {
     this.gameSound.playGunShot();
-
     this.bullets.push(this.character.fire());
+    this.character.addBulletsShooted();
   }
 
   levelUp() {

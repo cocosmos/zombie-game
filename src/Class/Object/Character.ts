@@ -6,6 +6,7 @@ import { GameObject } from "./GameObject";
 
 export class Character extends GameObject {
   shoot: boolean;
+  bulletsShooted: number;
   kills: number;
   keys: Keys = { w: false, a: false, s: false, d: false };
   battery: number;
@@ -21,6 +22,7 @@ export class Character extends GameObject {
     this.kills = 0;
     this.speed = 5;
     this.battery = 100;
+    this.bulletsShooted = 0;
   }
 
   moveCharacter(): void {
@@ -53,6 +55,10 @@ export class Character extends GameObject {
 
   addKill(): void {
     this.kills++;
+  }
+
+  addBulletsShooted(): void {
+    this.bulletsShooted++;
   }
 
   //Getters and setters
@@ -98,5 +104,11 @@ export class Character extends GameObject {
       default:
         this.battery = battery;
     }
+  }
+  getBulletsShooted(): number {
+    return this.bulletsShooted;
+  }
+  setBulletsShooted(bulletsShooted: number): void {
+    this.bulletsShooted = bulletsShooted;
   }
 }

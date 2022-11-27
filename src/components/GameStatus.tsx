@@ -2,6 +2,7 @@ import { gameEngine } from "../Class/GameEngine";
 import { FunctionComponent } from "react";
 import { Status } from "../types/CommunType";
 import zombie from "../assets/zombie.webp";
+import army from "../assets/interface/army.webp";
 import {
   IoMdArrowDropdown,
   IoMdArrowDropup,
@@ -9,10 +10,10 @@ import {
   IoMdArrowDropleft,
 } from "react-icons/io";
 import { BsFillMouse2Fill } from "react-icons/bs";
-import Profile from "./Informations/Profile";
 import { gameEvent } from "../Class/GameEventDom";
 import arrow from "../assets/interface/arrowgreen.png";
 import Level from "./Informations/Level";
+import Stats from "./Informations/Stats";
 type GameStatusProps = {
   status: Status;
   days: number;
@@ -22,7 +23,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
   const informations = [
     {
       status: "Start",
-      title: "Please Start",
+      title: "Start the game",
       button: "Play",
       text: "",
     },
@@ -50,6 +51,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
   const information = informations.find((info) => info.status === status);
 
   const isLevelUp = status === "LevelUp";
+  const isStart = status === "Start";
 
   if (status === "Play") return null;
   return (
@@ -58,8 +60,8 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
         <h1>Survive one more day !</h1>
       </div>
       <div className="game__status__principal">
-        <div className="game__status__principal__character">
-          <Profile />
+        <div className="game__status__principal__soldier">
+          {isStart ? <img src={army} alt="soldier" width={300} /> : <Stats />}
         </div>
         <div
           className={`game__status__principal__box ${
@@ -101,7 +103,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
           )}
         </div>
         <div className="game__status__principal__zombie">
-          <img src={zombie} alt="character" />
+          <img src={zombie} alt="zombie" />
         </div>
       </div>
 

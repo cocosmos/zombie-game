@@ -45,7 +45,6 @@ export class GameLevel {
       });
     }
 
-    console.log(enemiesToMake);
     this.setEnemies(enemiesToMake);
   }
 

@@ -1,0 +1,45 @@
+.stats {
+  width: 50%;
+  border-radius: 20%;
+  padding: 5%;
+  background-image: url("../assets/interface/background2.png");
+  opacity: 0.8;
+  margin: 0 auto;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $white;
+    margin-bottom: 1em;
+    text-decoration: underline;
+    h2 {
+      margin: 0;
+    }
+  }
+  &__content {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: $white;
+    margin-bottom: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 2.5em;
+
+    &__value {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &-icon {
+        margin-left: 10px;
+      }
+    }
+  }
+}
