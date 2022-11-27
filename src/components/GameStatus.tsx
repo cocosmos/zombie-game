@@ -15,9 +15,38 @@ import arrow from "../assets/interface/arrowgreen.png";
 import Level from "./Informations/Level";
 type GameStatusProps = {
   status: Status;
+  days: number;
 };
 
-const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
+const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
+  const informations = [
+    {
+      status: "Start",
+      title: "Please Start",
+      button: "Play",
+      text: "",
+    },
+    {
+      status: "Over",
+      title: "Game Over !",
+      button: "Play again",
+      text: "Try again if you dare...",
+    },
+    {
+      status: "Win",
+      title: "You win !!!",
+      button: "Play again",
+      text: "Try again if you dare...",
+    },
+    {
+      status: "LevelUp",
+      title: "Level Up !",
+      button: "Continue",
+      text: `Well done you have survived ${
+        days + " " + (days <= 1 ? "day" : "days")
+      } but how many more before you died?`,
+    },
+  ];
   const information = informations.find((info) => info.status === status);
 
   const isLevelUp = status === "LevelUp";
@@ -114,32 +143,5 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status }) => {
     </div>
   );
 };
-
-const informations = [
-  {
-    status: "Start",
-    title: "Please Start",
-    button: "Play",
-    text: "",
-  },
-  {
-    status: "Over",
-    title: "Game Over !",
-    button: "Play again",
-    text: "Try again if you dare...",
-  },
-  {
-    status: "Win",
-    title: "You win !!!",
-    button: "Play again",
-    text: "Try again if you dare...",
-  },
-  {
-    status: "LevelUp",
-    title: "Level Up !",
-    button: "Continue",
-    text: "Well done you have survived one more day but how many more before you died?",
-  },
-];
 
 export default GameStatus;

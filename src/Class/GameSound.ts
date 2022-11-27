@@ -10,6 +10,9 @@ import LevelUp from "../assets/sound/effect/levelup.mp3";
 import Scary from "../assets/sound/music/scary.mp3";
 import Scary2 from "../assets/sound/music/scary2.mp3";
 import Applause from "../assets/sound/effect/applause.mp3";
+import Steps from "../assets/sound/ambiant/steps.mp3";
+import Laugh from "../assets/sound/effect/laugh.mp3";
+
 import { Sound } from "./Object/Sound";
 
 export class GameSound {
@@ -28,6 +31,8 @@ export class GameSound {
       new Sound("levelUp", LevelUp, 1, false, false),
       new Sound("deadMan", DeadMan, 1, false, false),
       new Sound("applause", Applause, 1, false, false),
+      new Sound("forest", Steps, 0.3, true, false),
+      new Sound("laugh", Laugh, 1, false, false),
     ];
   }
   //To avoid sound not playing at the correct time

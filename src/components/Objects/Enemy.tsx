@@ -5,25 +5,31 @@ type EnemyProps = {
 };
 
 const EnemyDom = ({ item }: EnemyProps) => {
-  const level = "l" + item.level;
-  const isDead = !item.out ? level + "walk" : level + "dead";
+  const level = "l" + item.getLevel();
+  const isDead = !item.getOut() ? level + "walk" : level + "dead";
   const type =
-    "level" + item.level + "z" + item.getDesign().type + "__" + isDead;
+    "level" + item.getLevel() + "z" + item.getDesign().type + "__" + isDead;
+
+  const animation = item.getOut()
+    ? undefined
+    : {
+        animationDuration: `${item.getDesign().animation}s`,
+      };
 
   return (
     <div
       className="gameObject "
       style={{
-        top: item.position.y,
-        left: item.position.x,
-        zIndex: item.out ? 0 : 1,
+        top: item.getPosition().y,
+        left: item.getPosition().x,
+        zIndex: item.getOut() ? 0 : 1,
       }}
     >
       <div
         className={`zombie ${isDead + " " + type}`}
         style={{
-          transform: `rotate(${item.degree + 90}deg)`,
-          animationDuration: `${item.getDesign().animation}s`,
+          transform: `rotate(${item.getDegree() + 90}deg)`,
+          ...animation,
         }}
       ></div>
     </div>

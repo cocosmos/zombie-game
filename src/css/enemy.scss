@@ -14,21 +14,22 @@
 .l2dead {
   width: 147px;
   height: 215px;
-  // animation: l2dead 0.5s steps(1);
+  animation: l2dead 0.4s steps(5);
 }
 /* Five level and multiple zombies by level*/
 
 .l4walk {
   width: 100px;
   height: 100px;
+  scale: 1.4;
   animation: l1walker 1.6s steps(8) infinite;
-  // animation: l4dead 0.5s steps(1);
 }
 
 .l4dead {
   width: 147px;
   height: 222px;
-  // animation: l4dead 0.5s steps(1);
+
+  animation: l4dead 2s steps(9);
 }
 
 @for $i from 1 through 5 {
@@ -41,7 +42,7 @@
     .l#{$i}dead {
       width: 147px;
       height: 195px;
-      //animation: l1dead 0.1s steps(1);
+      animation: l1dead 0.5s steps(5);
     }
     @for $j from 1 through 4 {
       .level#{$i}z#{$j}__l#{$i}walk {
@@ -75,14 +76,16 @@
   }
 }
 
+/**Level 5 */
 .l5walk {
   animation: l5walker 1.6s steps(7) infinite;
   width: 150px;
   height: 135px;
+  scale: 1.4;
 }
 
 .l5dead {
-  animation: l5dead 0.5s steps(1);
+  animation: l5dead 2s steps(13);
   width: 211px;
   height: 185px;
 }
@@ -91,5 +94,5 @@
   background: url("../assets/sprite/zombie/level5/z1/walk.png") -0px 0px;
 }
 .level5z1__l5dead {
-  background: url("../assets/sprite/zombie/level5/z1/dead.png") -0px -945px;
+  background: url("../assets/sprite/zombie/level5/z1/dead.png") -0px -2405px;
 }

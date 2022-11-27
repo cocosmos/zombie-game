@@ -49,17 +49,17 @@ export class GameEngine {
     this.gameLevel = new GameLevel(1);
     this.clock = new GameClock(28800);
     this.gameSound.stopSound("applause");
+    this.gameSound.stopSound("ambiant");
     this.gameSound.stopSound("scary2");
     this.gameSound.playSound("zombies");
-    this.gameSound.playSound("night");
-
+    this.gameSound.playSound("forest");
     this.enemies = this.gameLevel.getEnemies(this.clock.getStatus());
   }
 
   pause(status: Status) {
     this.status = status;
     this.gameSound.stopSound("zombies");
-    this.gameSound.stopSound("night2");
+    this.gameSound.stopSound("forest");
 
     switch (status) {
       case "LevelUp":
@@ -67,10 +67,16 @@ export class GameEngine {
         this.gameSound.playSound("ambiant");
         break;
       case "Over":
+        this.gameSound.playSound("deadMan");
+        setTimeout(() => {
+          this.gameSound.playSound("laugh");
+        }, 1000);
         this.gameSound.playSound("scary2");
         break;
       case "Win":
         this.gameSound.playSound("applause");
+        this.gameSound.playSound("ambiant");
+
         break;
 
       default:
@@ -81,10 +87,12 @@ export class GameEngine {
   resume() {
     this.status = "Play";
     this.gameSound.playSound("zombies");
-    this.gameSound.playSound("night2");
+    this.gameSound.playSound("forest");
+    //Stop sound
     this.gameSound.stopSound("levelUp");
     this.gameSound.stopSound("scary2");
     this.gameSound.stopSound("applause");
+    this.gameSound.stopSound("laugh");
     this.gameSound.stopSound("ambiant");
   }
 
@@ -133,7 +141,6 @@ export class GameEngine {
     if (this.status === "Play") {
       this.manageClock();
       this.character.moveCharacter();
-      console.log(this.gameSound.muted);
 
       //Bullets
       this.bullets.forEach((bullet) => {
@@ -147,7 +154,6 @@ export class GameEngine {
       });
       this.enemies.forEach((enemy) => {
         if (enemy.checkCollision(this.character)) {
-          this.gameSound.playSound("deadMan");
           this.pause("Over");
           this.character.dead();
         }
@@ -190,6 +196,7 @@ export class GameEngine {
             this.enemies.push(
               ...this.gameLevel.getEnemies(this.clock.getStatus())
             );
+            this.gameSound.playSound("zombies");
           }
         }
       }

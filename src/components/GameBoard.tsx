@@ -9,7 +9,7 @@ import EnemyDom from "./Objects/Enemy";
 import GameObject from "./Objects/GameObject";
 
 const GameBoard = () => {
-  const { status } = gameEngine.getClock();
+  const { status, days } = gameEngine.getClock();
   return (
     <>
       <GameInformations />
@@ -30,7 +30,7 @@ const GameBoard = () => {
         })}
       </div>
 
-      <GameStatus status={gameEngine.getStatus()} />
+      <GameStatus status={gameEngine.getStatus()} days={days} />
     </>
   );
 };

@@ -109,6 +109,7 @@
 /**
 * Zombie
 */
+/** Walk zombie */
 @keyframes l1walker {
   from {
     background-position: 0 0;
@@ -125,6 +126,7 @@
     background-position: -0px -904px;
   }
 }
+
 @keyframes l5walker {
   from {
     background-position: 0 0;
@@ -133,7 +135,7 @@
     background-position: -0px -945px;
   }
 }
-
+/**Dead Zombie */
 @keyframes l1dead {
   from {
     background-position: 0 0;
@@ -151,6 +153,24 @@
     background-position: -0px -1075px;
   }
 }
+@keyframes l4dead {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -1998px;
+  }
+}
+@keyframes l5dead {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -0px -2405px;
+  }
+}
+
+/** other */
 
 @keyframes night {
   0% {
