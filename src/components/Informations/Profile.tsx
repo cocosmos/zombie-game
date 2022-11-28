@@ -1,6 +1,6 @@
-import man from "../../assets/profile/man.png";
-import { GiDeadHead } from "react-icons/gi";
+import man from "../../assets/profile/man.webp";
 import { gameEngine } from "../../Class/GameEngine";
+import Icon from "./Icon";
 
 const Profile = () => {
   const numberKills = gameEngine.character.getKills();
@@ -8,7 +8,7 @@ const Profile = () => {
     <div className="character__info">
       <img src={man} alt="character" />
       <div className="character__info__kills">
-        <GiDeadHead />
+        <Icon name="DeadHead" size={35} />
         <span>{numberKills}</span>
       </div>
     </div>

@@ -46,30 +46,30 @@
     }
     @for $j from 1 through 4 {
       .level#{$i}z#{$j}__l#{$i}walk {
-        background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.png") -0px
+        background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.webp") -0px
           0px;
       }
       .level#{$i}z#{$j}__l#{$i}dead {
-        background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.png") -0px -975px;
+        background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.webp") -0px -975px;
       }
     }
   } @else {
     @for $j from 1 through 2 {
       @if $i==4 {
         .level#{$i}z#{$j}__l#{$i}walk {
-          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.png") -0px
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.webp") -0px
             0px;
         }
         .level#{$i}z#{$j}__l#{$i}dead {
-          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.png") -0px -1998px;
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.webp") -0px -1998px;
         }
       } @else {
         .level#{$i}z#{$j}__l#{$i}walk {
-          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.png") -0px
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/walk.webp") -0px
             0px;
         }
         .level#{$i}z#{$j}__l#{$i}dead {
-          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.png") -0px -1075px;
+          background: url("../assets/sprite/zombie/level#{$i}/z#{$j}/dead.webp") -0px -1075px;
         }
       }
     }
@@ -91,8 +91,8 @@
 }
 
 .level5z1__l5walk {
-  background: url("../assets/sprite/zombie/level5/z1/walk.png") -0px 0px;
+  background: url("../assets/sprite/zombie/level5/z1/walk.webp") -0px 0px;
 }
 .level5z1__l5dead {
-  background: url("../assets/sprite/zombie/level5/z1/dead.png") -0px -2405px;
+  background: url("../assets/sprite/zombie/level5/z1/dead.webp") -0px -2405px;
 }

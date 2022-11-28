@@ -3,17 +3,12 @@ import { FunctionComponent } from "react";
 import { Status } from "../types/CommunType";
 import zombie from "../assets/zombie.webp";
 import army from "../assets/interface/army.webp";
-import {
-  IoMdArrowDropdown,
-  IoMdArrowDropup,
-  IoMdArrowDropright,
-  IoMdArrowDropleft,
-} from "react-icons/io";
-import { BsFillMouse2Fill } from "react-icons/bs";
+
 import { gameEvent } from "../Class/GameEventDom";
-import arrow from "../assets/interface/arrowgreen.png";
+import arrow from "../assets/interface/arrowgreen.webp";
 import Level from "./Informations/Level";
 import Stats from "./Informations/Stats";
+import Icon from "./Informations/Icon";
 type GameStatusProps = {
   status: Status;
   days: number;
@@ -116,7 +111,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
             <p>
               Direction and fire with{" "}
               <span className="key">
-                <BsFillMouse2Fill />{" "}
+                <Icon name="Mouse" size={30} />{" "}
               </span>{" "}
               or Press <span className="key">SPACE</span> to Fire
             </p>
@@ -130,11 +125,17 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
               </div>
               <p>Move with</p>
               <div className="keys">
-                <span className="key">{<IoMdArrowDropup />}</span>
-                <span className="key">{<IoMdArrowDropleft />}</span>
+                <span className="key">{<Icon name="ArrowUp" size={25} />}</span>
+                <span className="key">
+                  {<Icon name="ArrowLeft" size={25} />}
+                </span>
 
-                <span className="key">{<IoMdArrowDropdown />}</span>
-                <span className="key">{<IoMdArrowDropright />}</span>
+                <span className="key">
+                  <Icon name="ArrowDown" size={25} />
+                </span>
+                <span className="key">
+                  <Icon name="ArrowRight" size={25} />
+                </span>
               </div>
             </div>
           </>

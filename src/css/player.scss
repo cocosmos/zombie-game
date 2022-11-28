@@ -1,5 +1,5 @@
 .character__info {
-  background-image: url("../assets/profile/character-info.png");
+  background-image: url("../assets/profile/character-info.webp");
   background-size: contain;
   background-repeat: no-repeat;
   width: 200px;
@@ -33,22 +33,22 @@
   &__idle {
     width: 100px;
     height: 145px;
-    background: url("../assets/sprite/man/idle.png") -0px 0px;
+    background: url("../assets/sprite/man/idle.webp") -0px 0px;
     animation: idle 1s steps(7) infinite;
   }
   &__walk {
-    background: url("../assets/sprite/man/walk.png") -0px 0px;
+    background: url("../assets/sprite/man/walk.webp") -0px 0px;
     animation: walk 1s steps(5) infinite;
   }
 
   &__dead {
-    background: url("../assets/sprite/man/dead.png") -526px -10px;
+    background: url("../assets/sprite/man/dead.webp") -526px -10px;
     width: 163px;
     height: 73px;
     animation: deadplayer 0.5s steps(1);
   }
   &__shoot {
-    background: url("../assets/sprite/shot/shoot.png");
+    background: url("../assets/sprite/shot/shoot.webp");
     width: 100px;
     height: 145px;
   }

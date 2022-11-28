@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import Profile from "./Informations/Profile";
 import Level from "./Informations/Level";
 import Clock from "./Informations/Clock";
+import Icon from "./Informations/Icon";
 
 const GameInformations: FunctionComponent = () => {
   return (

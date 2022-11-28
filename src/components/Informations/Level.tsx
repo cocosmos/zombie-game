@@ -1,5 +1,5 @@
-import { GiMedalSkull } from "react-icons/gi";
 import { gameEngine } from "../../Class/GameEngine";
+import Icon from "./Icon";
 
 const Level = () => {
   return (
@@ -8,7 +8,7 @@ const Level = () => {
         Level: {gameEngine.getGameLevel().getLevel()}
       </p>
       <span className="level__icon">
-        <GiMedalSkull color="white" />
+        <Icon name="MedalSkull" color="white" size={35} />
       </span>
     </div>
   );

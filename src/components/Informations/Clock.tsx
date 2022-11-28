@@ -1,13 +1,5 @@
-import {
-  GiBattery0,
-  GiBattery100,
-  GiBattery25,
-  GiBattery50,
-  GiBattery75,
-  GiNightSleep,
-  GiSun,
-} from "react-icons/gi";
 import { gameEngine } from "../../Class/GameEngine";
+import Icon from "./Icon";
 
 const Clock = () => {
   const time = gameEngine.getClock();
@@ -18,17 +10,17 @@ const Clock = () => {
   const Battery = () => {
     switch (battery) {
       case 100:
-        return <GiBattery100 color="green" />;
+        return <Icon name="Battery100" color="green" size={25} />;
       case 75:
-        return <GiBattery75 color="green" />;
+        return <Icon name="Battery75" color="green" size={25} />;
       case 50:
-        return <GiBattery50 color="green" />;
+        return <Icon name="Battery50" color="green" size={25} />;
       case 25:
-        return <GiBattery25 color="red" />;
+        return <Icon name="Battery25" color="red" size={25} />;
       case 0:
-        return <GiBattery0 color="red" />;
+        return <Icon name="Battery0" color="red" size={50} />;
       default:
-        return <GiBattery100 color="green" />;
+        return <Icon name="Battery100" color="green" size={25} />;
     }
   };
 
@@ -46,9 +38,9 @@ const Clock = () => {
           <div className="clock__battery">{Battery()}</div>
           <div className="clock__icon">
             {time.status === "Day" ? (
-              <GiSun color="#ffd10e" />
+              <Icon name="Sun" color="#ffd10e" size={50} />
             ) : (
-              <GiNightSleep color="#9bddff" />
+              <Icon name="NightSleep" color="#9bddff" size={50} />
             )}
           </div>
           <div className="clock__text">

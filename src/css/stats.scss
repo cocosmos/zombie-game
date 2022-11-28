@@ -1,9 +1,11 @@
 .stats {
   width: 50%;
+  min-width: 270px;
   border-radius: 20%;
   padding: 5%;
-  background-image: url("../assets/interface/background2.png");
-  opacity: 0.8;
+  background-color: $background;
+
+  border: 1px solid $red;
   margin: 0 auto;
 
   ul {
@@ -13,7 +15,7 @@
   }
 
   &__title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: $white;
     margin-bottom: 1em;
@@ -39,6 +41,10 @@
       align-items: center;
       &-icon {
         margin-left: 10px;
+      }
+      &-precision {
+        font-size: 0.7em;
+        margin-left: 5px;
       }
     }
   }
