@@ -4,7 +4,6 @@ import Bullet from "./Objects/Bullet";
 import CharacterDom from "./Objects/Character";
 import { gameEvent } from "../Class/GameEventDom";
 import GameInformations from "./GameInformations";
-import Character from "./Objects/Character";
 import EnemyDom from "./Objects/Enemy";
 import GameObject from "./Objects/GameObject";
 

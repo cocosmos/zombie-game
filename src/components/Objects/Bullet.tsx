@@ -11,13 +11,7 @@ const Bullet = ({ item }: DomGameObjectProps) => {
         transform: `rotate(${item.degree + 90}deg)`,
       }}
     >
-      <img
-        className="bullet"
-        draggable="false"
-        src={b}
-        width={"10px"}
-        height={"10px"}
-      />
+      <div className="bullet" />
     </div>
   );
 };

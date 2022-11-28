@@ -2,6 +2,20 @@
   position: absolute;
 }
 
+.bullet {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: url("../assets/objects/shot.webp") no-repeat;
+  background-attachment: fixed;
+  background-size: contain;
+  background-position: center;
+  transform: translateX(-50%) translateY(0%);
+  z-index: 99;
+  width: 25px;
+  height: 50px;
+}
+
 .car {
   background: url("../assets/objects/car.webp") no-repeat;
   background-size: contain;

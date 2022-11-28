@@ -17,3 +17,6 @@
 p {
   margin: 0;
 }
+* {
+  cursor: url(../assets/cursor/cur952.png), default !important;
+}
