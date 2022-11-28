@@ -12,6 +12,7 @@ export class GameEventDom {
     a: false,
     d: false,
   };
+  #anglemax: number = 10;
   constructor() {
     this.gameSize = { w: window.innerWidth, h: window.innerHeight };
   }
@@ -38,7 +39,8 @@ export class GameEventDom {
     if (this.angle < 0) {
       this.angle = (this.angle + 360) % 360;
     }
-    gameEngine.character.setDegree(this.angle);
+
+    // gameEngine.character.setDegree(this.angle);
   }
 
   onClick() {
@@ -50,19 +52,25 @@ export class GameEventDom {
 
   onKeyDown(event: any) {
     switch (event.key) {
-      case "ArrowUp":
       case "w":
         this.keys.w = true;
         break;
-      case "ArrowDown":
       case "s":
         this.keys.s = true;
         break;
+
       case "ArrowLeft":
+        this.angle -= this.#anglemax;
+        break;
+
+      case "ArrowRight":
+        this.angle += this.#anglemax;
+        break;
+
       case "a":
         this.keys.a = true;
         break;
-      case "ArrowRight":
+
       case "d":
         this.keys.d = true;
         break;
@@ -80,19 +88,22 @@ export class GameEventDom {
   }
   onKeyUp(event: any) {
     switch (event.key) {
-      case "ArrowUp":
       case "w":
         this.keys.w = false;
         break;
-      case "ArrowDown":
+      case "ArrowLeft":
+        this.angle -= this.#anglemax;
+        break;
+
+      case "ArrowRight":
+        this.angle += this.#anglemax;
+        break;
       case "s":
         this.keys.s = false;
         break;
-      case "ArrowLeft":
       case "a":
         this.keys.a = false;
         break;
-      case "ArrowRight":
       case "d":
         this.keys.d = false;
         break;

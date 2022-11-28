@@ -1,4 +1,4 @@
-import { Coord, Keys } from "../../types/CommunType";
+import { Keys } from "../../types/CommunType";
 import { checkOutOfScreen } from "../../utils/helper";
 import { gameEvent } from "../GameEventDom";
 import { Bullet } from "./Bullet";

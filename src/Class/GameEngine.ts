@@ -8,6 +8,7 @@ import { GameSound } from "./GameSound";
 import { GameLevel } from "./GameLevel";
 import { GameClock } from "./GameClock";
 import { Inanimate } from "./Object/Inanimate";
+import { gameEvent } from "./GameEventDom";
 
 export class GameEngine {
   gameLoop: GameLoop;
@@ -138,6 +139,7 @@ export class GameEngine {
   update() {
     this.updateCallback();
     let bulletsAlives: Bullet[] = [];
+    this.character.setDegree(gameEvent.getAngle());
 
     if (this.status === "Play") {
       this.manageClock();

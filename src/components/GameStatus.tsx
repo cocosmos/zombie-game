@@ -112,34 +112,34 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
             <p>
               Press <span className="key">ENTER</span> to play
             </p>
-            <p>
-              Direction and fire with{" "}
-              <span className="key">
-                <Icon name="Mouse" size={30} />{" "}
-              </span>{" "}
-              or Press <span className="key">SPACE</span> to Fire
-            </p>
-
-            <div className="move">
-              <div className="keys">
-                <span className="key">w</span>
-                <span className="key">A</span>
-                <span className="key">S</span>
-                <span className="key">D</span>
+            <div className="game__status__informations-keys">
+              <div>
+                <p>
+                  Fire and rotate with{" "}
+                  <span className="key">
+                    <Icon name="Mouse" size={30} />
+                  </span>
+                </p>
+                <p>
+                  Or press <span className="key">SPACE</span> to Fire and rotate
+                  with{" "}
+                  <span className="key">
+                    {<Icon name="ArrowLeft" size={25} />}
+                  </span>{" "}
+                  <span className="key">
+                    <Icon name="ArrowRight" size={25} />
+                  </span>
+                </p>
               </div>
-              <p>Move with</p>
-              <div className="keys">
-                <span className="key">{<Icon name="ArrowUp" size={25} />}</span>
-                <span className="key">
-                  {<Icon name="ArrowLeft" size={25} />}
-                </span>
 
-                <span className="key">
-                  <Icon name="ArrowDown" size={25} />
-                </span>
-                <span className="key">
-                  <Icon name="ArrowRight" size={25} />
-                </span>
+              <div>
+                <p>Move with</p>{" "}
+                <div className="keys">
+                  <span className="key">w</span>
+                  <span className="key">A</span>
+                  <span className="key">S</span>
+                  <span className="key">D</span>
+                </div>
               </div>
             </div>
           </>
