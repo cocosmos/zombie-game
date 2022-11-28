@@ -11,7 +11,7 @@ export class Inanimate extends GameObject {
   constructor(position: Coord, size: Size, type: TypeObject, degree: number) {
     super();
     this.postitionFromPercentToPixel(position);
-    // this.position = position;
+
     this.size = size;
     this.shouldBlock = false;
     this.type = type;
@@ -22,7 +22,7 @@ export class Inanimate extends GameObject {
 
   manageDesign(): void {
     if (this.type === "tree") {
-      this.design.type = getRandomFloat(1, 3, 0);
+      this.design.type = 1; //getRandomFloat(1, 3, 0)
       this.design.animation = 0;
     } else if (this.type === "bush") {
       this.design.type = getRandomFloat(1, 2, 0);

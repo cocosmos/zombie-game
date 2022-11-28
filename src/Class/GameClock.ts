@@ -16,7 +16,7 @@ export class GameClock {
     this.minutes = 0;
     this.days = 0;
     this.time = time;
-    this.speed = 30;
+    this.speed = 25;
     this.hourDay = { day: 8, night: 20 };
   }
   update() {

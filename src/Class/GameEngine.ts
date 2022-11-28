@@ -112,7 +112,8 @@ export class GameEngine {
     this.objects.push(
       new Inanimate({ x: 0, y: 10 }, { h: 400, w: 250 }, "car", 0),
       new Inanimate({ x: 25, y: 30 }, { h: 175, w: 300 }, "camp", 0),
-      new Inanimate({ x: 23, y: 30 }, { h: 175, w: 300 }, "bed", 290)
+      new Inanimate({ x: 23, y: 30 }, { h: 175, w: 300 }, "bed", 290),
+      new Inanimate({ x: 15, y: 13 }, { h: 150, w: 150 }, "tree", 0)
     );
   }
 
