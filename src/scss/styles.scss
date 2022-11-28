@@ -1,0 +1,16 @@
+@import "./utils/variables.scss";
+@import "./utils/base.scss";
+@import "./utils/animation.scss";
+
+@import "./screens/app.scss";
+@import "./screens/board.scss";
+@import "./screens/status.scss";
+
+@import "./components/clock.scss";
+@import "./components/level.scss";
+@import "./components/profile.scss";
+@import "./components/stats.scss";
+
+@import "./object/gameObject.scss";
+@import "./object/enemy.scss";
+@import "./object/player.scss";

@@ -1,7 +1,7 @@
 import { gameEngine } from "../Class/GameEngine";
 import { FunctionComponent } from "react";
 import { Status } from "../types/CommunType";
-import zombie from "../assets/zombie.webp";
+import zombie from "../assets/interface/zombie.webp";
 import army from "../assets/interface/army.webp";
 
 import { gameEvent } from "../Class/GameEventDom";

@@ -2,6 +2,9 @@
   font-family: "Zombie";
   src: url("../assets/fonts/youmurdererbb_reg.woff2") format("woff2");
 }
+* {
+  line-height: normal;
+}
 #root {
   margin: 0 auto;
 }

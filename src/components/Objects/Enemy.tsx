@@ -26,7 +26,7 @@ const EnemyDom = ({ item }: EnemyProps) => {
       }}
     >
       <div
-        className={`zombie ${isDead + " " + type}`}
+        className={`enemy enemy__${isDead + " enemy__" + type}`}
         style={{
           transform: `rotate(${item.getDegree() + 90}deg)`,
           ...animation,

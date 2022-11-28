@@ -1,14 +1,32 @@
-# Survive one more day !
+# Survive one more day ! - Gamejam
 
-## Mipam Guillot
+## Mipam Guillot - 28.11.2022
 
-## 28.11.2022 - Gamejam
+Deployed on [zombie.mipam.dev](https://zombie.mipam.dev/)
 
 ### Stack
 
 - React (vite)
 - Typescript
 - Scss
+
+### Versions
+
+- Node : v14.17.0
+
+### Command to Run
+
+```sh
+git clone git@github.com:cocosmos/zombie-game.git
+```
+
+```sh
+npm i
+```
+
+```sh
+npm run dev
+```
 
 ### Aim
 
