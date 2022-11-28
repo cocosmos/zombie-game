@@ -56,7 +56,11 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
       </div>
       <div className="game__status__principal">
         <div className="game__status__principal__soldier">
-          {isStart ? <img src={army} alt="soldier" width={300} /> : <Stats />}
+          {isStart ? (
+            <img src={army} alt="soldier" width={300} height={300} />
+          ) : (
+            <Stats />
+          )}
         </div>
         <div
           className={`game__status__principal__box ${
@@ -98,7 +102,7 @@ const GameStatus: FunctionComponent<GameStatusProps> = ({ status, days }) => {
           )}
         </div>
         <div className="game__status__principal__zombie">
-          <img src={zombie} alt="zombie" />
+          <img src={zombie} alt="zombie" width={300} height={300} />
         </div>
       </div>
 

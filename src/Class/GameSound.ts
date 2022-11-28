@@ -1,13 +1,9 @@
-import ZombieGroup from "../assets/sound/zombie/zs2.mp3";
+import ZombieGroup from "../assets/sound/zombie/zombies.mp3";
 import GunSound from "../assets/sound/effect/gunshot.mp3";
 import Ambiant from "../assets/sound/music/ambiant.mp3";
-import Day from "../assets/sound/ambiant/day.mp3";
-import Night from "../assets/sound/ambiant/night.mp3";
-import Night2 from "../assets/sound/ambiant/night2.mp3";
 import DeadMan from "../assets/sound/man/deadman2.mp3";
 import ZombieDeath from "../assets/sound/zombie/zombie-death.mp3";
 import LevelUp from "../assets/sound/effect/levelup.mp3";
-import Scary from "../assets/sound/music/scary.mp3";
 import Scary2 from "../assets/sound/music/scary2.mp3";
 import Applause from "../assets/sound/effect/applause.mp3";
 import Steps from "../assets/sound/ambiant/steps.mp3";
@@ -22,10 +18,6 @@ export class GameSound {
   constructor() {
     this.sounds = [
       new Sound("ambiant", Ambiant, 1, true, false),
-      new Sound("day", Day, 0.7, true, false),
-      new Sound("night", Night, 1, true, false),
-      new Sound("night2", Night2, 1, true, false),
-      new Sound("scary", Scary, 1, true, false),
       new Sound("scary2", Scary2, 1, true, false),
       new Sound("zombies", ZombieGroup, 1, true, false),
       new Sound("levelUp", LevelUp, 1, false, false),
