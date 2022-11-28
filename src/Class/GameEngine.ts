@@ -40,7 +40,6 @@ export class GameEngine {
     this.enemies = [];
     this.updateCallback = updateCallback;
     this.gameLoop.start();
-    this.gameSound.playSound("scary2");
   }
 
   play() {
